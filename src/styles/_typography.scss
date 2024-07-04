@@ -64,6 +64,26 @@
     font-weight: 300;
     line-height: 120%;
     letter-spacing: .1rem;
+    opacity: .4;
+    transition: opacity 0.5s ease;
+}
+
+.external-light{
+    font-size: .7rem;
+    font-weight: 300;
+    line-height: 120%;
+    letter-spacing: .1rem;
+    opacity: .4;
+    transition: opacity 0.5s ease;
+}
+
+.active{
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+.active > .active-arrow{
+    opacity: 1;
 }
 
 // Animation Track
@@ -73,13 +93,17 @@
 }
 
 .caption-move{
-    transition: transform .3s ease;
+    transition: transform .5s ease;
 }
 
 .caption-bold:hover > .caption-track > .caption-move{
     transform: translateY(-.8rem);
 }
 
-.caption-light:hover > .caption-track > .caption-move{
-    transform: translateY(-.8rem);
+.navigation-light:hover {
+    opacity: 1;
+}
+
+.external-light:hover {
+    opacity: 1;
 }

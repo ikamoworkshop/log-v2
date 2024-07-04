@@ -10,16 +10,17 @@
 
 .mid-nav {
   position: absolute;
-  left: 60px;
+  left: 48px;
   top: 50%;
   translate: 0% -50%;
 }
 
-.nav-link {
-  font-size: 0.7rem;
-  font-weight: 300;
-  line-height: 120%;
-  letter-spacing: 0.1rem;
+.active-arrow {
+  opacity: 0;
+}
+
+.active {
+  opacity: 1;
 }
 
 .bottom-nav {
@@ -99,6 +100,26 @@
   font-weight: 300;
   line-height: 120%;
   letter-spacing: 0.1rem;
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
+}
+
+.external-light {
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
+}
+
+.active {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.active > .active-arrow {
+  opacity: 1;
 }
 
 .caption-track {
@@ -107,15 +128,19 @@
 }
 
 .caption-move {
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .caption-bold:hover > .caption-track > .caption-move {
   transform: translateY(-0.8rem);
 }
 
-.caption-light:hover > .caption-track > .caption-move {
-  transform: translateY(-0.8rem);
+.navigation-light:hover {
+  opacity: 1;
+}
+
+.external-light:hover {
+  opacity: 1;
 }
 
 .flex {
@@ -128,6 +153,10 @@
 
 .justify-between {
   justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .align-end {

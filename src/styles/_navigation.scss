@@ -9,16 +9,17 @@
 
 .mid-nav{
     position: absolute;
-    left: 60px;
+    left: 48px;
     top: 50%;
     translate: 0% -50%;
 }
 
-.nav-link{
-    font-size: .7rem;
-    font-weight: 300;
-    line-height: 120%;
-    letter-spacing: .1rem;
+.active-arrow{
+    opacity: 0;
+}
+
+.active{
+    opacity: 1;
 }
 
 .bottom-nav{
