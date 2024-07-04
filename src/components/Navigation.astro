@@ -5,27 +5,104 @@
 <div class="top-nav">
 	<div class="flex">
 		<a href="/" class="caption-bold text-light">
-			IKAMO
-			<br />[LOG]
+			<h1>IKAMO</h1>
+			<div class="caption-track">
+				<div class="caption-move">
+					<h1>[LOG]</h1>
+					<h1>[HOME]</h1>
+				</div>
+			</div>
 		</a>
-		<p class="navigation-light text-light-gray site-description">A DEDICATED SPACE TO SHARE MY LEARNINGS AND LIFE HIGHLIGHTS.</p>
+		<p class="caption-light text-light-gray site-description">A DEDICATED SPACE TO SHARE MY LEARNINGS AND LIFE HIGHLIGHTS.</p>
 	</div>
 </div>
 
 <nav class="mid-nav flex flex-column gap-8">
-	<a href="/gallery" class="nav-link text-light-gray">GALLERY</a>
-	<a href="/insights" class="nav-link text-light-gray">INSIGHTS</a>
-	<a href="/about" class="nav-link text-light-gray">ABOUT</a>
+	
+	<a href="/gallery" class="navigation-light text-light flex align-center gap-8">
+		<svg class="active-arrow" width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 0.999998L0 0.133972V1.86602L1.5 0.999998ZM4.5 3L3 2.13397V3.86602L4.5 3ZM0 4.13397L1.5 5L0 5.86602V4.13397Z" fill="white"/>
+		</svg>		
+		<div class="caption-track">
+			<div class="caption-move">
+				<h1>[GALLERY]</h1>
+				<h1>[GALLERY]</h1>
+			</div>
+		</div>
+	</a>
+
+	<a href="/insights" class="navigation-light text-light flex align-center gap-8">
+		<svg class="active-arrow" width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 0.999998L0 0.133972V1.86602L1.5 0.999998ZM4.5 3L3 2.13397V3.86602L4.5 3ZM0 4.13397L1.5 5L0 5.86602V4.13397Z" fill="white"/>
+		</svg>		
+		<div class="caption-track">
+			<div class="caption-move">
+				<h1>[INSIGHTS]</h1>
+				<h1>[INSIGHTS]</h1>
+			</div>
+		</div>
+	</a>
+	<a href="/about" class="navigation-light text-light flex align-center gap-8">
+		<svg class="active-arrow" width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 0.999998L0 0.133972V1.86602L1.5 0.999998ZM4.5 3L3 2.13397V3.86602L4.5 3ZM0 4.13397L1.5 5L0 5.86602V4.13397Z" fill="white"/>
+		</svg>		
+		<div class="caption-track">
+			<div class="caption-move">
+				<h1>[ABOUT]</h1>
+				<h1>[ABOUT]</h1>
+			</div>
+		</div>
+	</a>
 </nav>
 
 <div class="bottom-nav flex justify-between align-end">
-	<p class="navigation-light text-light-gray">©2024</p>
+	<p class="caption-light text-light-gray">©2024</p>
 	<div class="external-links flex justify-between align-end">
 		<div class="socials flex flex-column gap-8">
-			<a href="https://github.com/IKAMOworkshop" class="navigation-light text-light-gray" target="_blank" rel="noopener noreferrer">GITHUB</a>
-			<a href="https://www.linkedin.com/in/jeremystudio/" class="navigation-light text-light-gray" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-			<a href="https://www.instagram.com/jeremy._.studio/" class="navigation-light text-light-gray" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+			<a href="https://github.com/IKAMOworkshop" class="navigation-light text-light" target="_blank" rel="noopener noreferrer">
+				<div class="caption-track">
+					<div class="caption-move">
+						<h1>GITHUB  ↗</h1>
+						<h1>GITHUB  ↗</h1>
+					</div>
+				</div>
+			</a>
+			<a href="https://www.linkedin.com/in/jeremystudio/" class="navigation-light text-light" target="_blank" rel="noopener noreferrer">
+				<div class="caption-track">
+					<div class="caption-move">
+						<h1>LINKEDIN  ↗</h1>
+						<h1>LINKEDIN  ↗</h1>
+					</div>
+				</div>
+			</a>
+			<a href="https://www.instagram.com/jeremy._.studio/" class="navigation-light text-light" target="_blank" rel="noopener noreferrer">
+				<div class="caption-track">
+					<div class="caption-move">
+						<h1>INSTAGRAM  ↗</h1>
+						<h1>INSTAGRAM  ↗</h1>
+					</div>
+				</div>
+			</a>
 		</div>
-		<a href="" class="navigation-light text-light-gray" target="_blank" rel="noopener noreferrer">DESIGN WORK  ↗</a>
+		<a href="https://jeremystudio.cc/" class="navigation-light text-light" target="_blank" rel="noopener noreferrer">
+			<div class="caption-track">
+				<div class="caption-move">
+					<h1>DESIGN WORK  ↗</h1>
+					<h1>DESIGN WORK  ↗</h1>
+				</div>
+			</div>
+		</a>
 	</div>
 </div>
+
+<script>
+	const activePage = window.location.pathname
+	const navButton = document.querySelectorAll('.navigation-light')
+
+	navButton.forEach(link => {
+		console.log(link.pathname)
+		if(link.pathname === activePage){
+			link.classList.add('active')
+		}
+	})
+</script>

@@ -4,7 +4,7 @@
 }
 
 .site-description {
-  max-width: 360px;
+  max-width: 320px;
   margin-left: 120px;
 }
 
@@ -83,13 +83,13 @@
 }
 
 .caption-bold {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
   line-height: 120%;
 }
 
 .caption-light {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 300;
   line-height: 120%;
 }
@@ -99,6 +99,23 @@
   font-weight: 300;
   line-height: 120%;
   letter-spacing: 0.1rem;
+}
+
+.caption-track {
+  max-height: 0.8rem;
+  overflow: hidden;
+}
+
+.caption-move {
+  transition: transform 0.3s ease;
+}
+
+.caption-bold:hover > .caption-track > .caption-move {
+  transform: translateY(-0.8rem);
+}
+
+.caption-light:hover > .caption-track > .caption-move {
+  transform: translateY(-0.8rem);
 }
 
 .flex {

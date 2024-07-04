@@ -48,13 +48,13 @@
 }
 
 .caption-bold{
-    font-size: .8rem;
+    font-size: .7rem;
     font-weight: 700;
     line-height: 120%;
 }
 
 .caption-light{
-    font-size: .8rem;
+    font-size: .7rem;
     font-weight: 300;
     line-height: 120%;
 }
@@ -64,4 +64,22 @@
     font-weight: 300;
     line-height: 120%;
     letter-spacing: .1rem;
+}
+
+// Animation Track
+.caption-track{
+    max-height: .8rem;
+    overflow: hidden;
+}
+
+.caption-move{
+    transition: transform .3s ease;
+}
+
+.caption-bold:hover > .caption-track > .caption-move{
+    transform: translateY(-.8rem);
+}
+
+.caption-light:hover > .caption-track > .caption-move{
+    transform: translateY(-.8rem);
 }
