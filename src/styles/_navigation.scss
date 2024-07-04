@@ -1,0 +1,33 @@
+.top-nav{
+    padding: 60px;
+}
+
+.site-description{
+    max-width: 360px;
+    margin-left: 120px;
+}
+
+.mid-nav{
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    translate: 0% -50%;
+}
+
+.nav-link{
+    font-size: .7rem;
+    font-weight: 300;
+    line-height: 120%;
+    letter-spacing: .1rem;
+}
+
+.bottom-nav{
+    width: 100dvw;
+    position: absolute;
+    padding: 0px 60px;
+    bottom: 60px;
+}
+
+.socials{
+    margin-right: 120px;
+}

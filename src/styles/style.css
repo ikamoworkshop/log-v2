@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+.top-nav {
+  padding: 60px;
+}
+
+.site-description {
+  max-width: 360px;
+  margin-left: 120px;
+}
+
+.mid-nav {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  translate: 0% -50%;
+}
+
+.nav-link {
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.bottom-nav {
+  width: 100dvw;
+  position: absolute;
+  padding: 0px 60px;
+  bottom: 60px;
+}
+
+.socials {
+  margin-right: 120px;
+}
+
+.hero {
+  font-size: 12rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0.8rem;
+}
+
+.large-title {
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0.3rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0.3rem;
+}
+
+.subtitle-bold {
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.subtitle-light {
+  font-size: 2.3rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.index {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.body {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.caption-bold {
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.caption-light {
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 120%;
+}
+
+.navigation-light {
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-end {
+  align-items: end;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  text-rendering: geometricPrecision;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.body {
+  background-color: rgb(10, 9, 13);
+  box-sizing: border-box;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  text-rendering: geometricPrecision;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+a {
+  text-decoration: none;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  z-index: -1;
+}
+
+img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+::-moz-selection {
+  background: rgb(255, 255, 255);
+  color: rgb(11, 13, 16);
+}
+
+::selection {
+  background: rgb(255, 255, 255);
+  color: rgb(11, 13, 16);
+}
+
+/*width*/
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/*track*/
+::-webkit-scrollbar-track {
+  background: rgb(15, 27, 18);
+}
+
+/*thumb*/
+::-webkit-scrollbar-thumb {
+  background: rgb(19, 21, 22);
+  border-radius: 100px;
+}
+
+body .transition {
+  display: block;
+}
+
+.w-editor .transition {
+  display: none;
+}
+
+.no-scroll-transition {
+  overflow: hidden;
+  position: relative;
+}
+
+.text-light {
+  color: rgb(255, 255, 255);
+}
+
+.text-light-gray {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bg-light {
+  background-color: rgb(255, 255, 255);
+}
+
+.bg-light-gray {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bg-dark {
+  background-color: rgb(10, 9, 13);
+}/*# sourceMappingURL=style.css.map */
