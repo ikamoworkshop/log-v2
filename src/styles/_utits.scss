@@ -21,3 +21,27 @@
 .gap-8{
     gap: 8px;
 }
+
+// Primary Button
+.primary-button{
+    padding: 4px 8px;
+    border: dashed 1px rgba(255, 255, 255, .4);
+    overflow: hidden;
+}
+
+.button-hidden-arrow{
+    position: absolute;
+    transform: translate(-24px);
+}
+
+.button-show-arrow{
+    margin-left: 4px;
+}
+
+.button-move{
+    transition: transform .3s ease;
+}
+
+.primary-button:hover > .button-move {
+    transform: translateX(24px);
+}

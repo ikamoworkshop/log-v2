@@ -1,0 +1,17 @@
+---
+interface Props {
+	path: string
+    title: string
+}
+const { path, title } = Astro.props;
+---
+
+<div class="flex">
+    <a href={path} class="primary-button caption-bold text-light">
+        <div class="button-move">
+            <span class="button-hidden-arrow">→</span>
+            {title}
+            <span class="button-show-arrow">→</span>
+        </div>
+    </a>
+</div>
