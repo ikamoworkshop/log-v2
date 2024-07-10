@@ -1,7 +1,7 @@
 export default [
-    // {
-    //     name: 'robotModel',
-    //     type: 'gltfModel',
-    //     path: '/Avatar.glb'
-    // }
+    {
+        name: 'defaultFace',
+        type: 'gltfModel',
+        path: '/model/default.glb'
+    }
 ]
