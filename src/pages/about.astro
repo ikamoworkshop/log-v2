@@ -3,12 +3,13 @@ import MainLayout from '../layouts/MainLayout.astro'
 ---
 
 <MainLayout title="IKAMO[LOG] | About">
-    <canvas transition:name="my-aside" id="webgl"></canvas>
+    <main data-taxi-view>
+        <h1 class="hero text-light placeholder-title">ABOUT</h1>
 
-    <script>
-        // Three.js
-        import Experience from '../experience/Experience.js'
-        const experience = new Experience(document.getElementById('webgl'));
-
-    </script>
+    </main>
 </MainLayout>
+
+<script>
+    import * as Taxi from '@unseenco/taxi'
+    const taxi = new Taxi.Core()
+</script>

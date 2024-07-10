@@ -295,4 +295,11 @@ body .transition {
 
 .bg-dark {
   background-color: rgb(10, 9, 13);
+}
+
+.placeholder-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }/*# sourceMappingURL=style.css.map */

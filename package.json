@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@unseenco/taxi": "^1.6.0",
     "astro": "^4.11.3",
     "three": "^0.166.1"
   }
