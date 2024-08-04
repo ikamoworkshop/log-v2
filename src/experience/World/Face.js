@@ -1,6 +1,9 @@
 import Experience from "../Experience"
 import * as THREE from 'three'
 
+import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
+import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
+
 export default class TestCube {
     constructor(){
         this.experience = new Experience()
@@ -12,6 +15,7 @@ export default class TestCube {
         this.setScene()
         this.setCamera()
         this.setModel()
+        this.setRenderTarget()
         this.update()
     }
 
@@ -23,14 +27,9 @@ export default class TestCube {
     }
 
     setCamera(){
-        this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(0, 0, 5)
         this.scene.add(this.camera)
-    }
-
-    resize(){
-        this.camera.aspect = this.sizes.width / this.sizes.height
-        this.camera.updateProjectionMatrix()
     }
 
     setModel(){
@@ -50,7 +49,7 @@ export default class TestCube {
 
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
         this.directionalLight.position.set(0, 5, 10)
-        this.scene.add(this.defaultFace, this.circle, this.directionalLight)
+        // this.scene.add(this.defaultFace, this.circle, this.directionalLight)
     }
 
     setLookAt() {
@@ -60,11 +59,37 @@ export default class TestCube {
                 color: 0x00ff00,
                 transparent: true,
                 opacity: .5
-            })
+            }),
         )
         this.lookAtMesh.position.z = 1
 
         this.scene.add(this.lookAtMesh)
+    }
+
+    setRenderTarget(){
+        this.fovY = (this.camera.position.z + 22) * this.camera.getFilmHeight() / this.camera.getFocalLength()
+
+        this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height)
+
+        this.renderPlaneGeometry = new THREE.PlaneGeometry(1, 1)
+        this.renderPlaneGeometry.scale(this.fovY * this.camera.aspect, this.fovY, 1)
+        this.renderPlaneMaterial = new THREE.ShaderMaterial({
+            vertexShader: renderTargetVertex,
+            fragmentShader: renderTargetFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform()
+            },
+            transparent: true,
+        })
+        this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
+        this.renderPlane.position.set(0, 0, -24)
+
+        this.scene.add(this.renderPlane)
+    }
+
+    resize(){
+        this.camera.aspect = this.sizes.width / this.sizes.height
+        this.camera.updateProjectionMatrix()
     }
 
     update(){
