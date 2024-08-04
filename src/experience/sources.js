@@ -33,5 +33,10 @@ export default [
         name: 'workspaceFace',
         type: 'gltfModel',
         path: '/model/workspace.glb'
+    },
+    {
+        name: 'defaultFlat',
+        type: 'gltfModel',
+        path: '/model/default_flat.glb'
     }
 ]

@@ -34,10 +34,10 @@ export default class TestCube {
     }
 
     setModel(){
-        this.defaultFace = this.resources.items.defaultFace.scene
+        this.defaultFace = this.resources.items.defaultFlat.scene
         this.defaultFaceMesh = this.defaultFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
-            roughness: 0.3,   
+            roughness: 0.4,   
             transmission: 1,  
             thickness: 1
         })
