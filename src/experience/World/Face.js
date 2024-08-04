@@ -22,6 +22,7 @@ export default class TestCube {
     setScene(){
         this.scene = new THREE.Scene()
         this.background = this.resources.items.background
+        console.log(this.background)
         this.background.colorSpace = THREE.SRGBColorSpace
         this.scene.background = this.background
     }
@@ -36,7 +37,7 @@ export default class TestCube {
         this.defaultFace = this.resources.items.defaultFace.scene
         this.defaultFaceMesh = this.defaultFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
-            roughness: 0.6,   
+            roughness: 0.3,   
             transmission: 1,  
             thickness: 1
         })
@@ -45,11 +46,10 @@ export default class TestCube {
         this.circle.position.set(0, 0, -16)
         
         this.defaultFaceMesh.material = this.glassMaterial
-        this.defaultFace.scale.set(.8, .8, .8)
 
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
         this.directionalLight.position.set(0, 5, 10)
-        // this.scene.add(this.defaultFace, this.circle, this.directionalLight)
+        this.scene.add(this.defaultFace, this.directionalLight)
     }
 
     setLookAt() {
@@ -67,7 +67,7 @@ export default class TestCube {
     }
 
     setRenderTarget(){
-        this.fovY = (this.camera.position.z + 22) * this.camera.getFilmHeight() / this.camera.getFocalLength()
+        this.fovY = (this.camera.position.z + 24) * this.camera.getFilmHeight() / this.camera.getFocalLength()
 
         this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height)
 
@@ -79,7 +79,6 @@ export default class TestCube {
             uniforms: {
                 uTexture: new THREE.Uniform()
             },
-            transparent: true,
         })
         this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
         this.renderPlane.position.set(0, 0, -24)

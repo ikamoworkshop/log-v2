@@ -1,6 +1,7 @@
 import EventEmitter from "./EventEmitter";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 
 export default class Resource extends EventEmitter{
     constructor(sources){
@@ -20,9 +21,9 @@ export default class Resource extends EventEmitter{
 
     setLoader(){
         this.loaders = {}
-        this.loaders.gltfLoader = new GLTFLoader();
-        this.loaders.textureLoader = new THREE.TextureLoader();
-        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
+        this.loaders.gltfLoader = new GLTFLoader()
+        this.loaders.textureLoader = new THREE.TextureLoader()
+        this.loaders.fontLoader = new FontLoader()
     };
 
     startLoading(){
@@ -44,11 +45,11 @@ export default class Resource extends EventEmitter{
                     }
                 )
             }
-            else if(source.type === 'cubeTexture'){
-                this.loaders.cubeTextureLoader.load(
+            else if(source.type === 'font'){
+                this.loaders.fontLoader.load(
                     source.path,
                     (file) => {
-                        this.sourceLoaded(source, file);
+                        this.sourceLoaded(source, file)
                     }
                 )
             }

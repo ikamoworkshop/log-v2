@@ -1,5 +1,15 @@
 export default [
     {
+        name: 'background',
+        type: 'texture',
+        path: '/background.png'
+    },
+    {
+        name: 'spaceBold',
+        type: 'font',
+        path: '/font/SpaceBold.json'
+    },
+    {
         name: 'defaultFace',
         type: 'gltfModel',
         path: '/model/default.glb'
@@ -23,10 +33,5 @@ export default [
         name: 'workspaceFace',
         type: 'gltfModel',
         path: '/model/workspace.glb'
-    },
-    {
-        name: 'background',
-        type: 'texture',
-        path: '/background.png'
     }
 ]
