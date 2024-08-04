@@ -23,5 +23,10 @@ export default [
         name: 'workspaceFace',
         type: 'gltfModel',
         path: '/model/workspace.glb'
+    },
+    {
+        name: 'background',
+        type: 'texture',
+        path: '/background.png'
     }
 ]

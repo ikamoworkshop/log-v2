@@ -16,10 +16,12 @@
 
 .active-arrow{
     opacity: 0;
+    transition: opacity .5 ease;
 }
 
 .active{
     opacity: 1;
+    transition: opacity .5 ease;
 }
 
 .bottom-nav{

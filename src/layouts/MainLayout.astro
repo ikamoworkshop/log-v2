@@ -36,6 +36,9 @@ const { title } = Astro.props;
 
 			import * as Taxi from '@unseenco/taxi'
 			const taxi = new Taxi.Core()
+
+			let activePage = window.location.pathname
+			let navButton = document.querySelectorAll('.navigation-light')
 		</script>
 	</body>
 </html>

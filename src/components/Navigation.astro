@@ -60,13 +60,16 @@
 	</div>
 </div>
 
-<script>
-	const activePage = window.location.pathname
-	const navButton = document.querySelectorAll('.navigation-light')
+<script data-taxi-reload>
+	activePage = window.location.pathname
+	navButton = document.querySelectorAll('.navigation-light')
 
 	navButton.forEach(link => {
 		if(link.pathname === activePage){
 			link.classList.add('active')
+		}
+		else{
+			link.classList.remove('active')
 		}
 	})
 </script>

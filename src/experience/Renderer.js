@@ -1,13 +1,21 @@
-import Experience from "./Experience.js";
-import * as THREE from 'three';
+import Experience from "./Experience.js"
+import Face from './World/Face.js'
+
+import * as THREE from 'three'
 
 export default class Renderer{
     constructor(){
-        this.experience = new Experience();
-        this.canvas = this.experience.canvas;
-        this.sizes = this.experience.sizes;
-        this.scene = this.experience.scene;
-        this.camera = this.experience.camera;
+        this.experience = new Experience()
+        this.resources = this.experience.resources;
+        this.canvas = this.experience.canvas
+        this.sizes = this.experience.sizes
+
+        this.resources.on('ready', () => {
+            // Setup
+            this.face = new Face()
+            this.scene = this.face.scene
+            this.camera = this.face.camera
+        })
 
         this.setInstance()
     };
@@ -28,11 +36,15 @@ export default class Renderer{
     };
 
     resize(){
+        this.face.resize()
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRation)
     }
 
     update(){
-        this.instance.render(this.scene, this.camera.instance)
+        if(this.face){
+            this.face.update()
+            this.instance.render(this.scene, this.camera)
+        }
     }
 }
