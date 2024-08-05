@@ -37,11 +37,12 @@ export default class TestCube {
         this.defaultFaceMesh = this.defaultFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
             roughness: 0.4,   
-            transmission: 1,  
-            thickness: 1
+            transmission: .8,  
+            thickness: .5
         })
         
         this.defaultFaceMesh.material = this.glassMaterial
+        this.defaultFaceMesh.scale.set(.9, .9, .9)
 
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
         this.directionalLight.position.set(0, 5, 10)
