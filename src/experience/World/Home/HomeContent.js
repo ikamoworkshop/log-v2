@@ -15,6 +15,7 @@ export default class HomeContent {
         this.setTitle()
         this.createImagePlates()
         this.setImagePlates()
+        this.getImageGroupSize()
     }
 
     setScene(){
@@ -119,13 +120,27 @@ export default class HomeContent {
         this.HomeScene.add(this.imagePlateGroup)
     }
 
+    getImageGroupSize(){
+        this.imageGroupBox = new THREE.Box3().setFromObject(this.imagePlateGroup)
+        this.groupSize = this.imageGroupBox.getSize(new THREE.Vector3())
+        
+        this.targetPosition = new THREE.Vector2(0, 0)
+    }
+
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
         this.camera.updateProjectionMatrix()
     }
 
     update(){
+        this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
+
         this.textGroup.position.x = (this.textGroup.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.textGroup.position.x) * .05) * .6
         this.textGroup.position.y = (this.textGroup.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.textGroup.position.y) * .05) * .6
+
+        // Update Image Grup Position
+        this.targetPosition.lerp(this.normalizedCursor, .1)
+        this.imagePlateGroup.position.x = this.targetPosition.x * this.groupSize.x * .25
+        this.imagePlateGroup.position.y = this.targetPosition.y * this.groupSize.y * .25
     }
 }
