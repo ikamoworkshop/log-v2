@@ -11,7 +11,6 @@ export default class HomeContent {
         this.cursor = this.experience.cursor
 
         this.setScene()
-        this.setCube()
         this.setTitle()
         this.setCamera()
     }
@@ -19,7 +18,6 @@ export default class HomeContent {
     setScene(){
         this.HomeScene = new THREE.Scene()
         this.background = this.resources.items.background
-        console.log(this.background)
         this.background.colorSpace = THREE.SRGBColorSpace
         this.HomeScene.background = this.background
     }
@@ -28,13 +26,6 @@ export default class HomeContent {
         this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(0, 0, 5)
         this.HomeScene.add(this.camera)
-    }
-
-    setCube(){
-        this.cube = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-        }))
-        // this.HomeScene.add(this.cube)
     }
 
     setTitle(){
@@ -82,7 +73,6 @@ export default class HomeContent {
     }
 
     update(){
-        this.cube.rotation.x += 0.001 * this.time.delta
-        this.cube.rotation.y += 0.001 * this.time.delta
+
     }
 }

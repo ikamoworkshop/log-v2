@@ -22,7 +22,6 @@ export default class TestCube {
     setScene(){
         this.scene = new THREE.Scene()
         this.background = this.resources.items.background
-        console.log(this.background)
         this.background.colorSpace = THREE.SRGBColorSpace
         this.scene.background = this.background
     }
@@ -41,9 +40,6 @@ export default class TestCube {
             transmission: 1,  
             thickness: 1
         })
-
-        this.circle = new THREE.Mesh(new THREE.CircleGeometry(1,32), new THREE.MeshPhysicalMaterial())
-        this.circle.position.set(0, 0, -16)
         
         this.defaultFaceMesh.material = this.glassMaterial
 
@@ -58,7 +54,7 @@ export default class TestCube {
             new THREE.MeshBasicMaterial({
                 color: 0x00ff00,
                 transparent: true,
-                opacity: .5
+                opacity: 0
             }),
         )
         this.lookAtMesh.position.z = 1
@@ -67,7 +63,7 @@ export default class TestCube {
     }
 
     setRenderTarget(){
-        this.fovY = (this.camera.position.z + 24) * this.camera.getFilmHeight() / this.camera.getFocalLength()
+        this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
 
         this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height)
 
@@ -81,7 +77,7 @@ export default class TestCube {
             },
         })
         this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
-        this.renderPlane.position.set(0, 0, -24)
+        this.renderPlane.position.set(0, 0, -4)
 
         this.scene.add(this.renderPlane)
     }
@@ -89,6 +85,8 @@ export default class TestCube {
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
         this.camera.updateProjectionMatrix()
+
+        this.renderTarget.setSize(this.sizes.width, this.sizes.height)
     }
 
     update(){
