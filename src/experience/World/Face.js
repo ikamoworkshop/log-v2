@@ -92,5 +92,10 @@ export default class TestCube {
     update(){
         this.defaultFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
         this.defaultFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
+
+        
+        this.defaultFace.position.x = (this.defaultFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.defaultFace.position.x) * .05) * .9
+        this.defaultFace.position.y = (this.defaultFace.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.defaultFace.position.y) * .05) * .9
+
     }
 }
