@@ -109,12 +109,12 @@ export default class HomeContent {
         )
 
         this.imagePlateBridge.position.set(-this.sizeBase, this.sizeBase * 2, 0)
-        this.imagePlateGradshow.position.set(- this.sizeBase * 3, -this.sizeBase * .1, 0)
-        this.imagePlateWater.position.set(-this.sizeBase * 1.3, - this.sizeBase * 1.7, 0)
+        this.imagePlateGradshow.position.set(- this.sizeBase * 3, this.sizeBase * .1, 0)
+        this.imagePlateWater.position.set(-this.sizeBase * 1.3, - this.sizeBase * 1.8, 0)
         this.imagePlateDesk.position.set(this.sizeBase * .7, this.sizeBase * .1, 0)
-        this.imagePlateComic.position.set(this.sizeBase * 2.5, this.sizeBase * 1.8, 0)
-        this.imagePlateGrad.position.set(this.sizeBase * 3.5, -this.sizeBase * .2, 0)
-        this.imagePlateAida.position.set(this.sizeBase * 1.8, -this.sizeBase * 2.3, 0)
+        this.imagePlateComic.position.set(this.sizeBase * 2.5, this.sizeBase * 2, 0)
+        this.imagePlateGrad.position.set(this.sizeBase * 4, -this.sizeBase * .2, 0)
+        this.imagePlateAida.position.set(this.sizeBase * 2, -this.sizeBase * 2.5, 0)
 
         this.imagePlateGroup.position.z = -2
         this.HomeScene.add(this.imagePlateGroup)
@@ -140,7 +140,7 @@ export default class HomeContent {
 
         // Update Image Grup Position
         this.targetPosition.lerp(this.normalizedCursor, .1)
-        this.imagePlateGroup.position.x = this.targetPosition.x * this.groupSize.x * .25
-        this.imagePlateGroup.position.y = this.targetPosition.y * this.groupSize.y * .25
+        this.imagePlateGroup.position.x = - (this.targetPosition.x * this.groupSize.x * .25) - 1
+        this.imagePlateGroup.position.y = - (this.targetPosition.y * this.groupSize.y * .25)
     }
 }
