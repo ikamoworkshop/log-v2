@@ -11,8 +11,10 @@ export default class HomeContent {
         this.cursor = this.experience.cursor
 
         this.setScene()
-        this.setTitle()
         this.setCamera()
+        this.setTitle()
+        this.createImagePlates()
+        this.setImagePlates()
     }
 
     setScene(){
@@ -31,10 +33,11 @@ export default class HomeContent {
     setTitle(){
         this.spaceBold = this.resources.items.spaceBold
         this.textMaterial = new THREE.MeshBasicMaterial()
+        this.textGroup = new THREE.Group()
 
         this.HomeTitleGeometryOne = new TextGeometry('IKAMO', {
             font: this.spaceBold,
-            size: .7,
+            size: .6,
             depth: 0,
             curveSegments: 12,
         })
@@ -50,7 +53,7 @@ export default class HomeContent {
 
         this.HomeTitleGeometryTwo = new TextGeometry('[LOG]', {
             font: this.spaceBold,
-            size: .7,
+            size: .6,
             depth: 0,
             curveSegments: 12,
         })
@@ -64,7 +67,56 @@ export default class HomeContent {
         this.HomeTitleTwo = new THREE.Mesh(this.HomeTitleGeometryTwo, this.textMaterial)
         this.HomeTitleTwo.position.set(0, -.5, 0)
 
-        this.HomeScene.add(this.HomeTitleOne, this.HomeTitleTwo)
+        this.textGroup.add(this.HomeTitleOne, this.HomeTitleTwo)
+        this.HomeScene.add(this.textGroup)
+    }
+
+    createImagePlates(){
+        this.sizeBase = 2
+
+        this.imagePlateTall = new THREE.PlaneGeometry(this.sizeBase, this.sizeBase * 2)
+        this.imagePlateWide = new THREE.PlaneGeometry(this.sizeBase * 2, this.sizeBase)
+        this.imagePlateSquare = new THREE.PlaneGeometry(this.sizeBase, this.sizeBase * 1.2)
+
+        this.imagePlateMaterialBridge = new THREE.ShaderMaterial()
+        this.imagePlateMaterialGradshow = new THREE.ShaderMaterial()
+        this.imagePlateMaterialWater = new THREE.ShaderMaterial()
+        this.imagePlateMaterialDesk = new THREE.ShaderMaterial()
+        this.imagePlateMaterialComic = new THREE.ShaderMaterial()
+        this.imagePlateMaterialGrad = new THREE.ShaderMaterial()
+        this.imagePlateMaterialAida = new THREE.ShaderMaterial()
+
+        this.imagePlateBridge = new THREE.Mesh(this.imagePlateTall, this.imagePlateMaterialBridge)
+        this.imagePlateGradshow = new THREE.Mesh(this.imagePlateSquare, this.imagePlateMaterialGradshow)
+        this.imagePlateWater = new THREE.Mesh(this.imagePlateWide, this.imagePlateMaterialWater)
+        this.imagePlateDesk = new THREE.Mesh(this.imagePlateSquare, this.imagePlateMaterialDesk)
+        this.imagePlateComic = new THREE.Mesh(this.imagePlateSquare, this.imagePlateMaterialComic)
+        this.imagePlateGrad = new THREE.Mesh(this.imagePlateWide, this.imagePlateMaterialGrad)
+        this.imagePlateAida = new THREE.Mesh(this.imagePlateTall, this.imagePlateMaterialAida)
+    }
+
+    setImagePlates(){
+        this.imagePlateGroup = new THREE.Group()
+        this.imagePlateGroup.add(
+            this.imagePlateBridge,
+            this.imagePlateGradshow,
+            this.imagePlateWater,
+            this.imagePlateDesk,
+            this.imagePlateComic,
+            this.imagePlateGrad,
+            this.imagePlateAida,
+        )
+
+        this.imagePlateBridge.position.set(-this.sizeBase, this.sizeBase * 2, 0)
+        this.imagePlateGradshow.position.set(- this.sizeBase * 3, -this.sizeBase * .1, 0)
+        this.imagePlateWater.position.set(-this.sizeBase * 1.3, - this.sizeBase * 1.7, 0)
+        this.imagePlateDesk.position.set(this.sizeBase * .7, this.sizeBase * .1, 0)
+        this.imagePlateComic.position.set(this.sizeBase * 2.5, this.sizeBase * 1.8, 0)
+        this.imagePlateGrad.position.set(this.sizeBase * 3.5, -this.sizeBase * .2, 0)
+        this.imagePlateAida.position.set(this.sizeBase * 1.8, -this.sizeBase * 2.3, 0)
+
+        this.imagePlateGroup.position.z = -2
+        this.HomeScene.add(this.imagePlateGroup)
     }
 
     resize(){
@@ -73,6 +125,7 @@ export default class HomeContent {
     }
 
     update(){
-
+        this.textGroup.position.x = (this.textGroup.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.textGroup.position.x) * .05) * .6
+        this.textGroup.position.y = (this.textGroup.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.textGroup.position.y) * .05) * .6
     }
 }

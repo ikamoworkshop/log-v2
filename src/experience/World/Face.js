@@ -42,9 +42,9 @@ export default class TestCube {
         })
         
         this.defaultFaceMesh.material = this.glassMaterial
-        this.defaultFaceMesh.scale.set(.9, .9, .9)
+        this.defaultFaceMesh.scale.set(.7, .7, .7)
 
-        this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+        this.directionalLight = new THREE.DirectionalLight(0xafb2ff, 0.5)
         this.directionalLight.position.set(0, 5, 10)
         this.scene.add(this.defaultFace, this.directionalLight)
     }
