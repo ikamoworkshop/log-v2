@@ -54,7 +54,7 @@ export default class HomeContent {
         )
 
         this.HomeTitleOne = new THREE.Mesh(this.HomeTitleGeometryOne, this.textMaterial)
-        this.HomeTitleOne.position.set(0, .5, 0)
+        this.HomeTitleOne.position.set(0, .4, 0)
 
         this.HomeTitleGeometryTwo = new TextGeometry('[LOG]', {
             font: this.spaceBold,
@@ -70,7 +70,7 @@ export default class HomeContent {
         )
 
         this.HomeTitleTwo = new THREE.Mesh(this.HomeTitleGeometryTwo, this.textMaterial)
-        this.HomeTitleTwo.position.set(0, -.5, 0)
+        this.HomeTitleTwo.position.set(0, -.4, 0)
 
         this.textGroup.add(this.HomeTitleOne, this.HomeTitleTwo)
         this.HomeScene.add(this.textGroup)

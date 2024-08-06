@@ -1,6 +1,7 @@
-import Experience from "./Experience.js"
+import Experience from './Experience.js'
 import Face from './World/Face.js'
-import HomeContent from "./World/Home/HomeContent.js"
+import HomeContent from './World/Home/HomeContent.js'
+import NotFound from './World/NotFound/NotFound.js'
 
 import * as THREE from 'three'
 
@@ -27,6 +28,8 @@ export default class Renderer{
             this.renderPlaneMaterial = this.face.renderPlaneMaterial
 
             this.homeContent = new HomeContent()
+            this.notFound = new NotFound()
+
             this.setInstance()
             this.setComposer()
             this.setPostProcessing()
@@ -54,8 +57,14 @@ export default class Renderer{
     }
 
     setPostProcessing(){
-        this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
-        this.composer.addPass(this.renderPass)
+        
+        if(window.location.pathname === '/'){
+            this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
+            this.composer.addPass(this.renderPass)
+        } else if(window.location.pathname === '/about'){
+            this.renderPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
+            this.composer.addPass(this.renderPass)
+        }
 
         this.smaaPass = new SMAAPass()
         this.composer.addPass(this.smaaPass)
@@ -73,13 +82,21 @@ export default class Renderer{
     }
 
     update(){
+
         if(this.face){
             this.face.update()
             this.homeContent.update()
+            this.notFound.update()
 
-            this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)
-            this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
-            this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            if(window.location.pathname === '/'){
+                this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            } else if(window.location.pathname === '/about'){
+                this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            }
 
             this.instance.clear()
             this.instance.render(this.scene, this.camera)

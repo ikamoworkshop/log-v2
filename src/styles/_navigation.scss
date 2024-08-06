@@ -34,3 +34,11 @@
 .socials{
     margin-right: 120px;
 }
+
+.not-found-button{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}

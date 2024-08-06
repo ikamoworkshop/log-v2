@@ -1,0 +1,17 @@
+---
+import MainLayout from '../layouts/MainLayout.astro'
+import PrimaryButton from '../components/PrimaryButton.astro'
+---
+
+<MainLayout title="IKAMO[LOG] | 404">
+    <main data-taxi-view>
+        <div class="not-found-button">
+            <PrimaryButton title='TAKE ME HOME' path='/'></PrimaryButton>
+        </div>
+    </main>
+</MainLayout>
+
+<script>
+    import * as Taxi from '@unseenco/taxi'
+    const taxi = new Taxi.Core()
+</script>
