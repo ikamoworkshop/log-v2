@@ -2,6 +2,9 @@ import Experience from "../../Experience"
 
 import * as THREE from 'three'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
+
+import imageVertex from '../../Shaders/landingPlate/vertex.glsl'
+import imageFragment from '../../Shaders/landingPlate/fragment.glsl'
 export default class HomeContent {
     constructor(){
         this.experience = new Experience()
@@ -13,6 +16,7 @@ export default class HomeContent {
         this.setScene()
         this.setCamera()
         this.setTitle()
+        this.setTextures()
         this.createImagePlates()
         this.setImagePlates()
         this.getImageGroupSize()
@@ -72,20 +76,101 @@ export default class HomeContent {
         this.HomeScene.add(this.textGroup)
     }
 
-    createImagePlates(){
+    setTextures(){
         this.sizeBase = 2
 
+        this.textureBridge = this.resources.items.landingOne
+        this.textureDesk = this.resources.items.landingTwo
+        this.textureGradshow = this.resources.items.landingThree
+        this.textureWater = this.resources.items.landingFour
+        this.textureAida = this.resources.items.landingFive
+        this.textureGrad = this.resources.items.landingSix
+        this.textureComic = this.resources.items.landingSeven
+
+        this.imagePlateMaterialBridge = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureBridge),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(320, 560)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 2)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialGradshow = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureGradshow),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(420, 400)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialWater = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureWater),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(680, 360)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialDesk = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureDesk),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 400)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialComic = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureComic),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 360)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialGrad = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureGrad),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(520, 280)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+        this.imagePlateMaterialAida = new THREE.ShaderMaterial({
+            vertexShader: imageVertex,
+            fragmentShader: imageFragment,
+            uniforms: {
+                uTexture: new THREE.Uniform(this.textureAida),
+                uTextureSize: new THREE.Uniform(new THREE.Vector2(360, 420)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
+                uOpacity: new THREE.Uniform(.1)
+            },
+            transparent: true,
+        })
+
+    }
+
+    createImagePlates(){
         this.imagePlateTall = new THREE.PlaneGeometry(this.sizeBase, this.sizeBase * 2)
         this.imagePlateWide = new THREE.PlaneGeometry(this.sizeBase * 2, this.sizeBase)
         this.imagePlateSquare = new THREE.PlaneGeometry(this.sizeBase, this.sizeBase * 1.2)
-
-        this.imagePlateMaterialBridge = new THREE.ShaderMaterial()
-        this.imagePlateMaterialGradshow = new THREE.ShaderMaterial()
-        this.imagePlateMaterialWater = new THREE.ShaderMaterial()
-        this.imagePlateMaterialDesk = new THREE.ShaderMaterial()
-        this.imagePlateMaterialComic = new THREE.ShaderMaterial()
-        this.imagePlateMaterialGrad = new THREE.ShaderMaterial()
-        this.imagePlateMaterialAida = new THREE.ShaderMaterial()
 
         this.imagePlateBridge = new THREE.Mesh(this.imagePlateTall, this.imagePlateMaterialBridge)
         this.imagePlateGradshow = new THREE.Mesh(this.imagePlateSquare, this.imagePlateMaterialGradshow)
