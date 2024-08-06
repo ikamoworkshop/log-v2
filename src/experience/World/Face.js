@@ -15,6 +15,7 @@ export default class TestCube {
         this.setScene()
         this.setCamera()
         this.setModel()
+        this.setLookAt()
         this.setRenderTarget()
         this.update()
     }
@@ -33,10 +34,16 @@ export default class TestCube {
     }
 
     setModel(){
+        this.renderedFaceGroup = new THREE.Group()
+
         if(window.location.pathname === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.add(this.renderedFace)
+            this.renderedFaceGroup.position.set(0, 0, 0)
         } else if(window.location.pathname === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.add(this.renderedFace)
+            this.renderedFaceGroup.position.set(0, -3, 0)
         }
 
         this.renderedFaceMesh = this.renderedFace.children[0]
@@ -96,8 +103,13 @@ export default class TestCube {
     }
 
     update(){
-        this.renderedFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
-        this.renderedFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
+        // this.renderedFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
+        // this.renderedFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
+
+        this.lookAtMesh.position.x = (this.cursor.cursorX / this.sizes.width * 2 - 1) * .5
+        this.lookAtMesh.position.y = - (this.cursor.cursorY / this.sizes.width * 2 - .5) * .5
+
+        this.renderedFace.lookAt(this.lookAtMesh.position)
         
         this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
         this.renderedFace.position.y = (this.renderedFace.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9

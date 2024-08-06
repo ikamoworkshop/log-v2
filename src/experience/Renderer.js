@@ -2,6 +2,7 @@ import Experience from './Experience.js'
 import Face from './World/Face.js'
 import HomeContent from './World/Home/HomeContent.js'
 import NotFound from './World/NotFound/NotFound.js'
+import AboutContent from './World/About/AboutContent.js'
 
 import * as THREE from 'three'
 
@@ -28,6 +29,7 @@ export default class Renderer{
             this.renderPlaneMaterial = this.face.renderPlaneMaterial
 
             this.homeContent = new HomeContent()
+            this.aboutContent = new AboutContent()
             this.notFound = new NotFound()
 
             this.setInstance()
@@ -62,7 +64,7 @@ export default class Renderer{
             this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
             this.composer.addPass(this.renderPass)
         } else if(window.location.pathname === '/about'){
-            this.renderPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
+            this.renderPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
             this.composer.addPass(this.renderPass)
         }
 
@@ -93,7 +95,7 @@ export default class Renderer{
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } else if(window.location.pathname === '/about'){
-                this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
+                this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
