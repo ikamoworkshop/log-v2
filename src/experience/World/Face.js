@@ -33,20 +33,25 @@ export default class TestCube {
     }
 
     setModel(){
-        this.defaultFace = this.resources.items.defaultFlat.scene
-        this.defaultFaceMesh = this.defaultFace.children[0]
+        if(window.location.pathname === '/'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+        } else if(window.location.pathname === '/about'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+        }
+
+        this.renderedFaceMesh = this.renderedFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
             roughness: 0.4,   
             transmission: .8,  
             thickness: .5
         })
         
-        this.defaultFaceMesh.material = this.glassMaterial
-        this.defaultFaceMesh.scale.set(.7, .7, .7)
+        this.renderedFaceMesh.material = this.glassMaterial
+        this.renderedFaceMesh.scale.set(.7, .7, .7)
 
         this.directionalLight = new THREE.DirectionalLight(0xafb2ff, 0.5)
         this.directionalLight.position.set(0, 5, 10)
-        this.scene.add(this.defaultFace, this.directionalLight)
+        this.scene.add(this.renderedFace, this.directionalLight)
     }
 
     setLookAt() {
@@ -91,12 +96,10 @@ export default class TestCube {
     }
 
     update(){
-        this.defaultFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
-        this.defaultFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
-
+        this.renderedFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
+        this.renderedFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
         
-        this.defaultFace.position.x = (this.defaultFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.defaultFace.position.x) * .05) * .9
-        this.defaultFace.position.y = (this.defaultFace.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.defaultFace.position.y) * .05) * .9
-
+        this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
+        this.renderedFace.position.y = (this.renderedFace.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
     }
 }

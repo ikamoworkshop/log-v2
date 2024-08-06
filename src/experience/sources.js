@@ -17,22 +17,22 @@ export default [
     {
         name: 'travelFace',
         type: 'gltfModel',
-        path: '/model/travel.glb'
+        path: '/model/travel_flat.glb'
     },
     {
         name: 'designFace',
         type: 'gltfModel',
-        path: '/model/design.glb'
+        path: '/model/design_flat.glb'
     },
     {
         name: 'milestoneFace',
         type: 'gltfModel',
-        path: '/model/milestone.glb'
+        path: '/model/milestone_flat.glb'
     },
     {
         name: 'workspaceFace',
         type: 'gltfModel',
-        path: '/model/workspace.glb'
+        path: '/model/workspace_flat.glb'
     },
     {
         name: 'landingOne',
