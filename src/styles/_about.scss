@@ -2,6 +2,7 @@
     height: 100dvh;
     padding: 0px 240px;
     float: left;
+    overflow-y: hidden;
 }
 
 .about-section-one{
@@ -14,7 +15,21 @@
 }
 
 .about-section-three{
+    margin: 0px 0px 0px 160px;
+    min-width: 400px;
+}
+
+.about-section-four{
+    margin: 0px 0px 0px 160px;
+}
+
+.about-section-five{
     margin: 0px 0px 0px 240px;
+    min-width: 400px;
+}
+
+.about-section-six{
+    margin: 0px 0px 0px 800px;
     min-width: 400px;
 }
 
@@ -24,4 +39,52 @@
 
 .about-paragraph{
     max-width: 400px;
+}
+
+.about-links{
+    opacity: .5;
+    transition: opacity .5s ease;
+}
+
+.about-links:hover{
+    opacity: 1;
+}
+
+.about-button-container{
+    position: relative;
+    width: auto;
+    overflow: hidden;
+}
+
+.about-image{
+    opacity: .5;
+}
+
+.about-image-1{
+    width: 300px;
+    position: absolute;
+    bottom: 0;
+    left: 560px;
+}
+
+.about-image-2{
+    width: 400px;
+    position: absolute;
+    top: 0;
+    left: 1100px;
+}
+
+.about-image-3{
+    width: 400px;
+}
+
+.about-image-4{
+    width: 360px;
+    position: absolute;
+    top: 0;
+    left: 3600px;
+}
+
+.about-image-5{
+    width: 400px;
 }

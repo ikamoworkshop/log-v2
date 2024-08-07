@@ -26,6 +26,10 @@
     gap: 8px;
 }
 
+.gap-16{
+    gap: 16px;
+}
+
 .gap-48{
     gap: 48px;
 }
@@ -38,6 +42,10 @@
 .primary-button{
     padding: 4px 8px;
     border: dashed 1px rgba(255, 255, 255, .4);
+    overflow: hidden;
+}
+
+.button-container{
     overflow: hidden;
 }
 

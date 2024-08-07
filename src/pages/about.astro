@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro'
+import PrimaryButton from '../components/PrimaryButton.astro'
 ---
 
 <MainLayout title="IKAMO[LOG] | About">
@@ -14,18 +15,60 @@ import MainLayout from '../layouts/MainLayout.astro'
                         <br />TO SHARE
                         <br />MY LIFE.
                     </h1>
+                    <img class="about-image about-image-1" src="/texture/about/about-1.png" alt="">
                 </div>
     
                 <div class="flex flex-column gap-48 justify-end about-text about-section-two">
-                    <p class="caption-bold text-light">[ ABOUT THIS SITE ]</p>
-                    <p class="caption-bold text-light about-paragraph">IN SIMPLE TERMS, THIS IS A DOCUMENTATION LOGGING ANTHING ABOUT MY LIFE. A SPACE WHERE YOU CAN LIVE THROUGH DIFFERENT MOMENTS WITH ME. IT IS ALSO A PLACE WHERE I LIKE TO SHARE SOME OF MY THOUGHTS OR BEHIND THE SCENE ABOUT DESIGNING, DEVELOPING, CAREER PATHING, TRAVELING, AND MORE.</p>
+                    <img class="about-image about-image-2" src="/texture/about/about-2.png" alt="">
+                    <h2 class="caption-bold text-light">[ ABOUT THIS SITE ]</h2>
+                    <p class="caption-light text-light about-paragraph">IN SIMPLE TERMS, THIS IS A DOCUMENTATION LOGGING ANTHING ABOUT MY LIFE. A SPACE WHERE YOU CAN LIVE THROUGH DIFFERENT MOMENTS WITH ME. IT IS ALSO A PLACE WHERE I LIKE TO SHARE SOME OF MY THOUGHTS OR BEHIND THE SCENE ABOUT DESIGNING, DEVELOPING, CAREER PATHING, TRAVELING, AND MORE.</p>
                 </div>
 
                 <div class="flex flex-column gap-48 about-text about-section-three">
-                    <p class="caption-bold text-light">[ ABOUT THIS SITE ]</p>
-                    <p class="caption-bold text-light about-paragraph">IN SIMPLE TERMS, THIS IS A DOCUMENTATION LOGGING ANTHING ABOUT MY LIFE. A SPACE WHERE YOU CAN LIVE THROUGH DIFFERENT MOMENTS WITH ME. IT IS ALSO A PLACE WHERE I LIKE TO SHARE SOME OF MY THOUGHTS OR BEHIND THE SCENE ABOUT DESIGNING, DEVELOPING, CAREER PATHING, TRAVELING, AND MORE.</p>
+                    <h2 class="caption-bold text-light">[ YOU CAN DISCOVER ]</h2>
+                    <div class="flex flex-column">
+                        <p class="text-light subtitle-light">INSIGHTS</p>
+                        <p class="text-light subtitle-light">TRAVEL</p>
+                        <p class="text-light subtitle-light">DESIGN</p>
+                        <p class="text-light subtitle-light">MILESTONE</p>
+                        <p class="text-light subtitle-light">WORKSPACE</p>
+                    </div>
                 </div>
 
+                <div class="flex flex-column gap-48 justify-end about-section-four">
+                    <img class="about-image about-image-3" src="/texture/about/about-3.png" alt="">
+                </div>
+
+                <div class="flex flex-column gap-48 justify-end about-text about-section-five">
+                    <h2 class="caption-bold text-light">[ CLOSING THOUGHTS ]</h2>
+                    <p class="caption-light text-light about-paragraph">IN THE END, I WANT TO FIRST THANK YOU FOR STOPPING BY AND BROWSE THROUGH MY [BORDERLINE UNINTERESTING] LIFE. IF YOU'RE STILL INTERESTED IN LEARNING MORN ABOUT ME, I'M A CREATIVE DEVELOPER [STILL LEARNING] THAT ENJOYS BUILDING INCREDIBLE DIGITAL EXPERIENCES.</p>
+                    <img class="about-image about-image-4" src="/texture/about/about-4.png" alt="">
+                </div>
+
+                <div class="flex flex-column gap-48 about-text justify-end about-section-six">
+                    <img class="about-image about-image-5" src="/texture/about/about-5.png" alt="">
+                </div>
+
+                <div class="flex flex-column gap-48 justify-between about-text about-section-five">
+                    <div class="flex flex-column gap-48">
+                        <h2 class="caption-bold text-light">[ CLOSING THOUGHTS ]</h2>
+                        <div class="flex-flex-column">
+                            <a href="https://jeremystudio.cc/" class="text-light subtitle-light about-links" target="_blank" rel="noopener noreferrer">DESIGN PORTFOLIO  ↗</a>
+                            <a href="https://github.com/IKAMOworkshop" class="text-light subtitle-light about-links" target="_blank" rel="noopener noreferrer">GITHUB  ↗</a>
+                            <a href="https://www.linkedin.com/in/jeremystudio/" class="text-light subtitle-light about-links" target="_blank" rel="noopener noreferrer">LINKEDIN  ↗</a>
+                            <a href="https://www.instagram.com/jeremy._.studio/" class="text-light subtitle-light about-links" target="_blank" rel="noopener noreferrer">INSTAGRAM  ↗</a>
+                        </div>
+                    </div>
+                    <div class="flex gap-16">
+                        <div class="about-button-container">
+                            <PrimaryButton path='/gallery' title='VIEW GALLERY'></PrimaryButton>
+                        </div>
+                        <div class="about-button-container">
+                            <PrimaryButton path='/insights' title='VIEW INSIGHTS'></PrimaryButton>
+                        </div>
+                    </div>
+                    <img class="about-image about-image-4" src="/texture/about/about-4.png" alt="">
+                </div>
         </div>
     </main>
 </MainLayout>
@@ -35,9 +78,9 @@ import MainLayout from '../layouts/MainLayout.astro'
     import VirtualScroll from 'virtual-scroll'
 
     const taxi = new Taxi.Core()
-
     const scroller = new VirtualScroll()
-    const scrollContainer = document.getElementById('scroll')
+
+    let scrollContainer = document.getElementById('scroll')
 
     // Page Scroll
     let totalScroll = 0
@@ -46,13 +89,25 @@ import MainLayout from '../layouts/MainLayout.astro'
 
     scroller.on(event => {
         totalScroll = event.y * -1
+        console.log('scroll')
         scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
         scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
     })
 
     const tick = () => {
+        // Reset Scroll
+        scrollContainer = document.getElementById('scroll')
+        
+        if(scrollContainer){
+            totalScroll = 0
+            scrollPosition = 0
+            containerSize = scrollContainer.getBoundingClientRect().width
+        }
+
+        
+
         window.requestAnimationFrame(tick)
     }
 
-    // tick()
+    tick()
 </script>

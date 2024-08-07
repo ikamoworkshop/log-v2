@@ -10,10 +10,11 @@
 }
 
 .mid-nav{
-    position: absolute;
+    position: fixed;
     left: 48px;
     top: 50%;
     translate: 0% -50%;
+    z-index: 9999;
 }
 
 .active-arrow{
