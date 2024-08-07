@@ -30,7 +30,7 @@ export default class NotFound {
 
     setTitle(){
         this.aboutCube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x00ff00 }))
-        this.aboutScene.add(this.aboutCube)
+        // this.aboutScene.add(this.aboutCube)
     }
 
     update(){
