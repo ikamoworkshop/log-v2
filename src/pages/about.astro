@@ -83,28 +83,36 @@ import PrimaryButton from '../components/PrimaryButton.astro'
     let scrollContainer = document.getElementById('scroll')
 
     // Page Scroll
-    let totalScroll = 0
+    let scroll = 0
+    let scrollTarget = 0
     let scrollPosition = 0
     let containerSize = scrollContainer.getBoundingClientRect().width
 
     scroller.on(event => {
-        totalScroll = event.y * -1
-        console.log('scroll')
-        scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
-        scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
+        scrollTarget = - event.deltaY
+        // totalScroll = event.y * -1
+        // scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
+        // scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
     })
 
     const tick = () => {
+        if(!scrollContainer){
+            scrollPosition = 0
+        }
         // Reset Scroll
         scrollContainer = document.getElementById('scroll')
         
+
+        scroll -= (scroll - scrollTarget) * .1
+        scrollPosition += scroll * 1.2
+        scrollTarget = 0
+
+        scrollPosition = Math.max(0, Math.min(scrollPosition, containerSize - window.innerWidth))
+
         if(scrollContainer){
-            totalScroll = 0
-            scrollPosition = 0
+            scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
             containerSize = scrollContainer.getBoundingClientRect().width
         }
-
-        
 
         window.requestAnimationFrame(tick)
     }
