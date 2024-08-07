@@ -4,11 +4,55 @@ import MainLayout from '../layouts/MainLayout.astro'
 
 <MainLayout title="IKAMO[LOG] | About">
     <main data-taxi-view>
-        <h1 class="hero text-light placeholder-title">ABOUT</h1>
+
+        <div id="scroll" class="about-container flex no-wrap">
+
+                <div class="flex flex-column gap-48 about-text about-section-one">
+                    <h1 class="caption-bold text-light">[ HELLO THERE ]</h1>
+                    <h1 class="large-title text-light">
+                        A SPACE
+                        <br />TO SHARE
+                        <br />MY LIFE.
+                    </h1>
+                </div>
+    
+                <div class="flex flex-column gap-48 justify-end about-text about-section-two">
+                    <p class="caption-bold text-light">[ ABOUT THIS SITE ]</p>
+                    <p class="caption-bold text-light about-paragraph">IN SIMPLE TERMS, THIS IS A DOCUMENTATION LOGGING ANTHING ABOUT MY LIFE. A SPACE WHERE YOU CAN LIVE THROUGH DIFFERENT MOMENTS WITH ME. IT IS ALSO A PLACE WHERE I LIKE TO SHARE SOME OF MY THOUGHTS OR BEHIND THE SCENE ABOUT DESIGNING, DEVELOPING, CAREER PATHING, TRAVELING, AND MORE.</p>
+                </div>
+
+                <div class="flex flex-column gap-48 about-text about-section-three">
+                    <p class="caption-bold text-light">[ ABOUT THIS SITE ]</p>
+                    <p class="caption-bold text-light about-paragraph">IN SIMPLE TERMS, THIS IS A DOCUMENTATION LOGGING ANTHING ABOUT MY LIFE. A SPACE WHERE YOU CAN LIVE THROUGH DIFFERENT MOMENTS WITH ME. IT IS ALSO A PLACE WHERE I LIKE TO SHARE SOME OF MY THOUGHTS OR BEHIND THE SCENE ABOUT DESIGNING, DEVELOPING, CAREER PATHING, TRAVELING, AND MORE.</p>
+                </div>
+
+        </div>
     </main>
 </MainLayout>
 
 <script>
     import * as Taxi from '@unseenco/taxi'
+    import VirtualScroll from 'virtual-scroll'
+
     const taxi = new Taxi.Core()
+
+    const scroller = new VirtualScroll()
+    const scrollContainer = document.getElementById('scroll')
+
+    // Page Scroll
+    let totalScroll = 0
+    let scrollPosition = 0
+    let containerSize = scrollContainer.getBoundingClientRect().width
+
+    scroller.on(event => {
+        totalScroll = event.y * -1
+        scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
+        scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
+    })
+
+    const tick = () => {
+        window.requestAnimationFrame(tick)
+    }
+
+    // tick()
 </script>

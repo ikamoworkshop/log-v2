@@ -20,6 +20,9 @@ export default class Renderer{
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
 
+        this.currentScene = null
+        this.currentCamera = null
+
         this.resources.on('ready', () => {
             // Setup
             this.face = new Face()
@@ -59,12 +62,17 @@ export default class Renderer{
     }
 
     setPostProcessing(){
-        
+
+        // Create a event listener and run every time when there's a page change
         if(window.location.pathname === '/'){
-            this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
+            this.currentScene = this.homeContent.HomeScene
+            this.currentCamera = this.homeContent.camera
+            this.renderPass = new RenderPass(this.currentScene, this.currentCamera)
             this.composer.addPass(this.renderPass)
         } else if(window.location.pathname === '/about'){
-            this.renderPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
+            this.currentScene = this.aboutContent.aboutScene
+            this.currentCamera = this.aboutContent.camera
+            this.renderPass = new RenderPass(this.currentScene, this.currentCamera)
             this.composer.addPass(this.renderPass)
         }
 

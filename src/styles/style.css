@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 .top-nav {
+  position: fixed;
   padding: 60px;
+  z-index: 9999;
 }
 
 .site-description {
@@ -27,9 +29,10 @@
 
 .bottom-nav {
   width: 100dvw;
-  position: absolute;
+  position: fixed;
   padding: 0px 60px;
   bottom: 60px;
+  z-index: 9999;
 }
 
 .socials {
@@ -165,6 +168,10 @@
   justify-content: space-between;
 }
 
+.justify-end {
+  justify-content: end;
+}
+
 .align-center {
   align-items: center;
 }
@@ -175,6 +182,14 @@
 
 .gap-8 {
   gap: 8px;
+}
+
+.gap-48 {
+  gap: 48px;
+}
+
+.no-wrap {
+  flex-wrap: nowrap;
 }
 
 .primary-button {
@@ -198,6 +213,34 @@
 
 .primary-button:hover > .button-move {
   transform: translateX(24px);
+}
+
+.about-container {
+  height: 100dvh;
+  padding: 0px 240px;
+  float: left;
+}
+
+.about-section-one {
+  min-width: 600px;
+}
+
+.about-section-two {
+  margin: 0px 0px 0px 420px;
+  min-width: 400px;
+}
+
+.about-section-three {
+  margin: 0px 0px 0px 240px;
+  min-width: 400px;
+}
+
+.about-text {
+  padding: 200px 0px;
+}
+
+.about-paragraph {
+  max-width: 400px;
 }
 
 * {

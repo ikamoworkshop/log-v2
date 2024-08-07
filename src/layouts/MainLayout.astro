@@ -24,11 +24,10 @@ const { title } = Astro.props;
 
 	<body class="body">
 		<Navigation />
-		<canvas id="webgl"></canvas>
 		<main data-taxi>
 			<slot/>
 		</main>
-
+		<canvas id="webgl"></canvas>
 		<script>
 			// Three.js
 			import Experience from '../experience/Experience.js'

@@ -10,6 +10,10 @@
     justify-content: space-between;
 }
 
+.justify-end{
+    justify-content: end;
+}
+
 .align-center{
     align-items: center;
 }
@@ -20,6 +24,14 @@
 
 .gap-8{
     gap: 8px;
+}
+
+.gap-48{
+    gap: 48px;
+}
+
+.no-wrap{
+    flex-wrap: nowrap;
 }
 
 // Primary Button

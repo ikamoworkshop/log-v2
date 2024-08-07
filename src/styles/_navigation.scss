@@ -1,5 +1,7 @@
 .top-nav{
+    position: fixed;
     padding: 60px;
+    z-index: 9999;
 }
 
 .site-description{
@@ -26,9 +28,10 @@
 
 .bottom-nav{
     width: 100dvw;
-    position: absolute;
+    position: fixed;
     padding: 0px 60px;
     bottom: 60px;
+    z-index: 9999;
 }
 
 .socials{
