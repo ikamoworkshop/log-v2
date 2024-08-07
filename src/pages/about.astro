@@ -90,6 +90,7 @@ import PrimaryButton from '../components/PrimaryButton.astro'
 
     scroller.on(event => {
         scrollTarget = - event.deltaY
+        console.log('scroll')
         // totalScroll = event.y * -1
         // scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
         // scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
