@@ -3,6 +3,8 @@ import Cursor from "./Utils/Cursor.js"
 import Time from "./Utils/Time"
 import Renderer from "./Renderer.js"
 import Resources from "./Utils/Resources.js"
+import PageChange from './Utils/PageChange.js'
+import Scroll from "./Utils/Scroll.js"
 import sources from './sources.js'
 
 let instance = null;
@@ -22,6 +24,8 @@ export default class Experience{
 
         // Setup
         this.sizes = new Sizes()
+        this.pageChange = new PageChange()
+        this.scroll = new Scroll()
         this.cursor = new Cursor()
         this.time = new Time()
         this.resources = new Resources(sources)

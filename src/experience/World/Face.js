@@ -4,12 +4,10 @@ import * as THREE from 'three'
 import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
 import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
 
-import pageChange from '../Utils/PageChange'
-
 export default class TestCube {
     constructor(){
         this.experience = new Experience()
-        this.pageChange = new pageChange()
+        this.pageChange = this.experience.pageChange
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.sizes = this.experience.sizes
@@ -40,6 +38,14 @@ export default class TestCube {
         this.renderedFaceGroup = new THREE.Group()
         this.renderedFace = this.resources.items.defaultFlat.scene
         this.renderedFaceGroup.add(this.renderedFace)
+
+        if(this.pageChange.prevPage === '/'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.set(0, 0, 0)
+        } else if(this.pageChange.prevPage === '/about'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.y = -2
+        }
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){

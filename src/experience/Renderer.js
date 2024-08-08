@@ -17,7 +17,7 @@ import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectio
 export default class Renderer{
     constructor(){
         this.experience = new Experience()
-        this.pageChange = new PageChange()
+        this.pageChange = this.experience.pageChange
         this.resources = this.experience.resources;
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
@@ -71,7 +71,6 @@ export default class Renderer{
             this.composer.removePass(this.composer.passes[0])
             this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
             this.composer.insertPass(this.notFoundPass, 0)
-            console.log('Not Found Page')
         }
 
         this.pageChange.on('pageChange', () => {
@@ -79,17 +78,14 @@ export default class Renderer{
                 this.composer.removePass(this.composer.passes[0])
                 this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
                 this.composer.insertPass(this.HomePass, 0)
-                console.log('Home')
             } else if(this.pageChange.prevPage === '/about'){
                 this.composer.removePass(this.composer.passes[0])
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
-                console.log('About Page')
             } else {
                 this.composer.removePass(this.composer.passes[0])
                 this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
                 this.composer.insertPass(this.notFoundPass, 0)
-                console.log('Not Found Page')
             }
         })
 
@@ -106,6 +102,8 @@ export default class Renderer{
         this.composer.setSize(this.sizes.width, this.sizes.height)
         this.composer.setPixelRatio(this.sizes.pixelRatio)
         this.face.resize()
+        this.homeContent.resize()
+        this.aboutContent.resize()
     }
 
     update(){
@@ -113,6 +111,7 @@ export default class Renderer{
         if(this.face){
             this.face.update()
             this.homeContent.update()
+            this.aboutContent.update()
             this.notFound.update()
 
             if(this.pageChange.prevPage === '/'){
