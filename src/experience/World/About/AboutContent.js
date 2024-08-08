@@ -2,6 +2,9 @@ import Experience from "../../Experience"
 
 import * as THREE from 'three'
 
+import imagePlateVer from '../../Shaders/imagePlate/vertex.glsl'
+import imagePlateFrag from '../../Shaders/imagePlate/fragment.glsl'
+
 export default class NotFound {
     constructor(){
         this.experience = new Experience()
@@ -11,6 +14,8 @@ export default class NotFound {
         this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
+
+        this.textureLoader = new THREE.TextureLoader()
 
         this.setScene()
         this.setCamera()
@@ -50,12 +55,18 @@ export default class NotFound {
         this.images.forEach((image, i) => {
             const imageData = {}
             imageData.image = image
+            imageData.texture = this.textureLoader.load(imageData.image.src)
             imageData.imageBoundingData = image.getBoundingClientRect()
             imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
 
             imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
             imageData.imageMaterial = new THREE.ShaderMaterial({
-
+                vertexShader: imagePlateVer,
+                fragmentShader: imagePlateFrag,
+                uniforms: {
+                    uTexture: new THREE.Uniform(imageData.texture),
+                    uOpacity: new THREE.Uniform(.1)
+                }
             })
             imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
 

@@ -54,6 +54,8 @@ canvas{
 
 .gl{
     opacity: 0;
+    user-select: none;
+    pointer-events: none
 }
 
 img{

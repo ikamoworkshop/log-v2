@@ -361,6 +361,10 @@ canvas {
 
 .gl {
   opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 
 img {
