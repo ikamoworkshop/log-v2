@@ -3,6 +3,7 @@ import Face from './World/Face.js'
 import HomeContent from './World/Home/HomeContent.js'
 import NotFound from './World/NotFound/NotFound.js'
 import AboutContent from './World/About/AboutContent.js'
+import PageChange from './Utils/PageChange'
 
 import * as THREE from 'three'
 
@@ -16,12 +17,10 @@ import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectio
 export default class Renderer{
     constructor(){
         this.experience = new Experience()
+        this.pageChange = new PageChange()
         this.resources = this.experience.resources;
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
-
-        this.currentScene = null
-        this.currentCamera = null
 
         this.resources.on('ready', () => {
             // Setup
@@ -62,19 +61,28 @@ export default class Renderer{
     }
 
     setPostProcessing(){
-
-        // Create a event listener and run every time when there's a page change
-        if(window.location.pathname === '/'){
-            this.currentScene = this.homeContent.HomeScene
-            this.currentCamera = this.homeContent.camera
-            this.renderPass = new RenderPass(this.currentScene, this.currentCamera)
-            this.composer.addPass(this.renderPass)
-        } else if(window.location.pathname === '/about'){
-            this.currentScene = this.aboutContent.aboutScene
-            this.currentCamera = this.aboutContent.camera
-            this.renderPass = new RenderPass(this.currentScene, this.currentCamera)
-            this.composer.addPass(this.renderPass)
+        if(this.pageChange.prevPage === '/'){
+            this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
+            this.composer.addPass(this.HomePass)
+        } else if(this.pageChange.prevPage === '/about'){
+            this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
+            this.composer.addPass(this.AboutPass)
         }
+
+        this.pageChange.on('pageChange', () => {
+            if(this.pageChange.prevPage === '/'){
+                this.composer.removePass(this.composer.passes[0])
+                this.composer.reset(this.renderTarget)
+                this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
+                this.composer.insertPass(this.HomePass, 0)
+            } else if(this.pageChange.prevPage === '/about'){
+                this.composer.removePass(this.composer.passes[0])
+                this.composer.removePass(this.HomePass)
+                this.composer.reset(this.renderTarget)
+                this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
+                this.composer.insertPass(this.AboutPass, 0)
+            }
+        })
 
         this.smaaPass = new SMAAPass()
         this.composer.addPass(this.smaaPass)
@@ -98,11 +106,11 @@ export default class Renderer{
             this.homeContent.update()
             this.notFound.update()
 
-            if(window.location.pathname === '/'){
+            if(this.pageChange.prevPage === '/'){
                 this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-            } else if(window.location.pathname === '/about'){
+            } else if(this.pageChange.prevPage === '/about'){
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
@@ -110,6 +118,7 @@ export default class Renderer{
 
             this.instance.clear()
             this.instance.render(this.scene, this.camera)
+            
         }
     }
 }
