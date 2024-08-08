@@ -4,9 +4,12 @@ import * as THREE from 'three'
 import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
 import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
 
+import pageChange from '../Utils/PageChange'
+
 export default class TestCube {
     constructor(){
         this.experience = new Experience()
+        this.pageChange = new pageChange()
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.sizes = this.experience.sizes
@@ -38,13 +41,15 @@ export default class TestCube {
         this.renderedFace = this.resources.items.defaultFlat.scene
         this.renderedFaceGroup.add(this.renderedFace)
 
-        if(window.location.pathname === '/'){
-            this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.set(0, 0, 0)
-        } else if(window.location.pathname === '/about'){
-            this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.y = -2
-        }
+        this.pageChange.on('pageChange', () => {
+            if(this.pageChange.prevPage === '/'){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.set(0, 0, 0)
+            } else if(this.pageChange.prevPage === '/about'){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.y = -2
+            }
+        })
 
         this.renderedFaceMesh = this.renderedFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
