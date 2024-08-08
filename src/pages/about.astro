@@ -75,48 +75,5 @@ import PrimaryButton from '../components/PrimaryButton.astro'
 
 <script>
     import * as Taxi from '@unseenco/taxi'
-    import VirtualScroll from 'virtual-scroll'
-
     const taxi = new Taxi.Core()
-    const scroller = new VirtualScroll()
-
-    let scrollContainer = document.getElementById('scroll')
-
-    // Page Scroll
-    let scroll = 0
-    let scrollTarget = 0
-    let scrollPosition = 0
-    let containerSize = scrollContainer.getBoundingClientRect().width
-
-    scroller.on(event => {
-        scrollTarget = - event.deltaY
-        console.log('scroll')
-        // totalScroll = event.y * -1
-        // scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
-        // scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
-    })
-
-    const tick = () => {
-        if(!scrollContainer){
-            scrollPosition = 0
-        }
-        // Reset Scroll
-        scrollContainer = document.getElementById('scroll')
-        
-
-        scroll -= (scroll - scrollTarget) * .1
-        scrollPosition += scroll * 1.2
-        scrollTarget = 0
-
-        scrollPosition = Math.max(0, Math.min(scrollPosition, containerSize - window.innerWidth))
-
-        if(scrollContainer){
-            scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
-            containerSize = scrollContainer.getBoundingClientRect().width
-        }
-
-        window.requestAnimationFrame(tick)
-    }
-
-    tick()
 </script>
