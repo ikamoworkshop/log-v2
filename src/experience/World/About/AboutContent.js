@@ -71,10 +71,7 @@ export default class NotFound {
             imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
 
             imageData.imageMesh.scale.set(imageData.imageSize.finalScaleX, imageData.imageSize.finalScaleY, 0)
-
-            // imageData.imageMesh.position.x = (this.camUnit.width / 2) - (imageData.imageMesh.scale.x / 2)
             imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
-
             imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
             
             this.imageGroup.push(imageData)
