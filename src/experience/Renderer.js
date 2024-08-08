@@ -67,19 +67,29 @@ export default class Renderer{
         } else if(this.pageChange.prevPage === '/about'){
             this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
             this.composer.addPass(this.AboutPass)
+        } else {
+            this.composer.removePass(this.composer.passes[0])
+            this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
+            this.composer.insertPass(this.notFoundPass, 0)
+            console.log('Not Found Page')
         }
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
                 this.composer.removePass(this.composer.passes[0])
-                this.composer.reset(this.renderTarget)
                 this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
                 this.composer.insertPass(this.HomePass, 0)
+                console.log('Home')
             } else if(this.pageChange.prevPage === '/about'){
                 this.composer.removePass(this.composer.passes[0])
-                this.composer.reset(this.renderTarget)
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
+                console.log('About Page')
+            } else {
+                this.composer.removePass(this.composer.passes[0])
+                this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
+                this.composer.insertPass(this.notFoundPass, 0)
+                console.log('Not Found Page')
             }
         })
 
@@ -111,6 +121,10 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } else if(this.pageChange.prevPage === '/about'){
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            }else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about'){
+                this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
