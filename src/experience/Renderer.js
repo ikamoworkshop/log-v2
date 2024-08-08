@@ -77,7 +77,6 @@ export default class Renderer{
                 this.composer.insertPass(this.HomePass, 0)
             } else if(this.pageChange.prevPage === '/about'){
                 this.composer.removePass(this.composer.passes[0])
-                this.composer.removePass(this.HomePass)
                 this.composer.reset(this.renderTarget)
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
