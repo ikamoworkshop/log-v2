@@ -17,6 +17,8 @@ export default class NotFound {
 
         this.textureLoader = new THREE.TextureLoader()
 
+        this.imageGroup = []
+
         this.setScene()
         this.setCamera()
         this.getImage()
@@ -36,6 +38,21 @@ export default class NotFound {
         this.aboutScene.add(this.camera)
     }
 
+    updateSize = (width, height) => {
+        this.camUnit = this.calculateUniteSize(this.camera.position.z)
+        const x = width / this.sizes.width
+        const y = height / this.sizes.height
+
+        if(!x || !y){
+            return
+        }
+
+        const finalScaleX = this.camUnit.width * x
+        const finalScaleY = this.camUnit.height * y
+
+        return { finalScaleX, finalScaleY }
+    }
+
     getImage(){
         this.images = document.querySelectorAll('img')
 
@@ -51,13 +68,84 @@ export default class NotFound {
     }
 
     setImage(){
-        this.imageGroup = []
-        this.images.forEach((image, i) => {
+        this.pageChange.on('pageChange', () => {
+
+            this.aboutScene.traverse((child) =>
+                {
+                    if(child instanceof THREE.Mesh){
+                        this.aboutScene.remove(child)
+                        child.geometry.dispose();
+                        for(const key in child.material){
+                            const value = child.material[key];
+                            if(value && typeof value.dispose === 'function')
+                            {
+                                value.dispose();
+                            }
+                        }
+                    }
+                })
+
+            this.images.forEach((image) => {
+                image.onload = () => {
+                    const imageData = {}
+
+                    imageData.image = image
+                    imageData.texture = this.textureLoader.load(imageData.image.src)
+                    
+                    imageData.imageBoundingData = image.getBoundingClientRect()
+        
+                    // imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
+                    this.camUnit = this.calculateUniteSize(this.camera.position.z)
+                    const x = imageData.imageBoundingData.width / this.sizes.width
+                    const y = imageData.imageBoundingData.height / this.sizes.height
+            
+                    if(!x || !y){
+                        return
+                    }
+            
+                    imageData.finalScaleX = this.camUnit.width * x
+                    imageData.finalScaleY = this.camUnit.height * y
+        
+        
+                    imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
+                    imageData.imageMaterial = new THREE.ShaderMaterial({
+                        vertexShader: imagePlateVer,
+                        fragmentShader: imagePlateFrag,
+                        uniforms: {
+                            uTexture: new THREE.Uniform(imageData.texture),
+                            uOpacity: new THREE.Uniform(.1)
+                        },
+                        transparent: true,
+                    })
+                    imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
+        
+                    imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+                    imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
+                    imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
+                    
+                    this.imageGroup.push(imageData)
+                    this.aboutScene.add(imageData.imageMesh)
+                }
+            })
+        })
+
+        this.images.forEach((image) => {
             const imageData = {}
             imageData.image = image
             imageData.texture = this.textureLoader.load(imageData.image.src)
             imageData.imageBoundingData = image.getBoundingClientRect()
-            imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
+
+            // imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
+            this.camUnit = this.calculateUniteSize(this.camera.position.z)
+            const x = imageData.imageBoundingData.width / this.sizes.width
+            const y = imageData.imageBoundingData.height / this.sizes.height
+    
+            if(!x || !y){
+                return
+            }
+    
+            imageData.finalScaleX = this.camUnit.width * x
+            imageData.finalScaleY = this.camUnit.height * y
 
             imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
             imageData.imageMaterial = new THREE.ShaderMaterial({
@@ -66,33 +154,18 @@ export default class NotFound {
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
                     uOpacity: new THREE.Uniform(.1)
-                }
+                },
+                transparent: true,
             })
             imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
 
-            imageData.imageMesh.scale.set(imageData.imageSize.finalScaleX, imageData.imageSize.finalScaleY, 0)
+            imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
             imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
             imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
             
             this.imageGroup.push(imageData)
             this.aboutScene.add(imageData.imageMesh)
-
         })
-    }
-
-    updateSize(width, height){
-        this.camUnit = this.calculateUniteSize(this.camera.position.z)
-        const x = width / this.sizes.width
-        const y = height / this.sizes.height
-
-        if(!x || !y){
-            return
-        }
-
-        const finalScaleX = this.camUnit.width * x
-        const finalScaleY = this.camUnit.height * y
-
-        return { finalScaleX, finalScaleY }
     }
 
     calculateUniteSize(distance){
