@@ -1,0 +1,18 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro'
+
+import { getAllGallery } from '../../sanity/api'
+
+export async function getStaticPaths() {
+    const gallery = await getAllGallery();
+    return gallery.map(gallery => ({ params: { slug: gallery.slug.current }, props: { gallery } }));
+};
+
+const { gallery } = Astro.props
+---
+
+<MainLayout title="IKAMO[LOG] | Gallery">
+    <main data-taxi-view>
+        <h1 class="text-light">{gallery.name}</h1>
+    </main>
+</MainLayout>

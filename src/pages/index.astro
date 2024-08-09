@@ -1,18 +1,15 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro'
-import { getAllGallery } from '../sanity/api';
 
-const gallery = getAllGallery()
 ---
 
 <MainLayout title="IKAMO[LOG]">
     <main data-taxi-view>
-        <!-- <h1 class="hero text-light placeholder-title">HOME</h1> -->
+            
     </main>
 </MainLayout>
 
 <script>
     import * as Taxi from '@unseenco/taxi'
     const taxi = new Taxi.Core()
-
 </script>

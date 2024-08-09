@@ -5,6 +5,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
 import imageVertex from '../../Shaders/landingPlate/vertex.glsl'
 import imageFragment from '../../Shaders/landingPlate/fragment.glsl'
+
 export default class HomeContent {
     constructor(){
         this.experience = new Experience()

@@ -14,7 +14,7 @@ vite: {
         sanity({
             projectId: "z49s437i",
             dataset: "production",
-            useCdn: false,
+            useCdn: true,
         })
     ]
 });
