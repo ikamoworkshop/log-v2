@@ -1,13 +1,10 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro'
-import { getAllGallery } from '../sanity/api'
-
-const gallery = await getAllGallery()
 ---
 
 <MainLayout title="IKAMO[LOG] | Gallery">
     <main data-taxi-view>
-        <ul>
+        <!-- <ul>
             {gallery.map((gallery) => (
             <li>
                 <a href={'/gallery/' + gallery.slug.current} class="text-light">
@@ -15,10 +12,12 @@ const gallery = await getAllGallery()
                 </a>
             </li>
             ))}
-        </ul>
+        </ul> -->
     </main>
 </MainLayout>
 
 <script>
+import { getAllGallery } from '../sanity/api'
 
+const gallery = await getAllGallery()
 </script>
