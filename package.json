@@ -10,8 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@sanity/astro": "^3.1.4",
+    "@sanity/client": "^6.21.1",
+    "@sanity/visual-editing": "^2.1.8",
     "@unseenco/taxi": "^1.6.0",
     "astro": "^4.11.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.53.0",
     "three": "^0.166.1",
     "virtual-scroll": "^2.2.1"
   },
