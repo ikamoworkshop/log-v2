@@ -70,21 +70,6 @@ export default class NotFound {
     setImage(){
         this.pageChange.on('pageChange', () => {
 
-            this.aboutScene.traverse((child) =>
-                {
-                    if(child instanceof THREE.Mesh){
-                        this.aboutScene.remove(child)
-                        child.geometry.dispose();
-                        for(const key in child.material){
-                            const value = child.material[key];
-                            if(value && typeof value.dispose === 'function')
-                            {
-                                value.dispose();
-                            }
-                        }
-                    }
-                })
-
             this.images.forEach((image) => {
                 image.onload = () => {
                     const imageData = {}
@@ -126,6 +111,22 @@ export default class NotFound {
                     this.imageGroup.push(imageData)
                     this.aboutScene.add(imageData.imageMesh)
                 }
+            })
+
+            this.aboutScene.traverse((child) =>
+                {
+                    if(child instanceof THREE.Mesh){
+                        child.geometry.dispose()
+                        for(const key in child.material){
+                            const value = child.material[key]
+                            if(value && typeof value.dispose === 'function')
+                            {
+                                value.dispose();
+                            }
+                        }
+                    }
+                    // Page switch needs a delay, which will add through transition
+                    // this.aboutScene.remove(child)
             })
         })
 
