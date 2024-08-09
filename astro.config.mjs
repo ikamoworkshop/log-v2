@@ -5,8 +5,16 @@ import sanity from "@sanity/astro";
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [glsl()]
-  },
-  integrations: [sanity()]
+vite: {
+    plugins: [
+        glsl()
+    ]
+},
+    integrations: [
+        sanity({
+            projectId: "z49s437i",
+            dataset: "production",
+            useCdn: false,
+        })
+    ]
 });

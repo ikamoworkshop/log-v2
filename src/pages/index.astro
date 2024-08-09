@@ -1,6 +1,8 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro'
-import PrimaryButton from '../components/PrimaryButton.astro'
+import { getAllGallery } from '../sanity/api';
+
+const gallery = getAllGallery()
 ---
 
 <MainLayout title="IKAMO[LOG]">
