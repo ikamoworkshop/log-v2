@@ -12,6 +12,8 @@ export default class GalleryTop {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
 
+        console.log(this.resources.galleryList)
+
         this.setScene()
         this.setCamera()
         this.setCube()
