@@ -20,7 +20,7 @@ export default class GalleryTop {
         this.textureLoader = new THREE.TextureLoader()
 
         this.galleryList = this.resources.galleryList
-        
+        this.mainDom = document.getElementById('gallery-top')
 
         this.setScene()
         this.setCamera()
@@ -42,6 +42,7 @@ export default class GalleryTop {
 
     setThumbnail(){
         this.thumbnailPlateGroup = new THREE.Group()
+        this.thumbnailPlateList = []
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
 
@@ -70,7 +71,40 @@ export default class GalleryTop {
                 thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * 2
                 thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * 2
 
+                this.thumbnailPlateList.push(thumbnailData)
                 this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+
+                const screenPosition = thumbnailData.thumbnailPlate.position.clone()
+                screenPosition.project(this.camera)
+
+                const translateX = (screenPosition.x - .23) * this.sizes.width * .5
+                const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
+
+                thumbnailData.anchorButton = document.createElement('a')
+                thumbnailData.anchorButton.style.width = '420px'
+                thumbnailData.anchorButton.style.height = '420px'
+                thumbnailData.anchorButton.classList.add('gallery-link')
+                thumbnailData.anchorButton.href = `/gallery/` + item.slug.current
+                thumbnailData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+
+                thumbnailData.leftBracket = document.createElement('div')
+                thumbnailData.leftBracket.textContent = '['
+                thumbnailData.leftBracket.classList.add('text-light', 'title', 'gallery-bracket')
+                thumbnailData.anchorButton.appendChild(thumbnailData.leftBracket)
+
+                thumbnailData.title = document.createElement('h1')
+                thumbnailData.title.textContent = item.name
+                thumbnailData.title.classList.add('text-light', 'subtitle-bold', 'gallery-title')
+                thumbnailData.anchorButton.appendChild(thumbnailData.title)
+
+                thumbnailData.rightBracket = document.createElement('div')
+                thumbnailData.rightBracket.textContent = ']'
+                thumbnailData.rightBracket.classList.add('text-light', 'title', 'gallery-bracket')
+                thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
+
+                window.setTimeout(() => {
+                    this.mainDom.appendChild(thumbnailData.anchorButton)
+                }, 500)
             }
         })
 
@@ -86,6 +120,18 @@ export default class GalleryTop {
     }
 
     update(){
-        
+        if(this.mainDom === null){
+            this.mainDom = document.getElementById('gallery-top')
+        }
+
+        // this.thumbnailPlateList.forEach(object => {
+        //     const screenPosition = object.thumbnailPlate.position.clone()
+        //     screenPosition.project(this.camera)
+
+        //     const translateX = (screenPosition.x - .265) * this.sizes.width * .5
+        //     const translateY = - (screenPosition.y + 1.4) * this.sizes.height * .5
+
+        //     object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+        // })
     }
 }

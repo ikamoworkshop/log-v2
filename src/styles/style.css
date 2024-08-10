@@ -70,14 +70,14 @@
 }
 
 .subtitle-bold {
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 120%;
   letter-spacing: 0.1rem;
 }
 
 .subtitle-light {
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: 300;
   line-height: 120%;
   letter-spacing: 0.1rem;
@@ -314,6 +314,36 @@
 
 .about-image-5 {
   width: 400px;
+}
+
+.gallery-link {
+  position: absolute;
+  transform-origin: center;
+  border-radius: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.gallery-title {
+  max-width: 240px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gallery-bracket {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gallery-link:hover .gallery-title {
+  opacity: 1;
+}
+
+.gallery-link:hover .gallery-bracket {
+  opacity: 0.2;
 }
 
 * {

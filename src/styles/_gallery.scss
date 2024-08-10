@@ -1,0 +1,31 @@
+.gallery-link{
+    position: absolute;
+    transform-origin: center;
+    border-radius: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    // background-color: #ffffff20;
+}
+
+.gallery-title{
+    max-width: 240px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.gallery-bracket{
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.gallery-link:hover .gallery-title{
+    opacity: 1;
+}
+
+.gallery-link:hover .gallery-bracket{
+    opacity: .2;
+}
