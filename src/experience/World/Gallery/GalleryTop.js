@@ -47,22 +47,31 @@ export default class GalleryTop {
 
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
-            thumbnailData.thumbnailImage = this.textureLoader.load(urlForImage(item.thumbnailImage).url())
-            thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial({
-                vertexShader: thumbnailVertex,
-                fragmentShader: thumbnailFrag,
-                uniforms:{
-                    uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
-                    uOpacity: new THREE.Uniform(.1)
-                },
-                transparent: true,
-            })
-            thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
+            thumbnailData.image = new Image()
+            thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
 
-            thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * 2
-            thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * 2
+            thumbnailData.image.onload = () => {
+                thumbnailData.imageSize = new THREE.Vector2(thumbnailData.image.width, thumbnailData.image.height)
 
-            this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+                thumbnailData.thumbnailImage = this.textureLoader.load(thumbnailData.image.src)
+                thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial({
+                    vertexShader: thumbnailVertex,
+                    fragmentShader: thumbnailFrag,
+                    uniforms:{
+                        uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
+                        uOpacity: new THREE.Uniform(.1),
+                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(1,1)),
+                        uImageSize: new THREE.Uniform(thumbnailData.imageSize),
+                    },
+                    transparent: true,
+                })
+                thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
+
+                thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * 2
+                thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * 2
+
+                this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+            }
         })
 
         this.thumbnailPlateGroup.position.x = - this.gridSize * .5 + .5
