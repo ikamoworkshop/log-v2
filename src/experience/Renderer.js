@@ -3,7 +3,7 @@ import Face from './World/Face.js'
 import HomeContent from './World/Home/HomeContent.js'
 import NotFound from './World/NotFound/NotFound.js'
 import AboutContent from './World/About/AboutContent.js'
-import PageChange from './Utils/PageChange'
+import GalleryTop from './World/Gallery/GalleryTop.js'
 
 import * as THREE from 'three'
 
@@ -32,6 +32,7 @@ export default class Renderer{
 
             this.homeContent = new HomeContent()
             this.aboutContent = new AboutContent()
+            this.galleryTop = new GalleryTop()
             this.notFound = new NotFound()
 
             this.setInstance()
@@ -67,7 +68,10 @@ export default class Renderer{
         } else if(this.pageChange.prevPage === '/about'){
             this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
             this.composer.addPass(this.AboutPass)
-        } else {
+        } else if(this.pageChange.prevPage === '/gallery'){
+            this.GalleryTopPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
+            this.composer.addPass(this.GalleryTopPass)
+        } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.composer.removePass(this.composer.passes[0])
             this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
             this.composer.insertPass(this.notFoundPass, 0)
@@ -82,7 +86,11 @@ export default class Renderer{
                 this.composer.removePass(this.composer.passes[0])
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
-            } else {
+            } else if(this.pageChange.prevPage === '/gallery'){
+                this.composer.removePass(this.composer.passes[0])
+                this.GalleryTopPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
+                this.composer.insertPass(this.GalleryTopPass, 0)
+            } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.composer.removePass(this.composer.passes[0])
                 this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
                 this.composer.insertPass(this.notFoundPass, 0)
@@ -112,6 +120,7 @@ export default class Renderer{
             this.face.update()
             this.homeContent.update()
             this.aboutContent.update()
+            this.galleryTop.update()
             this.notFound.update()
 
             if(this.pageChange.prevPage === '/'){
@@ -122,7 +131,11 @@ export default class Renderer{
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-            }else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about'){
+            } else if(this.pageChange.prevPage === '/gallery'){
+                this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture

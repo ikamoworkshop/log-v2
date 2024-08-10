@@ -177,6 +177,11 @@ export default class NotFound {
     }
 
     resize(){
+        this.camera.aspect = this.sizes.width / this.sizes.height
+        this.camera.updateProjectionMatrix()
+
+        this.camUnit = this.calculateUniteSize(this.camera.position.z)
+        
         this.imageGroup.forEach((imageObject) => {
             imageObject.imageBoundingData = imageObject.image.getBoundingClientRect()
             imageObject.imageSize = this.updateSize(imageObject.imageBoundingData.width, imageObject.imageBoundingData.height)

@@ -45,7 +45,10 @@ export default class TestCube {
         } else if(this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFaceGroup.position.y = -2
-        }
+        } else if(this.pageChange.prevPage === '/gallery'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.y = 0
+        } 
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
@@ -54,6 +57,9 @@ export default class TestCube {
             } else if(this.pageChange.prevPage === '/about'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.y = -2
+            } else if(this.pageChange.prevPage === '/gallery'){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.y = 0
             }
         })
 
