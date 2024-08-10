@@ -48,6 +48,7 @@ export default class TestCube {
         } else if(this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFaceGroup.position.y = 0
+            this.renderedFace.visible = false
         } 
 
         this.pageChange.on('pageChange', () => {
@@ -60,6 +61,7 @@ export default class TestCube {
             } else if(this.pageChange.prevPage === '/gallery'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.y = 0
+                this.renderedFace.visible = false
             }
         })
 

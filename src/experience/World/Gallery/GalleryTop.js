@@ -42,7 +42,7 @@ export default class GalleryTop {
 
     setThumbnail(){
         this.thumbnailPlateGroup = new THREE.Group()
-        this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.2, 1.2)
+        this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
 
         this.galleryList.forEach((item, i) => {
@@ -60,7 +60,7 @@ export default class GalleryTop {
                     uniforms:{
                         uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
                         uOpacity: new THREE.Uniform(.1),
-                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(1,1)),
+                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
                         uImageSize: new THREE.Uniform(thumbnailData.imageSize),
                     },
                     transparent: true,
