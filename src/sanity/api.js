@@ -15,3 +15,5 @@ export async function getAllGallery(){
 
     return gallery
 }
+
+export default client

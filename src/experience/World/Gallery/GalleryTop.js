@@ -2,6 +2,11 @@ import Experienece from '../../Experience'
 
 import * as THREE from 'three'
 
+import urlForImage from '../../../sanity/imageBuilder'
+
+import thumbnailVertex from '../../Shaders/thumbnailPlate/vertex.glsl'
+import thumbnailFrag from '../../Shaders/thumbnailPlate/fragment.glsl'
+
 export default class GalleryTop {
     constructor(){
         this.experience = new Experienece()
@@ -12,9 +17,10 @@ export default class GalleryTop {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
 
-        this.galleryList = this.resources.galleryList
+        this.textureLoader = new THREE.TextureLoader()
 
-        console.log(this.galleryList.length)
+        this.galleryList = this.resources.galleryList
+        
 
         this.setScene()
         this.setCamera()
@@ -37,20 +43,30 @@ export default class GalleryTop {
     setThumbnail(){
         this.thumbnailPlateGroup = new THREE.Group()
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.2, 1.2)
+        this.gridSize = 9
 
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
-            thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial()
+            thumbnailData.thumbnailImage = this.textureLoader.load(urlForImage(item.thumbnailImage).url())
+            thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial({
+                vertexShader: thumbnailVertex,
+                fragmentShader: thumbnailFrag,
+                uniforms:{
+                    uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
+                    uOpacity: new THREE.Uniform(.1)
+                },
+                transparent: true,
+            })
             thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
 
-            thumbnailData.thumbnailPlate.position.x =(i % (this.galleryList.length / 9) * 2)
-            thumbnailData.thumbnailPlate.position.y = -( Math.floor( i / (this.galleryList.length / 5) ) % (this.galleryList.length / 5) ) * 2
+            thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * 2
+            thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * 2
 
             this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
         })
 
-        this.thumbnailPlateGroup.position.x = - ((this.galleryList.length / 9) * 2) * .5 + 1
-        this.thumbnailPlateGroup.position.y = ((this.galleryList.length / 5) * .5) - .5
+        this.thumbnailPlateGroup.position.x = - this.gridSize * .5 + .5
+        this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
 
         this.scene.add(this.thumbnailPlateGroup)
     }
