@@ -12,11 +12,13 @@ export default class GalleryTop {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
 
-        console.log(this.resources.galleryList)
+        this.galleryList = this.resources.galleryList
+
+        console.log(this.galleryList.length)
 
         this.setScene()
         this.setCamera()
-        this.setCube()
+        this.setThumbnail()
     }
 
     setScene(){
@@ -32,12 +34,25 @@ export default class GalleryTop {
         this.scene.add(this.camera)
     }
 
-    setCube(){
-        this.testCube = new THREE.Mesh(
-            new THREE.BoxGeometry(1, 1, 1),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-        )
-        this.scene.add(this.testCube)
+    setThumbnail(){
+        this.thumbnailPlateGroup = new THREE.Group()
+        this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.2, 1.2)
+
+        this.galleryList.forEach((item, i) => {
+            const thumbnailData = {}
+            thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial()
+            thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
+
+            thumbnailData.thumbnailPlate.position.x =(i % (this.galleryList.length / 9) * 2)
+            thumbnailData.thumbnailPlate.position.y = -( Math.floor( i / (this.galleryList.length / 5) ) % (this.galleryList.length / 5) ) * 2
+
+            this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+        })
+
+        this.thumbnailPlateGroup.position.x = - ((this.galleryList.length / 9) * 2) * .5 + 1
+        this.thumbnailPlateGroup.position.y = ((this.galleryList.length / 5) * .5) - .5
+
+        this.scene.add(this.thumbnailPlateGroup)
     }
 
     resize(){
