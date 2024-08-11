@@ -331,11 +331,19 @@
   text-align: center;
   opacity: 0;
   transition: opacity 0.5s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 
 .gallery-bracket {
   opacity: 0;
   transition: opacity 0.5s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 
 .gallery-link:hover .gallery-title {

@@ -16,6 +16,7 @@ export default class GalleryTop {
         this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
+        this.drag = this.experience.drag
 
         this.textureLoader = new THREE.TextureLoader()
 
@@ -124,14 +125,17 @@ export default class GalleryTop {
             this.mainDom = document.getElementById('gallery-top')
         }
 
-        // this.thumbnailPlateList.forEach(object => {
-        //     const screenPosition = object.thumbnailPlate.position.clone()
-        //     screenPosition.project(this.camera)
+        this.thumbnailPlateList.forEach(object => {
+            object.thumbnailPlate.position.x -= this.drag.diffX / this.sizes.width
+            object.thumbnailPlate.position.y += this.drag.diffY / this.sizes.height
 
-        //     const translateX = (screenPosition.x - .265) * this.sizes.width * .5
-        //     const translateY = - (screenPosition.y + 1.4) * this.sizes.height * .5
+            const screenPosition = object.thumbnailPlate.position.clone()
+            screenPosition.project(this.camera)
 
-        //     object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-        // })
+            const translateX = (screenPosition.x - .23) * this.sizes.width * .5
+            const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
+
+            object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+        })
     }
 }

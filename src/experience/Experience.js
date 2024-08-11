@@ -4,6 +4,7 @@ import Time from "./Utils/Time"
 import Renderer from "./Renderer.js"
 import Resources from "./Utils/Resources.js"
 import PageChange from './Utils/PageChange.js'
+import Drag from "./Utils/Drag.js"
 import Scroll from "./Utils/Scroll.js"
 import sources from './sources.js'
 
@@ -27,6 +28,7 @@ export default class Experience{
         this.pageChange = new PageChange()
         this.scroll = new Scroll()
         this.cursor = new Cursor()
+        this.drag = new Drag()
         this.time = new Time()
         this.resources = new Resources(sources)
         this.renderer = new Renderer()

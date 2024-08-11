@@ -15,11 +15,15 @@
     text-align: center;
     opacity: 0;
     transition: opacity .5s ease;
+    user-select: none;
+    pointer-events: none;
 }
 
 .gallery-bracket{
     opacity: 0;
     transition: opacity .5s ease;
+    user-select: none;
+    pointer-events: none;
 }
 
 .gallery-link:hover .gallery-title{
