@@ -56,6 +56,8 @@ export default class GalleryTop {
             thumbnailData.image = new Image()
             thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
 
+            thumbnailData.item = item
+
             thumbnailData.image.onload = () => {
                 thumbnailData.imageSize = new THREE.Vector2(thumbnailData.image.width, thumbnailData.image.height)
 
@@ -79,11 +81,11 @@ export default class GalleryTop {
                 this.thumbnailPlateList.push(thumbnailData)
                 this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
 
-                const screenPosition = thumbnailData.thumbnailPlate.position.clone()
-                screenPosition.project(this.camera)
+                thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
+                thumbnailData.screenPosition.project(this.camera)
 
-                const translateX = (screenPosition.x - .74) * this.sizes.width * .5
-                const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
+                const translateX = (thumbnailData.screenPosition.x - .74) * this.sizes.width * .5
+                const translateY = - (thumbnailData.screenPosition.y + 1.35) * this.sizes.height * .5
 
                 thumbnailData.anchorButton = document.createElement('a')
                 thumbnailData.anchorButton.style.width = '420px'
@@ -108,9 +110,29 @@ export default class GalleryTop {
                 thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
 
                 window.setTimeout(() => {
-                    this.mainDom.appendChild(thumbnailData.anchorButton)
+                    if(this.mainDom){
+                        this.mainDom.appendChild(thumbnailData.anchorButton)
+                    }
                 }, 500)
             }
+        })
+
+        this.pageChange.on('pageChange', () => {
+            this.mainDom = document.getElementById('gallery-top')
+
+            this.thumbnailPlateList.forEach((object) => {
+                const translateX = (object.screenPosition.x - .74) * this.sizes.width * .5
+                const translateY = - (object.screenPosition.y + 1.35) * this.sizes.height * .5
+
+                object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+
+                window.setTimeout(() => {
+                    if(this.mainDom){
+                        this.mainDom.appendChild(object.anchorButton)
+                    }
+                }, 500)
+            })
+
         })
 
         this.thumbnailPlateGroup.position.x = - this.gridSize * .5 - 1.5
@@ -125,11 +147,6 @@ export default class GalleryTop {
     }
 
     update(){
-    
-        if(this.mainDom === null){
-            this.mainDom = document.getElementById('gallery-top')
-        }
-
         this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 
