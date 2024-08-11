@@ -23,6 +23,9 @@ export default class GalleryTop {
         this.galleryList = this.resources.galleryList
         this.mainDom = document.getElementById('gallery-top')
 
+        this.finalPosX = 0
+        this.finalPosY = 0
+
         this.setScene()
         this.setCamera()
         this.setThumbnail()
@@ -79,7 +82,7 @@ export default class GalleryTop {
                 const screenPosition = thumbnailData.thumbnailPlate.position.clone()
                 screenPosition.project(this.camera)
 
-                const translateX = (screenPosition.x + 1.25) * this.sizes.width * .5
+                const translateX = (screenPosition.x - .74) * this.sizes.width * .5
                 const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
 
                 thumbnailData.anchorButton = document.createElement('a')
@@ -127,12 +130,14 @@ export default class GalleryTop {
             this.mainDom = document.getElementById('gallery-top')
         }
 
-        
+        this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
+        this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 
-        this.thumbnailPlateList.forEach((object, i) => {
-            object.thumbnailPlate.position.x = ((-this.drag.diffX / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
+        this.thumbnailPlateList.forEach((object) => {
+
+            object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
             
-            object.thumbnailPlate.position.y = ((this.drag.diffY / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+            object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
 
             const screenPosition = object.thumbnailPlate.position.clone()
             screenPosition.project(this.camera)
@@ -142,5 +147,8 @@ export default class GalleryTop {
 
             object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
         })
+
+        this.drag.diffX = 0
+        this.drag.diffY = 0
     }
 }
