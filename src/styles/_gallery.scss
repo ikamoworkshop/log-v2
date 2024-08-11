@@ -7,21 +7,21 @@
     align-items: center;
     text-align: center;
 
-    // background-color: #ffffff20;
+    background-color: #ffffff20;
 }
 
 .gallery-title{
     max-width: 240px;
     text-align: center;
     opacity: 0;
-    transition: opacity .5s ease;
+    transition: opacity 1s ease;
     user-select: none;
     pointer-events: none;
 }
 
 .gallery-bracket{
     opacity: 0;
-    transition: opacity .5s ease;
+    transition: opacity 1s ease;
     user-select: none;
     pointer-events: none;
 }

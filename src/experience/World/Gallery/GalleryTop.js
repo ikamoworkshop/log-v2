@@ -46,6 +46,7 @@ export default class GalleryTop {
         this.thumbnailPlateList = []
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
+        this.gridGap = 2
 
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
@@ -69,8 +70,8 @@ export default class GalleryTop {
                 })
                 thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
 
-                thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * 2
-                thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * 2
+                thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * this.gridGap
+                thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
 
                 this.thumbnailPlateList.push(thumbnailData)
                 this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
@@ -78,7 +79,7 @@ export default class GalleryTop {
                 const screenPosition = thumbnailData.thumbnailPlate.position.clone()
                 screenPosition.project(this.camera)
 
-                const translateX = (screenPosition.x - .23) * this.sizes.width * .5
+                const translateX = (screenPosition.x + 1.25) * this.sizes.width * .5
                 const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
 
                 thumbnailData.anchorButton = document.createElement('a')
@@ -109,7 +110,7 @@ export default class GalleryTop {
             }
         })
 
-        this.thumbnailPlateGroup.position.x = - this.gridSize * .5 + .5
+        this.thumbnailPlateGroup.position.x = - this.gridSize * .5 - 1.5
         this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
 
         this.scene.add(this.thumbnailPlateGroup)
@@ -121,19 +122,22 @@ export default class GalleryTop {
     }
 
     update(){
+    
         if(this.mainDom === null){
             this.mainDom = document.getElementById('gallery-top')
         }
 
+        
 
-        this.thumbnailPlateList.forEach(object => {
-            object.thumbnailPlate.position.x -= this.drag.diffX / this.sizes.width
-            object.thumbnailPlate.position.y += this.drag.diffY / this.sizes.height
+        this.thumbnailPlateList.forEach((object, i) => {
+            object.thumbnailPlate.position.x = ((-this.drag.diffX / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
+            
+            object.thumbnailPlate.position.y = ((this.drag.diffY / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
 
             const screenPosition = object.thumbnailPlate.position.clone()
             screenPosition.project(this.camera)
 
-            const translateX = (screenPosition.x - .23) * this.sizes.width * .5
+            const translateX = (screenPosition.x - .74) * this.sizes.width * .5
             const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
 
             object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
