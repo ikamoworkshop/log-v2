@@ -125,6 +125,7 @@ export default class GalleryTop {
             this.mainDom = document.getElementById('gallery-top')
         }
 
+
         this.thumbnailPlateList.forEach(object => {
             object.thumbnailPlate.position.x -= this.drag.diffX / this.sizes.width
             object.thumbnailPlate.position.y += this.drag.diffY / this.sizes.height
