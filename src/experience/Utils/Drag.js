@@ -31,9 +31,7 @@ export default class Drag extends EventEmitter {
 
             this.allButtons = document.getElementsByTagName('a')
             for(let i = 0; i < this.allButtons.length; i++){
-                this.allButtons[i].addEventListener('mousedown', (e) => {
-                    e.preventDefault()
-                })
+                this.allButtons[i].classList.add('temp-disabled')
             }
         })
     }
@@ -44,6 +42,11 @@ export default class Drag extends EventEmitter {
             this.mousePosY = 0
             this.diffX = 0
             this.diffY = 0
+
+            this.allButtons = document.getElementsByTagName('a')
+            for(let i = 0; i < this.allButtons.length; i++){
+                this.allButtons[i].classList.remove('temp-disabled')
+            }
         })
     }
 }

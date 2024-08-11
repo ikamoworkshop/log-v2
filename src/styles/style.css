@@ -354,6 +354,10 @@
   opacity: 0.2;
 }
 
+.temp-disabled {
+  pointer-events: none;
+}
+
 * {
   box-sizing: border-box;
   text-rendering: geometricPrecision;
