@@ -15,7 +15,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/visual-editing": "^2.1.8",
     "@unseenco/taxi": "^1.6.0",
-    "astro": "^4.11.3",
+    "astro": "^4.14.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sanity": "^3.53.0",
