@@ -13,6 +13,12 @@ export default class TestCube {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
 
+        this.galleryList = this.resources.galleryList
+        this.gallerySlugList = []
+        this.galleryList.forEach(item => {
+            this.gallerySlugList.push("/gallery/" + item.slug.current)
+        })
+
         this.setScene()
         this.setCamera()
         this.setModel()
@@ -42,26 +48,58 @@ export default class TestCube {
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFaceGroup.position.set(0, 0, 0)
-        } else if(this.pageChange.prevPage === '/about'){
+        }
+        
+        else if(this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFaceGroup.position.y = -2
-        } else if(this.pageChange.prevPage === '/gallery'){
+        }
+        
+        else if(this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFaceGroup.position.y = 0
             this.renderedFace.visible = false
+        }
+
+        else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.set(0, 0, 0)
         } 
+        
+        else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.set(0, 0, 0)
+        }
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.set(0, 0, 0)
-            } else if(this.pageChange.prevPage === '/about'){
+                this.renderedFace.visible = true
+            }
+            
+            else if(this.pageChange.prevPage === '/about'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.y = -2
-            } else if(this.pageChange.prevPage === '/gallery'){
+                this.renderedFace.visible = true
+            }
+
+            else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.set(0, 0, 0)
+                this.renderedFace.visible = true
+            } 
+            
+            else if(this.pageChange.prevPage === '/gallery'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.y = 0
                 this.renderedFace.visible = false
+            }
+            
+            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.set(0, 0, 0)
+                this.renderedFace.visible = true
             }
         })
 

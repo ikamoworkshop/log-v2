@@ -4,6 +4,7 @@ import HomeContent from './World/Home/HomeContent.js'
 import NotFound from './World/NotFound/NotFound.js'
 import AboutContent from './World/About/AboutContent.js'
 import GalleryTop from './World/Gallery/GalleryTop.js'
+import GalleryView from './World/Gallery/GalleryView.js'
 
 import * as THREE from 'three'
 
@@ -22,6 +23,12 @@ export default class Renderer{
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
 
+        this.galleryList = this.resources.galleryList
+        this.gallerySlugList = []
+        this.galleryList.forEach(item => {
+            this.gallerySlugList.push("/gallery/" + item.slug.current)
+        })
+
         this.resources.on('ready', () => {
             // Setup
             this.face = new Face()
@@ -33,6 +40,7 @@ export default class Renderer{
             this.homeContent = new HomeContent()
             this.aboutContent = new AboutContent()
             this.galleryTop = new GalleryTop()
+            this.galleryView = new GalleryView()
             this.notFound = new NotFound()
 
             this.setInstance()
@@ -65,16 +73,26 @@ export default class Renderer{
         if(this.pageChange.prevPage === '/'){
             this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
             this.composer.addPass(this.HomePass)
-        } else if(this.pageChange.prevPage === '/about'){
+        } 
+
+        else if(this.pageChange.prevPage === '/about'){
             this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
             this.composer.addPass(this.AboutPass)
-        } else if(this.pageChange.prevPage === '/gallery'){
+        } 
+
+        else if(this.pageChange.prevPage === '/gallery'){
             this.GalleryTopPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
             this.composer.addPass(this.GalleryTopPass)
-        } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
-            this.composer.removePass(this.composer.passes[0])
+        } 
+
+        else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+            this.GalleryViewPass = new RenderPass(this.galleryView.scene, this.galleryView.camera)
+            this.composer.addPass(this.GalleryViewPass)
+        } 
+        
+        else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
-            this.composer.insertPass(this.notFoundPass, 0)
+            this.composer.addPass(this.notFoundPass)
         }
 
         this.pageChange.on('pageChange', () => {
@@ -83,17 +101,30 @@ export default class Renderer{
                 this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
                 this.composer.insertPass(this.HomePass, 0)
                 document.body.style.cursor = 'default'
-            } else if(this.pageChange.prevPage === '/about'){
+            }
+            
+            else if(this.pageChange.prevPage === '/about'){
                 this.composer.removePass(this.composer.passes[0])
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
                 document.body.style.cursor = 'default'
-            } else if(this.pageChange.prevPage === '/gallery'){
+            }
+            
+            else if(this.pageChange.prevPage === '/gallery'){
                 this.composer.removePass(this.composer.passes[0])
                 this.GalleryTopPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
                 this.composer.insertPass(this.GalleryTopPass, 0)
                 document.body.style.cursor = 'grab'
-            } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+            } 
+
+            else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.composer.removePass(this.composer.passes[0])
+                this.GalleryViewPass = new RenderPass(this.galleryView.scene, this.galleryView.camera)
+                this.composer.insertPass(this.GalleryViewPass, 0)
+                document.body.style.cursor = 'default'
+            } 
+            
+            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.composer.removePass(this.composer.passes[0])
                 this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
                 this.composer.insertPass(this.notFoundPass, 0)
@@ -131,15 +162,27 @@ export default class Renderer{
                 this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-            } else if(this.pageChange.prevPage === '/about'){
+            }
+            
+            else if(this.pageChange.prevPage === '/about'){
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-            } else if(this.pageChange.prevPage === '/gallery'){
+            }
+            
+            else if(this.pageChange.prevPage === '/gallery'){
                 this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-            } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
+            }
+
+            else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.composer.render(this.galleryView.scene, this.galleryView.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            } 
+            
+            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
@@ -147,7 +190,6 @@ export default class Renderer{
 
             this.instance.clear()
             this.instance.render(this.scene, this.camera)
-            
         }
     }
 }
