@@ -84,8 +84,8 @@ export default class GalleryTop {
                 thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
                 thumbnailData.screenPosition.project(this.camera)
 
-                const translateX = (thumbnailData.screenPosition.x - .74) * this.sizes.width * .5
-                const translateY = - (thumbnailData.screenPosition.y + 1.35) * this.sizes.height * .5
+                const translateX = (thumbnailData.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
+                const translateY = - (thumbnailData.screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
 
                 thumbnailData.anchorButton = document.createElement('a')
                 thumbnailData.anchorButton.style.width = '420px'
@@ -94,7 +94,7 @@ export default class GalleryTop {
                 thumbnailData.anchorButton.href = `/gallery/` + item.slug.current
                 thumbnailData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
 
-                thumbnailData.leftBracket = document.createElement('div')
+                thumbnailData.leftBracket = document.createElement('p')
                 thumbnailData.leftBracket.textContent = '['
                 thumbnailData.leftBracket.classList.add('text-light', 'title', 'gallery-bracket')
                 thumbnailData.anchorButton.appendChild(thumbnailData.leftBracket)
@@ -104,7 +104,7 @@ export default class GalleryTop {
                 thumbnailData.title.classList.add('text-light', 'subtitle-bold', 'gallery-title')
                 thumbnailData.anchorButton.appendChild(thumbnailData.title)
 
-                thumbnailData.rightBracket = document.createElement('div')
+                thumbnailData.rightBracket = document.createElement('p')
                 thumbnailData.rightBracket.textContent = ']'
                 thumbnailData.rightBracket.classList.add('text-light', 'title', 'gallery-bracket')
                 thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
@@ -121,8 +121,8 @@ export default class GalleryTop {
             this.mainDom = document.getElementById('gallery-top')
 
             this.thumbnailPlateList.forEach((object) => {
-                const translateX = (object.screenPosition.x - .74) * this.sizes.width * .5
-                const translateY = - (object.screenPosition.y + 1.35) * this.sizes.height * .5
+                const translateX = (object.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
+                const translateY = - (object.screenPosition.y + (this.gridSize * .25) - (this.gridGap * .16)) * this.sizes.height * .5
 
                 object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
 
@@ -159,8 +159,8 @@ export default class GalleryTop {
             const screenPosition = object.thumbnailPlate.position.clone()
             screenPosition.project(this.camera)
 
-            const translateX = (screenPosition.x - .74) * this.sizes.width * .5
-            const translateY = - (screenPosition.y + 1.35) * this.sizes.height * .5
+            const translateX = (screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
+            const translateY = - (screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
 
             object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
         })
