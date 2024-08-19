@@ -82,18 +82,22 @@ export default class Renderer{
                 this.composer.removePass(this.composer.passes[0])
                 this.HomePass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
                 this.composer.insertPass(this.HomePass, 0)
+                document.body.style.cursor = 'default'
             } else if(this.pageChange.prevPage === '/about'){
                 this.composer.removePass(this.composer.passes[0])
                 this.AboutPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.composer.insertPass(this.AboutPass, 0)
+                document.body.style.cursor = 'default'
             } else if(this.pageChange.prevPage === '/gallery'){
                 this.composer.removePass(this.composer.passes[0])
                 this.GalleryTopPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
                 this.composer.insertPass(this.GalleryTopPass, 0)
+                document.body.style.cursor = 'grab'
             } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.composer.removePass(this.composer.passes[0])
                 this.notFoundPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
                 this.composer.insertPass(this.notFoundPass, 0)
+                document.body.style.cursor = 'default'
             }
         })
 
@@ -135,7 +139,6 @@ export default class Renderer{
                 this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
-                document.body.style.cursor = 'grab'
             } else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace

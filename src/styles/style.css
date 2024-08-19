@@ -381,6 +381,7 @@ html {
   font-optical-sizing: auto;
   text-rendering: geometricPrecision;
   overflow: hidden;
+  cursor: default;
 }
 
 button {
