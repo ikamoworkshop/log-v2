@@ -13,6 +13,13 @@ const { gallery } = Astro.props
 
 <MainLayout title="IKAMO[LOG] | Gallery">
     <main data-taxi-view>
-        <h1 class="text-light">{gallery.name}</h1>
+
+        <div class="gallery-view-title flex justify-center align-center justify-between">
+            <p class="text-light index gallery-view-bracket">[</p>
+            <h1 class="gallery-view-title-text text-light caption-bold">{gallery.name}</h1>
+            <p class="text-light index gallery-view-bracket">]</p>
+        </div>
+
+        
     </main>
 </MainLayout>

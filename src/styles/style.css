@@ -364,6 +364,23 @@
   pointer-events: none;
 }
 
+.gallery-view-title {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  text-align: center;
+}
+
+.gallery-view-title-text {
+  width: 120px;
+}
+
+.gallery-view-bracket {
+  opacity: 0.2;
+}
+
 * {
   box-sizing: border-box;
   text-rendering: geometricPrecision;
