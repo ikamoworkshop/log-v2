@@ -40,11 +40,9 @@ export default class GalleryView {
 
     getImage(){
         this.pageImage = document.querySelectorAll('.gallery-view img')
-        console.log(this.pageImage)
 
         this.pageChange.on('pageChange', () => {
             this.pageImage = document.querySelectorAll('.gallery-view img')
-            console.log(this.pageImage)
         })
     }
 
@@ -71,7 +69,6 @@ export default class GalleryView {
                 // Page switch needs a delay, which will add through transition
                 while(this.scene.children.length > 0){
                     this.scene.remove(this.scene.children[0])
-                    console.log(child)
                 }
         })
 
@@ -104,7 +101,7 @@ export default class GalleryView {
                 transparent: true,
             })
             imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
-            imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+            imageData.imageMesh.scale.set(imageData.finalScaleX - .5, imageData.finalScaleY, 0)
 
             imageData.imageMesh.position.x = imageData.finalScaleX * (i * this.imageGap)
             imageData.imageMesh.position.y = i % 3 - 1
@@ -112,8 +109,6 @@ export default class GalleryView {
             this.imageGroup.add(imageData.imageMesh)
 
             this.imageList.push(imageData)
-
-            console.log(imageData)
         })
         this.imageGroup.position.x = -(this.pageImage.length * 1)
         this.scene.add(this.imageGroup)
@@ -205,7 +200,7 @@ export default class GalleryView {
     update(){
         if(this.pageImage.length === this.imageList.length){
             this.imageList.forEach((object, i) => {
-                object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 6) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
+                object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
                 // console.log(this.imageList.length)
             })
         }

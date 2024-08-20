@@ -4,7 +4,7 @@ uniform vec2 uImageSize;
 uniform vec2 uPlaneSize;
 
 varying vec2 vUv;
-
+varying vec2 roundUv;
 
 vec2 getUv(vec2 uv, vec2 texureSize, vec2 planeSize){
 	vec2 tempUV = uv - vec2(.5);
@@ -26,7 +26,7 @@ vec2 getUv(vec2 uv, vec2 texureSize, vec2 planeSize){
 void main(){
     vec2 newUv = getUv(vUv, uImageSize, uPlaneSize);
     vec2 editUv = vUv;
-    float distanceToCenter = length(editUv - vec2(.5));
+    float distanceToCenter = length(roundUv - vec2(.5));
 
     if(distanceToCenter > .5)
         discard;

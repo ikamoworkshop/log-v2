@@ -6,20 +6,20 @@ import Image from "../../components/PortableImage.astro";
 import { getAllGallery } from '../../sanity/api'
 
 export async function getStaticPaths() {
-    const gallery = await getAllGallery();
-    return gallery.map(gallery => ({ params: { slug: gallery.slug.current }, props: { gallery } }));
+    const gallery = await getAllGallery()
+    return gallery.map(gallery => ({ params: { slug: gallery.slug.current }, props: { gallery } }))
 };
 
 const { gallery } = Astro.props
 
 const components = {
-  type: {
-    image: Image
-  }
+    type: {
+        image: Image
+    }
 };
 ---
 
-<MainLayout title="IKAMO[LOG] | Gallery">
+<MainLayout title={"IKAMO[LOG] | G" + gallery.name}>
     <main data-taxi-view class="gallery-view">
 
         <div class="gallery-view-title flex justify-center align-center justify-between">
