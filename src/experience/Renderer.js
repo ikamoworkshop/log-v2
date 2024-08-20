@@ -118,6 +118,7 @@ export default class Renderer{
             } 
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.instance.clear()
                 this.composer.removePass(this.composer.passes[0])
                 this.GalleryViewPass = new RenderPass(this.galleryView.scene, this.galleryView.camera)
                 this.composer.insertPass(this.GalleryViewPass, 0)

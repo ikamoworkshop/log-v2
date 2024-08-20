@@ -41,6 +41,11 @@ export default class GalleryView {
     getImage(){
         this.pageImage = document.querySelectorAll('.gallery-view img')
         console.log(this.pageImage)
+
+        this.pageChange.on('pageChange', () => {
+            this.pageImage = document.querySelectorAll('.gallery-view img')
+            console.log(this.pageImage)
+        })
     }
 
     setImage(){
@@ -50,6 +55,27 @@ export default class GalleryView {
         this.imageList = []
         this.camUnit = this.calculateUniteSize(this.camera.position.z)
         this.imageSizeMultiplier = .5
+
+        this.scene.traverse((child) =>
+            {
+                if(child instanceof THREE.Mesh){
+                    child.geometry.dispose()
+                    for(const key in child.material){
+                        const value = child.material[key]
+                        if(value && typeof value.dispose === 'function')
+                        {
+                            value.dispose();
+                        }
+                    }
+                }
+                // Page switch needs a delay, which will add through transition
+                while(this.scene.children.length > 0){
+                    this.scene.remove(this.scene.children[0])
+                    console.log(child)
+                }
+        })
+
+        this.scene.remove(this.imageGroup)
         
         this.pageImage.forEach((image, i) => {
             const imageData = {}
@@ -91,6 +117,76 @@ export default class GalleryView {
         })
         this.imageGroup.position.x = -(this.pageImage.length * 1)
         this.scene.add(this.imageGroup)
+
+        this.pageChange.on('pageChange', () => {
+            this.imageList = []
+
+            this.scene.traverse((child) =>
+                {
+                    if(child instanceof THREE.Mesh){
+                        child.geometry.dispose()
+                        for(const key in child.material){
+                            const value = child.material[key]
+                            if(value && typeof value.dispose === 'function')
+                            {
+                                value.dispose();
+                            }
+                        }
+                    }
+                    // Page switch needs a delay, which will add through transition
+                    while(this.scene.children.length > 0){
+                        this.scene.remove(this.scene.children[0])
+                        console.log(child)
+                    }
+            })
+
+            this.scene.remove(this.imageGroup)
+
+            this.pageImage.forEach((image, i) => {
+                image.onload = () => {
+                    const imageData = {}
+    
+                    imageData.image = image
+                    imageData.texture = this.textureLoader.load(imageData.image.src)
+                    imageData.imageBooundingData = image.getBoundingClientRect()
+        
+                    const x = imageData.imageBooundingData.width / this.sizes.width
+                    const y = imageData.imageBooundingData.height / this.sizes.height
+        
+                    if(!x || !y){
+                        console.log('Invalid image size')
+                        return
+                    }
+        
+                    imageData.finalScaleX = this.camUnit.width * x * this.imageSizeMultiplier
+                    imageData.finalScaleY = this.camUnit.height * y * this.imageSizeMultiplier
+        
+                    imageData.imageMaterial = new THREE.ShaderMaterial({
+                        vertexShader: imagePlateVer,
+                        fragmentShader: imagePlateFrag,
+                        uniforms: {
+                            uTexture: new THREE.Uniform(imageData.texture),
+                            uOpacity: new THREE.Uniform(.1)
+                        },
+                        transparent: true,
+                    })
+                    imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
+                    imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+        
+                    imageData.imageMesh.position.x = imageData.finalScaleX * (i * this.imageGap)
+                    imageData.imageMesh.position.y = i % 3 - 1
+        
+                    this.imageGroup.add(imageData.imageMesh)
+        
+                    this.imageList.push(imageData)
+                }
+                
+            this.imageGroup.position.x = -(this.pageImage.length * 1)
+            this.scene.add(this.imageGroup)
+            })
+
+
+        })
     }
 
     calculateUniteSize(distance){
@@ -100,9 +196,18 @@ export default class GalleryView {
         return { width, height }
     }
 
-    update(){
-        this.imageList.forEach(object => {
-            object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 6) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
+    removeItem(){
+        this.pageChange.on('pageChange', () => {
+            this.scene.remove(this.imageGroup)
         })
+    }
+
+    update(){
+        if(this.pageImage.length === this.imageList.length){
+            this.imageList.forEach((object, i) => {
+                object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 6) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
+                // console.log(this.imageList.length)
+            })
+        }
     }
 }
