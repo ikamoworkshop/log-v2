@@ -2,6 +2,9 @@ import Experienece from '../../Experience'
 
 import * as THREE from 'three'
 
+import imagePlateVer from '../../Shaders/imagePlate/vertex.glsl'
+import imagePlateFrag from '../../Shaders/imagePlate/fragment.glsl'
+
 export default class GalleryView {
     constructor(){
         this.experience = new Experienece()
@@ -13,9 +16,13 @@ export default class GalleryView {
         this.cursor = this.experience.cursor
         this.drag = this.experience.drag
 
+        this.textureLoader = new THREE.TextureLoader()
+
+
         this.setScene()
         this.setCamera()
-        this.setCube()
+        this.getImage()
+        this.setImage()
     }
 
     setScene(){
@@ -31,8 +38,54 @@ export default class GalleryView {
         this.scene.add(this.camera)
     }
 
-    setCube(){
-        this.cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial())
-        this.scene.add(this.cube)
+    getImage(){
+        this.pageImage = document.querySelectorAll('.gallery-view img')
+        console.log(this.pageImage)
+    }
+
+    setImage(){
+        this.imagePlaneGeometry = new THREE.PlaneGeometry(1, 1, 1, 1)
+        this.camUnit = this.calculateUniteSize(this.camera.position.z)
+        this.imageSizeMultiplier = .25
+        
+        this.pageImage.forEach((image) => {
+            const imageData = {}
+
+            imageData.image = image
+            imageData.texture = this.textureLoader.load(imageData.image.src)
+            imageData.imageBooundingData = image.getBoundingClientRect()
+
+            const x = imageData.imageBooundingData.width / this.sizes.width
+            const y = imageData.imageBooundingData.height / this.sizes.height
+
+            if(!x || !y){
+                return
+            }
+
+            imageData.finalScaleX = this.camUnit.width * x * this.imageSizeMultiplier
+            imageData.finalScaleY = this.camUnit.height * y * this.imageSizeMultiplier
+
+            imageData.imageMaterial = new THREE.ShaderMaterial({
+                vertexShader: imagePlateVer,
+                fragmentShader: imagePlateFrag,
+                uniforms: {
+                    uTexture: new THREE.Uniform(imageData.texture),
+                    uOpacity: new THREE.Uniform(.1)
+                },
+                transparent: true,
+            })
+            imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
+            imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+            this.scene.add(imageData.imageMesh)
+
+            console.log(imageData)
+        })
+    }
+
+    calculateUniteSize(distance){
+        const vFov = this.camera.fov * Math.PI / 180
+        const height = 2 * Math.tan(vFov / 2) * distance
+        const width = height * this.camera.aspect
+        return { width, height }
     }
 }

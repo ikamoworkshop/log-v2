@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import imagePlateVer from '../../Shaders/imagePlate/vertex.glsl'
 import imagePlateFrag from '../../Shaders/imagePlate/fragment.glsl'
 
-export default class NotFound {
+export default class AboutContent {
     constructor(){
         this.experience = new Experience()
         this.pageChange = this.experience.pageChange
@@ -56,8 +56,9 @@ export default class NotFound {
     getImage(){
         this.images = document.querySelectorAll('.about-container img')
 
+        console.log(this.images)
+
         this.pageChange.on('pageChange', () => {
-            this.images = document.querySelectorAll('.about-container img')
             this.images.forEach((image) => {
                 image.classList.add('gl')
             })

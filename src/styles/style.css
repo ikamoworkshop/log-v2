@@ -381,6 +381,10 @@
   opacity: 0.2;
 }
 
+.gallery-images {
+  opacity: 0;
+}
+
 * {
   box-sizing: border-box;
   text-rendering: geometricPrecision;
