@@ -54,10 +54,10 @@ export default class NotFound {
     }
 
     getImage(){
-        this.images = document.querySelectorAll('img')
+        this.images = document.querySelectorAll('.about-container img')
 
         this.pageChange.on('pageChange', () => {
-            this.images = document.querySelectorAll('img')
+            this.images = document.querySelectorAll('.about-container img')
             this.images.forEach((image) => {
                 image.classList.add('gl')
             })

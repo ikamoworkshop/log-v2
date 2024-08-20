@@ -23,6 +23,8 @@ export default class GalleryTop {
         this.galleryList = this.resources.galleryList
         this.mainDom = document.getElementById('gallery-top')
 
+        console.log(this.galleryList)
+
         this.finalPosX = 0
         this.finalPosY = 0
 

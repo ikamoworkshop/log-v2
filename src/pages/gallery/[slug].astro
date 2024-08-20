@@ -1,5 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro'
+import { PortableText } from "astro-portabletext";
+import Image from "../../components/PortableImage.astro";
 
 import { getAllGallery } from '../../sanity/api'
 
@@ -9,6 +11,12 @@ export async function getStaticPaths() {
 };
 
 const { gallery } = Astro.props
+
+const components = {
+  type: {
+    image: Image
+  }
+};
 ---
 
 <MainLayout title="IKAMO[LOG] | Gallery">
@@ -20,6 +28,9 @@ const { gallery } = Astro.props
             <p class="text-light index gallery-view-bracket">]</p>
         </div>
 
-        
+        <PortableText
+            value={gallery.supportingImages}
+            components={components}
+        />
     </main>
 </MainLayout>
