@@ -12,6 +12,7 @@ export default class Scroll extends EventEmitter {
         this.scroll = 0
         this.scrollTarget = 0
         this.scrollPosition = 0
+        this.infiniteScroll = 0
         this.containerSize = null
 
         if(this.scrollContainer){
@@ -31,6 +32,7 @@ export default class Scroll extends EventEmitter {
     smoothScroll(){
         if(!this.scrollContainer){
             this.scrollPosition = 0
+            this.infiniteScroll = 0
         }
         // Reset Scroll
         this.scrollContainer = document.getElementById('scroll')
@@ -41,6 +43,7 @@ export default class Scroll extends EventEmitter {
 
         this.scroll -= (this.scroll - this.scrollTarget) * .1
         this.scrollPosition += this.scroll * 1.2
+        this.infiniteScroll += this.scroll * 1.2
         this.scrollTarget = 0
 
         this.scrollPosition = Math.max(0, Math.min(this.scrollPosition, this.containerSize - window.innerWidth))

@@ -45,10 +45,13 @@ export default class GalleryView {
 
     setImage(){
         this.imagePlaneGeometry = new THREE.PlaneGeometry(1, 1, 1, 1)
+        this.imageGap = 2
+        this.imageGroup = new THREE.Group()
+        this.imageList = []
         this.camUnit = this.calculateUniteSize(this.camera.position.z)
-        this.imageSizeMultiplier = .25
+        this.imageSizeMultiplier = .5
         
-        this.pageImage.forEach((image) => {
+        this.pageImage.forEach((image, i) => {
             const imageData = {}
 
             imageData.image = image
@@ -76,10 +79,18 @@ export default class GalleryView {
             })
             imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
             imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
-            this.scene.add(imageData.imageMesh)
+
+            imageData.imageMesh.position.x = imageData.finalScaleX * (i * this.imageGap)
+            imageData.imageMesh.position.y = i % 3 - 1
+
+            this.imageGroup.add(imageData.imageMesh)
+
+            this.imageList.push(imageData)
 
             console.log(imageData)
         })
+        this.imageGroup.position.x = -(this.pageImage.length * 1)
+        this.scene.add(this.imageGroup)
     }
 
     calculateUniteSize(distance){
@@ -87,5 +98,11 @@ export default class GalleryView {
         const height = 2 * Math.tan(vFov / 2) * distance
         const width = height * this.camera.aspect
         return { width, height }
+    }
+
+    update(){
+        this.imageList.forEach(object => {
+            object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 6) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
+        })
     }
 }
