@@ -25,7 +25,6 @@ vec2 getUv(vec2 uv, vec2 texureSize, vec2 planeSize){
 
 void main(){
     vec2 newUv = getUv(vUv, uImageSize, uPlaneSize);
-    vec2 editUv = vUv;
     float distanceToCenter = length(roundUv - vec2(.5));
 
     if(distanceToCenter > .5)
