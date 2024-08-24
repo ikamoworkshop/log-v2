@@ -3,9 +3,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 
-import { getAllGallery } from '../../sanity/api'
+import { getAllGallery, getAllInsights } from '../../sanity/api'
 
 const galleryList = await getAllGallery()
+const insightsList = await getAllInsights()
 
 export default class Resource extends EventEmitter{
     constructor(sources){
@@ -16,8 +17,9 @@ export default class Resource extends EventEmitter{
         // Setup
         this.items = {}
         this.galleryList = galleryList
-        this.toLoad = this.sources.length;
-        this.loaded = 0;
+        this.insightsList = insightsList
+        this.toLoad = this.sources.length
+        this.loaded = 0
 
         // Loaders
         this.setLoader();

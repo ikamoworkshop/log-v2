@@ -16,4 +16,12 @@ export async function getAllGallery(){
     return gallery
 }
 
+export async function getAllInsights(){
+
+    const insights = await client.fetch(`*[_type == "insights"]`)
+    .catch(error => console.log(error))
+
+    return insights
+}
+
 export default client
