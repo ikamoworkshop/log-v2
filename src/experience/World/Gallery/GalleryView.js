@@ -43,7 +43,6 @@ export default class GalleryView {
 
         this.pageChange.on('pageChange', () => {
             this.pageImage = null
-            console.log(this.pageImage)
             this.pageImage = document.querySelectorAll('.gallery-view img')
         })
     }

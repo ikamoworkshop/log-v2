@@ -124,8 +124,6 @@ export default class AboutContent {
                             }
                         }
                     }
-                    // Page switch needs a delay, which will add through transition
-                    // this.aboutScene.remove(child)
             })
         })
 
