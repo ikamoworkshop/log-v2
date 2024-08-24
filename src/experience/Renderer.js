@@ -14,6 +14,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
+import { toFetchOptionsIterable } from 'sanity/migrate'
 
 export default class Renderer{
     constructor(){

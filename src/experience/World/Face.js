@@ -142,7 +142,9 @@ export default class TestCube {
     setRenderTarget(){
         this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
 
-        this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height)
+        this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height,{
+            samples: window.devicePixelRatio === 1 ? 2 : 0
+        })
 
         this.renderPlaneGeometry = new THREE.PlaneGeometry(1, 1)
         this.renderPlaneGeometry.scale(this.fovY * this.camera.aspect, this.fovY, 1)
