@@ -70,19 +70,22 @@ export default class Renderer{
     }
 
     setPostProcessing(){
-        this.renderPass = null
+        this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
         if(this.pageChange.prevPage === '/'){
-            this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
+            this.renderPass.scene = this.homeContent.HomeScene
+            this.renderPass.camera = this.homeContent.camera
             this.composer.addPass(this.renderPass)
         } 
 
         else if(this.pageChange.prevPage === '/about'){
-            this.renderPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
+            this.renderPass.scene = this.aboutContent.aboutScene
+            this.renderPass.camera = this.aboutContent.camera
             this.composer.addPass(this.renderPass)
         } 
 
         else if(this.pageChange.prevPage === '/gallery'){
-            this.renderPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
+            this.renderPass.scene = this.galleryTop.scene
+            this.renderPass.camera = this.galleryTop.camera
             this.composer.addPass(this.renderPass)
         } 
 
@@ -93,45 +96,44 @@ export default class Renderer{
         } 
         
         else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
-            this.renderPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
+            this.renderPass.scene = this.notFound.notFoundScene
+            this.renderPass.camera = this.notFound.camera
             this.composer.addPass(this.renderPass)
         }
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
-                this.composer.removePass(this.composer.passes[0])
-                this.renderPass = new RenderPass(this.homeContent.HomeScene, this.homeContent.camera)
-                this.composer.insertPass(this.renderPass, 0)
+                this.instance.clear()
+                this.renderPass.scene = this.homeContent.HomeScene
+                this.renderPass.camera = this.homeContent.camera
                 document.body.style.cursor = 'default'
             }
             
             else if(this.pageChange.prevPage === '/about'){
-                this.composer.removePass(this.composer.passes[0])
-                this.renderPass = new RenderPass(this.aboutContent.aboutScene, this.aboutContent.camera)
-                this.composer.insertPass(this.renderPass, 0)
+                this.instance.clear()
+                this.renderPass.scene = this.aboutContent.aboutScene
+                this.renderPass.camera = this.aboutContent.camera
                 document.body.style.cursor = 'default'
             }
             
             else if(this.pageChange.prevPage === '/gallery'){
-                this.composer.removePass(this.composer.passes[0])
-                this.renderPass = new RenderPass(this.galleryTop.scene, this.galleryTop.camera)
-                this.composer.insertPass(this.renderPass, 0)
+                this.instance.clear()
+                this.renderPass.scene = this.galleryTop.scene
+                this.renderPass.camera = this.galleryTop.camera
                 document.body.style.cursor = 'grab'
             } 
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
                 this.instance.clear()
-                this.composer.removePass(this.composer.passes[0])
                 this.renderPass.scene = this.galleryView.scene
                 this.renderPass.camera = this.galleryView.camera
-                this.composer.insertPass(this.renderPass, 0)
                 document.body.style.cursor = 'default'
             } 
             
             else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
-                this.composer.removePass(this.composer.passes[0])
-                this.renderPass = new RenderPass(this.notFound.notFoundScene, this.notFound.camera)
-                this.composer.insertPass(this.renderPass, 0)
+                this.instance.clear()
+                this.renderPass.scene = this.notFound.notFoundScene
+                this.renderPass.camera = this.notFound.camera
                 document.body.style.cursor = 'default'
             }
         })

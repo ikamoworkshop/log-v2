@@ -119,6 +119,8 @@ export default class GalleryView {
         this.pageChange.on('pageChange', () => {
             this.imageList = []
 
+            console.log(this.scene.children)
+
             this.scene.traverse((child) =>
                 {
                     if(child instanceof THREE.Mesh){
@@ -139,6 +141,8 @@ export default class GalleryView {
             })
 
             this.scene.remove(this.imageGroup)
+
+            console.log(this.scene.children)
 
             this.pageImage.forEach((image, i) => {
                 image.onload = () => {
