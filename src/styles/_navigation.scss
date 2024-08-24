@@ -18,6 +18,9 @@
 }
 
 .active-arrow{
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
     opacity: 0;
     transition: opacity .5 ease;
 }
