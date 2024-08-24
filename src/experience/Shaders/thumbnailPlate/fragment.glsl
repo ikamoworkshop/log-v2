@@ -2,6 +2,7 @@ uniform sampler2D uTexture;
 uniform float uOpacity;
 uniform vec2 uImageSize;
 uniform vec2 uPlaneSize;
+uniform sampler2D uGrainTexture;
 
 varying vec2 vUv;
 varying vec2 roundUv;
@@ -24,13 +25,16 @@ vec2 getUv(vec2 uv, vec2 texureSize, vec2 planeSize){
 }
 
 void main(){
+	vec4 grain = texture2D(uGrainTexture, roundUv);
+
     vec2 newUv = getUv(vUv, uImageSize, uPlaneSize);
     float distanceToCenter = length(roundUv - vec2(.5));
 
     if(distanceToCenter > .5)
         discard;
 
-    vec4 color = texture2D(uTexture, newUv);
+    vec2 displayUv = newUv + (grain.rg * .05);
+    vec4 color = texture2D(uTexture, displayUv);
     
     color.a = uOpacity;
 

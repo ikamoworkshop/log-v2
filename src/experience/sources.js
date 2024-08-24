@@ -68,5 +68,10 @@ export default [
         name: 'landingSeven',
         type: 'texture',
         path: '/texture/landing/landing-7.png'
+    },
+    {
+        name: 'grain',
+        type: 'texture',
+        path: '/texture/grain.jpg'
     }
 ]
