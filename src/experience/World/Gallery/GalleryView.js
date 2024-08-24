@@ -18,7 +18,6 @@ export default class GalleryView {
 
         this.textureLoader = new THREE.TextureLoader()
 
-
         this.setScene()
         this.setCamera()
         this.getImage()
@@ -35,7 +34,7 @@ export default class GalleryView {
     setCamera(){
         this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(0, 0, 5)
-        this.scene.add(this.camera)
+        // this.scene.add(this.camera)
     }
 
     getImage(){
@@ -56,26 +55,6 @@ export default class GalleryView {
         this.imageList = []
         this.camUnit = this.calculateUniteSize(this.camera.position.z)
         this.imageSizeMultiplier = .5
-
-        this.scene.traverse((child) =>
-            {
-                if(child instanceof THREE.Mesh){
-                    child.geometry.dispose()
-                    for(const key in child.material){
-                        const value = child.material[key]
-                        if(value && typeof value.dispose === 'function')
-                        {
-                            value.dispose();
-                        }
-                    }
-                }
-                // Page switch needs a delay, which will add through transition
-                while(this.scene.children.length > 0){
-                    this.scene.remove(this.scene.children[0])
-                }
-        })
-
-        this.scene.remove(this.imageGroup)
         
         this.pageImage.forEach((image, i) => {
             const imageData = {}
@@ -116,10 +95,9 @@ export default class GalleryView {
         this.imageGroup.position.x = -(this.pageImage.length * 1)
         this.scene.add(this.imageGroup)
 
+        // PAGE CHANGE
         this.pageChange.on('pageChange', () => {
             this.imageList = []
-
-            console.log(this.scene.children)
 
             this.scene.traverse((child) =>
                 {
@@ -133,16 +111,10 @@ export default class GalleryView {
                             }
                         }
                     }
-                    // Page switch needs a delay, which will add through transition
-                    while(this.scene.children.length > 0){
-                        this.scene.remove(this.scene.children[0])
-                        console.log(child)
-                    }
             })
 
             this.scene.remove(this.imageGroup)
-
-            console.log(this.scene.children)
+            this.imageGroup = new THREE.Group()
 
             this.pageImage.forEach((image, i) => {
                 image.onload = () => {
@@ -156,7 +128,6 @@ export default class GalleryView {
                     const y = imageData.imageBooundingData.height / this.sizes.height
         
                     if(!x || !y){
-                        console.log('Invalid image size')
                         return
                     }
         
@@ -186,8 +157,6 @@ export default class GalleryView {
             this.imageGroup.position.x = -(this.pageImage.length * 1)
             this.scene.add(this.imageGroup)
             })
-
-
         })
     }
 
