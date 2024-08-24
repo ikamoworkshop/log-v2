@@ -33,7 +33,12 @@ void main(){
     if(distanceToCenter > .5)
         discard;
 
-    vec2 displayUv = newUv + (grain.rg * .05);
+	float r = .49;
+	float g_out = pow(distanceToCenter/r, 110.);
+	float mag_out = .5 - cos(g_out - 1.0);
+	vec2 uvOut = distanceToCenter > r ? roundUv + mag_out * (roundUv - vec2(.5)) : roundUv;
+
+    vec2 displayUv = newUv + (grain.rg * .05) + uvOut * .1;
     vec4 color = texture2D(uTexture, displayUv);
     
     color.a = uOpacity;
