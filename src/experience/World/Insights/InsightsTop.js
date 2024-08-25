@@ -22,6 +22,8 @@ export default class InsightsTop {
 
         this.insightsList = this.resources.insightsList
 
+        this.targetPosition = new THREE.Vector2(0, 0)
+
         this.setScene()
         this.setCamera()
         this.setThumbnail()
@@ -81,13 +83,14 @@ export default class InsightsTop {
             }
         })
 
-        this.insightGroup.position.y = (2 * this.gridGap) * .5
+        this.insightGroup.position.y = (2 * this.gridGap)
         this.scene.add(this.insightGroup)
 
         console.log(this.insightPlateList.length)
     }
 
     update(){
+        this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
         
         if(this.insightsList.length === this.insightPlateList.length){
 
@@ -96,6 +99,10 @@ export default class InsightsTop {
             })
 
         }
+
+        this.targetPosition.lerp(this.normalizedCursor, .05)
+        this.insightGroup.position.x = (this.targetPosition.x * .5)
+        this.insightGroup.position.y = ((2 * this.gridGap) + this.targetPosition.y * .5)
 
     }
 }
