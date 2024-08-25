@@ -1,4 +1,14 @@
-import Experienece from '../Experience'
+import * as THREE from 'three'
+
+
+const easeOutSine = (t, b, c, d) => {
+    return c * Math.sin((t / d) * (Math.PI / 2)) + b;
+};
+
+const easeOutQuad = (t, b, c, d) => {
+    t /= d;
+    return -c * t * (t - 2) + b;
+};
 
 export default class WaterTexture{
     constructor(options){
@@ -8,6 +18,8 @@ export default class WaterTexture{
 
         this.points = []
         this.maxAge = 64
+
+        this.last = null
 
         if(options.debug){
             this.width = window.innerWidth
@@ -28,16 +40,35 @@ export default class WaterTexture{
         this.canvas.height = this.height
         this.ctx = this.canvas.getContext('2d')
         this.clear()
+
+        this.texture = new THREE.Texture(this.canvas)
     }
 
     addPoint(point){
+        let force = 0;
+        let vx = 0;
+        let vy = 0;
+        const last = this.last;
         
-
-        this.points.push({
+        if (last) {
+            const relativeX = point.x - last.x;
+            const relativeY = point.y - last.y;
+            // Distance formula
+            const distanceSquared = relativeX * relativeX + relativeY * relativeY;
+            const distance = Math.sqrt(distanceSquared);
+            // Calculate Unit Vector
+            vx = relativeX / distance;
+            vy = relativeY / distance;
+    
+          force = Math.min(distanceSquared * 10000, 1);
+        }
+    
+        this.last = {
             x: point.x,
-            y: point.y,
-            age: 0
-        })
+            y: point.y
+        }
+
+        this.points.push({ x: point.x, y: point.y, age: 0, force, vx, vy });
     }
 
     drawPoint(point){
@@ -46,13 +77,23 @@ export default class WaterTexture{
             y: point.y * this.height
         }
 
-        const radius = this.radius
+        const radius = this.radius * .7
 
         const ctx = this.ctx
         let intensity = 1.0
-        intensity = 1.0 - point.age / this.maxAge
+        if (point.age < this.maxAge * 0.3) {
+            intensity = easeOutSine(point.age / (this.maxAge * 0.3), 0, 1, 1);
+            } else {
+            intensity = easeOutQuad(
+                1 - (point.age - this.maxAge * 0.3) / (this.maxAge * 0.7),
+                0,
+                1,
+                1
+            );
+            }
+        intensity *= point.force;
 
-        let color = '255, 255, 255'
+        let color = `255, 255, 255`
 
         let offset = this.width * .5
         ctx.shadowOffsetX = offset
@@ -61,7 +102,7 @@ export default class WaterTexture{
         ctx.shadowColor = `rgba(${color}, ${.2 * intensity})`
 
         this.ctx.beginPath()
-        this.ctx.fillStyle = 'rgba(255, 0, 0, 1)'
+        this.ctx.fillStyle = "rgba(0,0,0,1)"
         this.ctx.arc(pos.x - offset, pos.y - offset, radius, 0, Math.PI * 2)
         this.ctx.fill()
     }
@@ -73,14 +114,25 @@ export default class WaterTexture{
 
     update(){
         this.clear()
+        let agePart = 1 / this.maxAge
+
         this.points.forEach((point, i) => {
-            point.age += 1
+            let slowAsOlder = 1 - point.age / this.maxAge;
+            let force = point.force * agePart * slowAsOlder;
+
+            point.x += point.vx * force
+            point.y += point.vy * force
+            point.age += 1;
+
             if(point.age > this.maxAge){
                 this.points.splice(i, 1)
             }
         })
+
         this.points.forEach(point => {
             this.drawPoint(point)
         })
+
+        this.texture.needsUpdate = true
     }
 }

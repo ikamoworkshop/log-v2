@@ -12,6 +12,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import WaterTexture from './Postprocessing/WaterTexture.js'
+import { WaterEffect } from './Postprocessing/WaterEffect.js'
 
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
@@ -38,7 +39,7 @@ export default class Renderer{
             this.renderTarget = this.face.renderTarget
             this.renderPlaneMaterial = this.face.renderPlaneMaterial
 
-            this.waterTexter = new WaterTexture({debug: true})
+            this.waterTexter = new WaterTexture({debug: false})
             window.addEventListener('mousemove', this.onMouseMove.bind(this))
 
             this.homeContent = new HomeContent()
@@ -150,6 +151,10 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
         })
+
+        this.waterPass = new ShaderPass(WaterEffect)
+        this.waterPass.uniforms.uTexture.value = this.waterTexter.texture
+        this.composer.addPass(this.waterPass)
 
         this.smaaPass = new SMAAPass()
         this.composer.addPass(this.smaaPass)

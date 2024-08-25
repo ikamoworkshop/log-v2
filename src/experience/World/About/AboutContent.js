@@ -56,13 +56,14 @@ export default class AboutContent {
     getImage(){
         this.images = document.querySelectorAll('.about-container img')
 
+        this.images.forEach((image) => {
+            image.classList.add('gl')
+        })
+
         this.pageChange.on('pageChange', () => {
             this.images.forEach((image) => {
                 image.classList.add('gl')
             })
-        })
-        this.images.forEach((image) => {
-            image.classList.add('gl')
         })
     }
 
