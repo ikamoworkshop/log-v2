@@ -68,6 +68,12 @@ export default class TestCube {
             this.renderedFaceGroup.position.set(0, 0, 0)
             this.renderedFace.visible = true
         } 
+
+        else if(this.pageChange.prevPage === '/insights'){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.y = 0
+            this.renderedFace.visible = false
+        }
         
         else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.renderedFace = this.resources.items.defaultFlat.scene
@@ -87,14 +93,20 @@ export default class TestCube {
                 this.renderedFaceGroup.position.y = -2
                 this.renderedFace.visible = true
             }
+            
+            else if(this.pageChange.prevPage === '/gallery'){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.y = 0
+                this.renderedFace.visible = false
+            }
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.set(0, 0, 0)
                 this.renderedFace.visible = true
             } 
-            
-            else if(this.pageChange.prevPage === '/gallery'){
+
+            else if(this.pageChange.prevPage === '/insights'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 this.renderedFaceGroup.position.y = 0
                 this.renderedFace.visible = false
