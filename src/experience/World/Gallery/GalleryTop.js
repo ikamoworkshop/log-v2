@@ -68,7 +68,7 @@ export default class GalleryTop {
                     uniforms:{
                         uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
                         uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(.1),
+                        uOpacity: new THREE.Uniform(.2),
                         uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
                         uImageSize: new THREE.Uniform(thumbnailData.imageSize),
                     },

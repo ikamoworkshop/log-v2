@@ -138,7 +138,7 @@ export default class GalleryView {
                         fragmentShader: imagePlateFrag,
                         uniforms: {
                             uTexture: new THREE.Uniform(imageData.texture),
-                            uOpacity: new THREE.Uniform(.1)
+                            uOpacity: new THREE.Uniform(.2)
                         },
                         transparent: true,
                     })

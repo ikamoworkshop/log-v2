@@ -11,6 +11,7 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import WaterTexture from './Postprocessing/WaterTexture.js'
 
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
@@ -36,6 +37,9 @@ export default class Renderer{
             this.camera = this.face.camera
             this.renderTarget = this.face.renderTarget
             this.renderPlaneMaterial = this.face.renderPlaneMaterial
+
+            this.waterTexter = new WaterTexture({debug: true})
+            window.addEventListener('mousemove', this.onMouseMove.bind(this))
 
             this.homeContent = new HomeContent()
             this.aboutContent = new AboutContent()
@@ -67,6 +71,15 @@ export default class Renderer{
         this.composer = new EffectComposer(this.instance, this.renderTarget)
         this.composer.setSize(this.sizes.width, this.sizes.height)
         this.composer.setPixelRatio(this.sizes.pixelRatio)
+    }
+
+    onMouseMove(e){
+        const point = {
+            x: e.clientX / this.sizes.width,
+            y: e.clientY / this.sizes.height
+        }
+
+        this.waterTexter.addPoint(point)
     }
 
     setPostProcessing(){
@@ -158,6 +171,8 @@ export default class Renderer{
     update(){
 
         if(this.face){
+            this.waterTexter.update()
+
             this.face.update()
             this.homeContent.update()
             this.aboutContent.update()
