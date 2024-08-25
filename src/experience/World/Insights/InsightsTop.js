@@ -20,7 +20,7 @@ export default class InsightsTop {
 
         this.textureLoader = new THREE.TextureLoader()
 
-        this.galleryList = this.resources.galleryList
+        this.insightsList = this.resources.insightsList
 
         this.setScene()
         this.setCamera()
@@ -41,14 +41,61 @@ export default class InsightsTop {
     }
 
     setThumbnail(){
-        this.testCube = new THREE.Mesh(
-            new THREE.BoxGeometry(1, 1, 1),
-            new THREE.MeshBasicMaterial({ color: 0xffffff })
-        )
-        this.scene.add(this.testCube)
+        this.insightGroup = new THREE.Group()
+        this.insightPlateList = []
+        this.insightsGeometry = new THREE.PlaneGeometry(2, 2)
+        this.gridGap = 2.8
+
+        this.insightsList.forEach((item, i) => {
+            const insightData = {}
+
+            insightData.image = new Image()
+            insightData.image.src = urlForImage(item.heroImage).url()
+
+            insightData.item = item
+
+            insightData.image.onload = () => {
+
+                insightData.imageSize = new THREE.Vector2(insightData.image.width, insightData.image.height)
+
+                insightData.texture = this.textureLoader.load(insightData.image.src)
+                insightData.material = new THREE.ShaderMaterial({
+                    vertexShader: thumbnailVertex,
+                    fragmentShader: thumbnailFrag,
+                    uniforms:{
+                        uTexture: new THREE.Uniform(insightData.texture),
+                        uGrainTexture: new THREE.Uniform(this.resources.items.grain),
+                        uOpacity: new THREE.Uniform(.2),
+                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(2,2)),
+                        uImageSize: new THREE.Uniform(insightData.imageSize),
+                    },
+                    transparent: true,
+                })
+
+                insightData.mesh = new THREE.Mesh(this.insightsGeometry, insightData.material)
+
+                insightData.mesh.position.y = i * this.gridGap * -1
+
+                this.insightPlateList.push(insightData)
+                this.insightGroup.add(insightData.mesh)
+            }
+        })
+
+        this.insightGroup.position.y = (2 * this.gridGap) * .5
+        this.scene.add(this.insightGroup)
+
+        console.log(this.insightPlateList.length)
     }
 
     update(){
         
+        if(this.insightsList.length === this.insightPlateList.length){
+
+            this.insightPlateList.forEach((object, i) => {
+                object.mesh.position.y = ((this.scroll.infiniteScroll / this.sizes.height * 4) + object.mesh.position.y + (this.insightPlateList.length * this.gridGap * -1)) % (this.insightPlateList.length * this.gridGap * -1)
+            })
+
+        }
+
     }
 }
