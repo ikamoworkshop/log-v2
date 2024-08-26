@@ -6,6 +6,7 @@ import AboutContent from './World/About/AboutContent.js'
 import GalleryTop from './World/Gallery/GalleryTop.js'
 import GalleryView from './World/Gallery/GalleryView.js'
 import InsightsTop from './World/Insights/InsightsTop.js'
+import InsightsView from './World/Insights/InsightsView.js'
 
 import * as THREE from 'three'
 
@@ -32,6 +33,12 @@ export default class Renderer{
             this.gallerySlugList.push("/gallery/" + item.slug.current)
         })
 
+        this.insightsList = this.resources.insightsList
+        this.insightsSlugList = []
+        this.insightsList.forEach(item => {
+            this.insightsSlugList.push("/insights/" + item.slug.current)
+        })
+
         this.resources.on('ready', () => {
             // Setup
             this.face = new Face()
@@ -48,6 +55,8 @@ export default class Renderer{
             this.galleryTop = new GalleryTop()
             this.galleryView = new GalleryView()
             this.insightsTop = new InsightsTop()
+            this.insightsView = new InsightsView()
+
             this.notFound = new NotFound()
 
             this.setInstance()
@@ -115,7 +124,13 @@ export default class Renderer{
             this.renderPass.scene = this.insightsTop.scene
             this.renderPass.camera = this.insightsTop.camera
             this.composer.addPass(this.renderPass)
-        } 
+        }
+
+        else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+            this.renderPass.scene = this.insightsView.scene
+            this.renderPass.camera = this.insightsView.camera
+            this.composer.addPass(this.renderPass)
+        }
         
         else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.renderPass.scene = this.notFound.notFoundScene
@@ -158,6 +173,13 @@ export default class Renderer{
                 this.renderPass.camera = this.insightsTop.camera
                 document.body.style.cursor = 'default'
             }
+
+            else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+                this.instance.clear()
+                this.renderPass.scene = this.insightsView.scene
+                this.renderPass.camera = this.insightsView.camera
+                document.body.style.cursor = 'default'
+            }
             
             else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.instance.clear()
@@ -181,11 +203,14 @@ export default class Renderer{
     resize(){
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRation)
+
         this.composer.setSize(this.sizes.width, this.sizes.height)
         this.composer.setPixelRatio(this.sizes.pixelRatio)
+
         this.face.resize()
         this.homeContent.resize()
         this.aboutContent.resize()
+        this.NotFound.resize()
     }
 
     update(){
@@ -230,6 +255,12 @@ export default class Renderer{
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
+
+            else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+                this.composer.render(this.insightsView.scene, this.insightsView.camera)
+                this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
+                this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
+            } 
             
             else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)

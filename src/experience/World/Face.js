@@ -19,6 +19,12 @@ export default class TestCube {
             this.gallerySlugList.push("/gallery/" + item.slug.current)
         })
 
+        this.insightsList = this.resources.insightsList
+        this.insightsSlugList = []
+        this.insightsList.forEach(item => {
+            this.insightsSlugList.push("/insights/" + item.slug.current)
+        })
+
         this.setScene()
         this.setCamera()
         this.setModel()
@@ -74,6 +80,12 @@ export default class TestCube {
             this.renderedFaceGroup.position.y = 0
             this.renderedFace.visible = false
         }
+
+        else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+            this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFaceGroup.position.set(0, 0, 0)
+            this.renderedFace.visible = false
+        } 
         
         else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.renderedFace = this.resources.items.defaultFlat.scene
@@ -111,6 +123,12 @@ export default class TestCube {
                 this.renderedFaceGroup.position.y = 0
                 this.renderedFace.visible = false
             }
+
+            else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+                this.renderedFace = this.resources.items.defaultFlat.scene
+                this.renderedFaceGroup.position.set(0, 0, 0)
+                this.renderedFace.visible = false
+            } 
             
             else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.renderedFace = this.resources.items.defaultFlat.scene
@@ -154,12 +172,11 @@ export default class TestCube {
     setRenderTarget(){
         this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
 
-        this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height,{
+        this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height, {
             samples: window.devicePixelRatio === 1 ? 2 : 0
         })
 
         this.renderPlaneGeometry = new THREE.PlaneGeometry(1, 1)
-        this.renderPlaneGeometry.scale(this.fovY * this.camera.aspect, this.fovY, 1)
         this.renderPlaneMaterial = new THREE.ShaderMaterial({
             vertexShader: renderTargetVertex,
             fragmentShader: renderTargetFragment,
@@ -168,6 +185,7 @@ export default class TestCube {
             },
         })
         this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
+        this.renderPlane.scale.set(this.fovY * this.camera.aspect, this.fovY, 1)
         this.renderPlane.position.set(0, 0, -4)
 
         this.scene.add(this.renderPlane)
@@ -178,6 +196,7 @@ export default class TestCube {
         this.camera.updateProjectionMatrix()
 
         this.renderTarget.setSize(this.sizes.width, this.sizes.height)
+        this.renderPlane.scale.set(this.fovY * this.camera.aspect, this.fovY, 1)
     }
 
     update(){
