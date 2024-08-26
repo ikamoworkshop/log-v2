@@ -85,8 +85,8 @@ export default class InsightsTop {
                 insightData.screenPosition = insightData.mesh.position.clone()
                 insightData.screenPosition.project(this.camera)
 
-                const translateX = insightData.mesh.position.x * this.sizes.width * .5
-                const translateY = insightData.mesh.position.y + ((this.gridGap * 2)) * this.sizes.height *.5
+                const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
+                const translateY = ((insightData.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
 
                 insightData.anchorButton = document.createElement('a')
                 insightData.anchorButton.style.height = '600px'
@@ -122,8 +122,25 @@ export default class InsightsTop {
                     if(this.mainDom){
                         this.mainDom.appendChild(insightData.anchorButton)
                     }
-                }, 500)
+                }, 100)
             }
+        })
+
+        this.pageChange.on('pageChange', () => {
+            this.mainDom = document.getElementById('insights-top')
+
+            this.insightPlateList.forEach((object) => {
+                const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
+                const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
+
+                object.anchorButton.style.transform = `translate(${translateX}px, ${-translateY}px)`
+
+                window.setTimeout(() => {
+                    if(this.mainDom){
+                        this.mainDom.appendChild(object.anchorButton)
+                    }
+                }, 100)
+            })
         })
 
         this.insightGroup.position.y = (2 * this.gridGap)

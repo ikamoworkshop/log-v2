@@ -114,7 +114,7 @@ export default class GalleryTop {
                     if(this.mainDom){
                         this.mainDom.appendChild(thumbnailData.anchorButton)
                     }
-                }, 500)
+                }, 100)
             }
         })
 
@@ -131,7 +131,7 @@ export default class GalleryTop {
                     if(this.mainDom){
                         this.mainDom.appendChild(object.anchorButton)
                     }
-                }, 500)
+                }, 100)
             })
 
         })
