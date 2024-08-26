@@ -430,21 +430,25 @@
   overflow-y: hidden;
 }
 
-.insights-title {
-  min-width: 500px;
+.insight-title-container {
+  min-width: 600px;
 }
 
 .insight-image {
   min-width: 1200px;
   max-height: 100vmin;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+  background-position: center;
 }
 
 .content-container {
   height: 100%;
+}
+
+.insight-content-image {
+  min-width: 1280px;
+  height: auto;
+  -o-object-position: center;
+     object-position: center;
 }
 
 * {

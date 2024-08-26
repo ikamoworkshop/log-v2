@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro'
 import { PortableText } from "astro-portabletext";
-import Image from "../../components/PortableImage.astro";
+import InsightsPortable from "../../components/InsightsPortable.astro";
 
 import { getAllInsights } from '../../sanity/api'
 import urlForImage from '../../sanity/imageBuilder';
@@ -15,7 +15,9 @@ const { insights } = Astro.props
 
 const components = {
     type: {
-        image: Image
+        h3: InsightsPortable,
+        p: InsightsPortable,
+        image: InsightsPortable
     }
 }
 
@@ -29,11 +31,11 @@ const components = {
             <img src={urlForImage(insights.heroImage).url()} alt="" class="insight-image">
 
             <div class="insight-title-container flex flex-column justify-between">
-                <div class="flex flex-column gap-48">
+                <div class="insight-title-container flex flex-column gap-48">
                     <div class="index-container align-center flex gap-16">
-                        <div class="insight-bracket subtitle-light text-light">[</div>
-                        <div class="index text-light">01</div>
-                        <div class="insight-bracket subtitle-light text-light">]</div>
+                        <h2 class="insight-bracket subtitle-light text-light">[</h2>
+                        <h2 class="index text-light">0 {insights.index}</h2>
+                        <h2 class="insight-bracket subtitle-light text-light">]</h2>
                     </div>
                     <h1 class="insights-title title text-light">{insights.title}</h1>
                 </div>
@@ -45,13 +47,12 @@ const components = {
                     </div>
                     <div class="flex flex-column gap-4">
                         <h3 class="caption-light text-light">[DATE]</h3>
-                        <h3 class="caption-bold text-light">{insights.contentype}</h3>
+                        <h3 class="caption-bold text-light">{insights.postDate}</h3>
                     </div>
                 </div>
             </div>
 
-            <div class="content-container flex align-end">
-                <h1 class="insights-title title text-light">{insights.title}</h1>
+            <div class="content-container flex gap-100 align-end">
                 <PortableText
                     value={insights.body}
                     components={components}

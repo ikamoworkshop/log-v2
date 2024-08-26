@@ -1,0 +1,22 @@
+---
+/* @/portabletext/Image.astro */
+import type { Props as $, TypedObject } from "astro-portabletext/types";
+import Image, {type Props as ImageProps} from "./InsightsImage.astro";
+import Title from './InsightsTitle.astro'
+
+export type Props = $<ImageProps & TypedObject>;
+
+const { node, isInline } = Astro.props;
+---
+
+<Title />
+
+{isInline ? (
+    <Image {...node} />
+) : (
+    // <div class="insight-image">
+    //     <Image {...node} />
+    // </div>
+    <Image {...node} />
+
+)}
