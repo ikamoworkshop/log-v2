@@ -21,6 +21,7 @@ export default class InsightsTop {
         this.textureLoader = new THREE.TextureLoader()
 
         this.insightsList = this.resources.insightsList
+        this.mainDom = document.getElementById('insights-top')
 
         this.targetPosition = new THREE.Vector2(0, 0)
 
@@ -80,29 +81,77 @@ export default class InsightsTop {
 
                 this.insightPlateList.push(insightData)
                 this.insightGroup.add(insightData.mesh)
+
+                insightData.screenPosition = insightData.mesh.position.clone()
+                insightData.screenPosition.project(this.camera)
+
+                const translateX = insightData.mesh.position.x * this.sizes.width * .5
+                const translateY = insightData.mesh.position.y + ((this.gridGap * 2)) * this.sizes.height *.5
+
+                insightData.anchorButton = document.createElement('a')
+                insightData.anchorButton.style.height = '600px'
+                insightData.anchorButton.classList.add('insight-link')
+                insightData.anchorButton.href = `/insights/` + item.slug.current
+                insightData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+
+                insightData.typeContainer = document.createElement('div')
+                insightData.typeContainer.classList.add('flex', 'gap-16', 'align-center')
+                insightData.anchorButton.appendChild(insightData.typeContainer)
+
+                insightData.leftBracket = document.createElement('p')
+                insightData.leftBracket.textContent = '['
+                insightData.leftBracket.classList.add('text-light', 'index', 'insight-bracket')
+                insightData.typeContainer.appendChild(insightData.leftBracket)
+
+                insightData.postTypeText = document.createElement('h3')
+                insightData.postTypeText.textContent = item.contentype
+                insightData.postTypeText.classList.add('text-light', 'caption-light', 'insight-type')
+                insightData.typeContainer.appendChild(insightData.postTypeText)
+
+                insightData.rightBracket = document.createElement('p')
+                insightData.rightBracket.textContent = ']'
+                insightData.rightBracket.classList.add('text-light', 'index', 'insight-bracket')
+                insightData.typeContainer.appendChild(insightData.rightBracket)
+
+                insightData.postTitle = document.createElement('h1')
+                insightData.postTitle.textContent = item.title
+                insightData.postTitle.classList.add('text-light', 'title', 'insight-title')
+                insightData.anchorButton.appendChild(insightData.postTitle)
+
+                window.setTimeout(() => {
+                    if(this.mainDom){
+                        this.mainDom.appendChild(insightData.anchorButton)
+                    }
+                }, 500)
             }
         })
 
         this.insightGroup.position.y = (2 * this.gridGap)
         this.scene.add(this.insightGroup)
-
-        console.log(this.insightPlateList.length)
     }
 
     update(){
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
+
+        this.targetPosition.lerp(this.normalizedCursor, .05)
+        this.insightGroup.position.x = (this.targetPosition.x * .5)
+        this.insightGroup.position.y = ((2 * this.gridGap) + this.targetPosition.y * .5)
         
         if(this.insightsList.length === this.insightPlateList.length){
 
             this.insightPlateList.forEach((object, i) => {
                 object.mesh.position.y = ((this.scroll.infiniteScroll / this.sizes.height * 4) + object.mesh.position.y + (this.insightPlateList.length * this.gridGap * -1)) % (this.insightPlateList.length * this.gridGap * -1)
+
+                object.screenPosition = object.mesh.position.clone()
+                object.screenPosition.project(this.camera)
+
+                const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
+                const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
+
+                object.anchorButton.style.transform = `translate(${translateX}px, ${-translateY}px)`
             })
 
         }
-
-        this.targetPosition.lerp(this.normalizedCursor, .05)
-        this.insightGroup.position.x = (this.targetPosition.x * .5)
-        this.insightGroup.position.y = ((2 * this.gridGap) + this.targetPosition.y * .5)
 
     }
 }

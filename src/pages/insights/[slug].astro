@@ -1,0 +1,26 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro'
+import { PortableText } from "astro-portabletext";
+import Image from "../../components/PortableImage.astro";
+
+import { getAllInsights } from '../../sanity/api'
+
+export async function getStaticPaths() {
+    const insights = await getAllInsights()
+    return insights.map(insights => ({ params: { slug: insights.slug.current }, props: { insights } }))
+};
+
+const { insights } = Astro.props
+
+const components = {
+    type: {
+        image: Image
+    }
+};
+---
+
+<MainLayout title={"IKAMO[LOG] | " + insights.title}>
+    <main data-taxi-view class="insights-view">
+            <h1 class="gallery-view-title-text text-light caption-bold">{insights.title}</h1>
+    </main>
+</MainLayout>
