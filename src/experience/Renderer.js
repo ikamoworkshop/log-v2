@@ -17,7 +17,7 @@ import WaterTexture from './Postprocessing/WaterTexture.js'
 import { WaterEffect } from './Postprocessing/WaterEffect.js'
 
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
-import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 export default class Renderer{
     constructor(){
@@ -196,8 +196,11 @@ export default class Renderer{
         this.smaaPass = new SMAAPass()
         this.composer.addPass(this.smaaPass)
 
-        this.gammaPass = new ShaderPass(GammaCorrectionShader)
-        this.composer.addPass(this.gammaPass)
+        this.outputPass = new OutputPass()
+        this.composer.addPass(this.outputPass)
+
+        // this.gammaPass = new ShaderPass(GammaCorrectionShader)
+        // this.composer.addPass(this.gammaPass)
     }
 
     resize(){
