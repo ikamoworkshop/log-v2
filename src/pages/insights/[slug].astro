@@ -4,6 +4,7 @@ import { PortableText } from "astro-portabletext";
 import Image from "../../components/PortableImage.astro";
 
 import { getAllInsights } from '../../sanity/api'
+import urlForImage from '../../sanity/imageBuilder';
 
 export async function getStaticPaths() {
     const insights = await getAllInsights()
@@ -16,11 +17,47 @@ const components = {
     type: {
         image: Image
     }
-};
+}
+
 ---
 
 <MainLayout title={"IKAMO[LOG] | " + insights.title}>
     <main data-taxi-view class="insights-view">
-            <h1 class="gallery-view-title-text text-light caption-bold">{insights.title}</h1>
+
+        <div class="insight-container flex gap-100 no-wrap" id="scroll">
+
+            <img src={urlForImage(insights.heroImage).url()} alt="" class="insight-image">
+
+            <div class="insight-title-container flex flex-column justify-between">
+                <div class="flex flex-column gap-48">
+                    <div class="index-container align-center flex gap-16">
+                        <div class="insight-bracket subtitle-light text-light">[</div>
+                        <div class="index text-light">01</div>
+                        <div class="insight-bracket subtitle-light text-light">]</div>
+                    </div>
+                    <h1 class="insights-title title text-light">{insights.title}</h1>
+                </div>
+
+                <div class="insights-details flex gap-48">
+                    <div class="flex flex-column gap-4">
+                        <h3 class="caption-light text-light">[TYPE]</h3>
+                        <h3 class="caption-bold text-light">{insights.contentype}</h3>
+                    </div>
+                    <div class="flex flex-column gap-4">
+                        <h3 class="caption-light text-light">[DATE]</h3>
+                        <h3 class="caption-bold text-light">{insights.contentype}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-container flex align-end">
+                <h1 class="insights-title title text-light">{insights.title}</h1>
+                <!-- <PortableText
+                    value={insights.body}
+                    components={components}
+                /> -->
+            </div>
+
+        </div>
     </main>
 </MainLayout>

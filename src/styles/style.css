@@ -188,6 +188,10 @@
   align-items: end;
 }
 
+.gap-4 {
+  gap: 4px;
+}
+
 .gap-8 {
   gap: 8px;
 }
@@ -198,6 +202,10 @@
 
 .gap-48 {
   gap: 48px;
+}
+
+.gap-100 {
+  gap: 100px;
 }
 
 .no-wrap {
@@ -413,6 +421,30 @@
 .insight-title {
   width: 520px;
   text-align: left;
+}
+
+.insight-container {
+  height: 100dvh;
+  padding: 180px 0px;
+  float: left;
+  overflow-y: hidden;
+}
+
+.insights-title {
+  min-width: 500px;
+}
+
+.insight-image {
+  min-width: 1200px;
+  max-height: 100vmin;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.content-container {
+  height: 100%;
 }
 
 * {

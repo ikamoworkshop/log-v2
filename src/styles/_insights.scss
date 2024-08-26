@@ -22,3 +22,27 @@
     width: 520px;
     text-align: left;
 }
+
+// ================= INSIGHTS HTML CONTENT =================
+
+.insight-container{
+    height: 100dvh;
+    padding: 180px 0px;
+    float: left;
+    overflow-y: hidden;
+}
+
+.insights-title{
+    min-width: 500px;
+}
+
+.insight-image{
+    min-width: 1200px;
+    max-height: 100vmin;
+    object-fit: cover;
+    object-position: center;
+}
+
+.content-container{
+    height: 100%;
+}
