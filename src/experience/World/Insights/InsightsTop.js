@@ -68,7 +68,7 @@ export default class InsightsTop {
                     uniforms:{
                         uTexture: new THREE.Uniform(insightData.texture),
                         uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(.2),
+                        uOpacity: new THREE.Uniform(.5),
                         uPlaneSize: new THREE.Uniform(new THREE.Vector2(2,2)),
                         uImageSize: new THREE.Uniform(insightData.imageSize),
                     },

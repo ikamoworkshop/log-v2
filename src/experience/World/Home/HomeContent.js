@@ -95,7 +95,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureBridge),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(320, 560)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 2)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -106,7 +106,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGradshow),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(420, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -117,7 +117,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureWater),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(680, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -128,7 +128,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureDesk),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -139,7 +139,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureComic),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -150,7 +150,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGrad),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(520, 280)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
@@ -161,7 +161,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureAida),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(360, 420)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.1)
+                uOpacity: new THREE.Uniform(.5)
             },
             transparent: true,
         })
