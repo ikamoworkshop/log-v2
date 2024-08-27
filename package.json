@@ -17,6 +17,7 @@
     "@unseenco/taxi": "^1.6.0",
     "astro": "^4.14.2",
     "astro-portabletext": "^0.10.0",
+    "gsap": "^3.12.5",
     "htm": "^3.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
