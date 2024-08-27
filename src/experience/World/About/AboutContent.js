@@ -73,24 +73,24 @@ export default class AboutContent {
 
         this.pageChange.on('pageChange', () => {
 
-            this.images.forEach((image) => {
-
-                this.aboutScene.traverse((child) =>
-                    {
-                        if(child instanceof THREE.Mesh){
-                            child.geometry.dispose()
-                            for(const key in child.material){
-                                const value = child.material[key]
-                                if(value && typeof value.dispose === 'function')
-                                {
-                                    value.dispose();
-                                }
+            this.aboutScene.traverse((child) =>
+                {
+                    if(child instanceof THREE.Mesh){
+                        child.geometry.dispose()
+                        for(const key in child.material){
+                            const value = child.material[key]
+                            if(value && typeof value.dispose === 'function')
+                            {
+                                value.dispose();
                             }
                         }
-                })
+                    }
+            })
 
-                this.aboutScene.remove(this.imageGroup)
-                this.imageGroup = new THREE.Group()
+            this.aboutScene.remove(this.imageGroup)
+            this.imageGroup = new THREE.Group()
+
+            this.images.forEach((image) => {
 
                 image.onload = () => {
                     const imageData = {}
