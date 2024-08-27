@@ -2,14 +2,12 @@
 /* @/portabletext/Image.astro */
 import type { Props as $, TypedObject } from "astro-portabletext/types";
 import Image, {type Props as ImageProps} from "./InsightsImage.astro";
-import Title from './InsightsTitle.astro'
+import Title, {type Props as TextProps} from './InsightsTitle.astro'
 
-export type Props = $<ImageProps & TypedObject>;
+export type Props = $<ImageProps & TypedObject & TextProps>;
 
 const { node, isInline } = Astro.props;
 ---
-
-<Title />
 
 {isInline ? (
     <Image {...node} />

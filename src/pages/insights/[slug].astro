@@ -1,7 +1,9 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro'
 import { PortableText } from "astro-portabletext";
-import InsightsPortable from "../../components/InsightsPortable.astro";
+import InsightsPortable from "../../components/insights/InsightsPortable.astro"
+import InsightsTitle from '../../components/insights/InsightsTitle.astro'
+import InsightsBody from '../../components/insights/InsightsBody.astro'
 
 import { getAllInsights } from '../../sanity/api'
 import urlForImage from '../../sanity/imageBuilder';
@@ -15,9 +17,11 @@ const { insights } = Astro.props
 
 const components = {
     type: {
-        h3: InsightsPortable,
-        p: InsightsPortable,
         image: InsightsPortable
+    },
+    block: {
+        h3: InsightsTitle,
+        normal: InsightsBody
     }
 }
 
@@ -52,7 +56,7 @@ const components = {
                 </div>
             </div>
 
-            <div class="content-container flex gap-100 align-end">
+            <div class="content-container flex gap-100">
                 <PortableText
                     value={insights.body}
                     components={components}

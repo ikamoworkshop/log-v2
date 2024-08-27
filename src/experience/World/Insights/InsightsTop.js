@@ -23,6 +23,8 @@ export default class InsightsTop {
         this.insightsList = this.resources.insightsList
         this.mainDom = document.getElementById('insights-top')
 
+        console.log(this.insightsList)
+
         this.targetPosition = new THREE.Vector2(0, 0)
 
         this.setScene()

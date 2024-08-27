@@ -198,9 +198,6 @@ export default class Renderer{
 
         this.outputPass = new OutputPass()
         this.composer.addPass(this.outputPass)
-
-        // this.gammaPass = new ShaderPass(GammaCorrectionShader)
-        // this.composer.addPass(this.gammaPass)
     }
 
     resize(){
