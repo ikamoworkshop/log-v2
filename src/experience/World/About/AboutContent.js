@@ -80,7 +80,6 @@ export default class AboutContent {
                     
                     imageData.imageBoundingData = image.getBoundingClientRect()
         
-                    // imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
                     this.camUnit = this.calculateUniteSize(this.camera.position.z)
                     const x = imageData.imageBoundingData.width / this.sizes.width
                     const y = imageData.imageBoundingData.height / this.sizes.height
@@ -99,7 +98,9 @@ export default class AboutContent {
                         fragmentShader: imagePlateFrag,
                         uniforms: {
                             uTexture: new THREE.Uniform(imageData.texture),
-                            uOpacity: new THREE.Uniform(.1)
+                            uOpacity: new THREE.Uniform(.1),
+                            uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
+                            uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                         },
                         transparent: true,
                     })
@@ -131,7 +132,9 @@ export default class AboutContent {
 
         this.images.forEach((image) => {
             const imageData = {}
+
             imageData.image = image
+
             imageData.texture = this.textureLoader.load(imageData.image.src)
             imageData.imageBoundingData = image.getBoundingClientRect()
 
@@ -152,7 +155,9 @@ export default class AboutContent {
                 fragmentShader: imagePlateFrag,
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(.1)
+                    uOpacity: new THREE.Uniform(.1),
+                    uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
+                    uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                 },
                 transparent: true,
             })
