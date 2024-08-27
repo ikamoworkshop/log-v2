@@ -33,7 +33,21 @@ export async function getAllGallery(){
 
 export async function getAllInsights(){
 
-    const insights = await client.fetch(`*[_type == "insights"]`)
+    const insights = await client.fetch(`
+            *[_type == "insights"]{
+                title,
+                slug,
+                index,
+                heroImage,
+                contentType,
+                postDate,
+                body,
+                nextvLog -> {
+                    title,
+                    slug
+                }
+            }
+        `)
     .catch(error => console.log(error))
 
     return insights
