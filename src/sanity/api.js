@@ -10,7 +10,18 @@ const client = createClient({
 
 export async function getAllGallery(){
 
-    const gallery = await client.fetch(`*[_type == "gallery"]`)
+    const gallery = await client.fetch(`
+            *[_type == "gallery"]{
+                name,
+                slug,
+                thumbnailImage,
+                supportingImages,
+                "prevLog": *[_type=='gallery' && references(^._id)]{
+                    name,
+                    slug
+                },
+            }
+        `)
     .catch(error => console.log(error))
 
     return gallery

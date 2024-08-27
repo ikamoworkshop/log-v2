@@ -28,6 +28,7 @@ export default class Renderer{
         this.sizes = this.experience.sizes
 
         this.galleryList = this.resources.galleryList
+        console.log(this.galleryList)
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
             this.gallerySlugList.push("/gallery/" + item.slug.current)
