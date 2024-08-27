@@ -188,6 +188,23 @@ export default class InsightsView {
         return { width, height }
     }
 
+    resize(){
+        this.camera.aspect = this.sizes.width / this.sizes.height
+        this.camera.updateProjectionMatrix()
+
+        this.camUnit = this.calculateUniteSize(this.camera.position.z)
+        
+        this.imageList.forEach((imageObject) => {
+            imageObject.imageBoundingData = imageObject.image.getBoundingClientRect()
+            imageObject.imageSize = this.updateSize(imageObject.imageBoundingData.width, imageObject.imageBoundingData.height)
+
+            imageObject.finalScaleX = this.camUnit.width * x
+            imageObject.finalScaleY = this.camUnit.height * y
+
+            imageObject.imageMesh.scale.set(imageObject.finalScaleX, imageObject.finalScaleY, 0)
+        })
+    }
+
     update(){
         this.imageList.forEach((imageObject) => {
             imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width

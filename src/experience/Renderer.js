@@ -210,6 +210,10 @@ export default class Renderer{
         this.face.resize()
         this.homeContent.resize()
         this.aboutContent.resize()
+        // this.galleryTop.resize()
+        // this.galleryView.resize()
+        // this.insightsTop.resize()
+        this.insightsView.resize()
         this.NotFound.resize()
     }
 
