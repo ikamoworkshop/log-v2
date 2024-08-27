@@ -16,10 +16,14 @@ export async function getAllGallery(){
                 slug,
                 thumbnailImage,
                 supportingImages,
-                "prevLog": *[_type=='gallery' && references(^._id)]{
+                prevLog -> {
                     name,
                     slug
                 },
+                nextvLog -> {
+                    name,
+                    slug
+                }
             }
         `)
     .catch(error => console.log(error))

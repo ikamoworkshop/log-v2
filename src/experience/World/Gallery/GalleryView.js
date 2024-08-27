@@ -94,7 +94,7 @@ export default class GalleryView {
 
             this.imageList.push(imageData)
         })
-        this.imageGroup.position.x = -(this.pageImage.length * 1)
+        this.imageGroup.position.x = -(this.pageImage.length * 1.5)
         this.scene.add(this.imageGroup)
 
         // PAGE CHANGE
@@ -121,13 +121,14 @@ export default class GalleryView {
             this.pageImage.forEach((image, i) => {
                 image.onload = () => {
                     const imageData = {}
-    
-                    imageData.image = image
+
+                    imageData.image = new Image()
+                    imageData.image.src = image.src
                     imageData.texture = this.textureLoader.load(imageData.image.src)
                     imageData.imageBooundingData = image.getBoundingClientRect()
         
-                    const x = imageData.imageBooundingData.width / this.sizes.width
-                    const y = imageData.imageBooundingData.height / this.sizes.height
+                    const x = imageData.image.width / this.sizes.width
+                    const y = imageData.image.height / this.sizes.height
         
                     if(!x || !y){
                         return
@@ -141,7 +142,9 @@ export default class GalleryView {
                         fragmentShader: imagePlateFrag,
                         uniforms: {
                             uTexture: new THREE.Uniform(imageData.texture),
-                            uOpacity: new THREE.Uniform(.2)
+                            uOpacity: new THREE.Uniform(.2),
+                            uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
+                            uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                         },
                         transparent: true,
                     })
@@ -156,7 +159,7 @@ export default class GalleryView {
                     this.imageList.push(imageData)
                 }
                 
-            this.imageGroup.position.x = -(this.pageImage.length * 1)
+            this.imageGroup.position.x = -(this.pageImage.length * 1.5)
             this.scene.add(this.imageGroup)
             })
         })

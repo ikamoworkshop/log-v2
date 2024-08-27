@@ -415,6 +415,15 @@
   opacity: 0;
 }
 
+.gallery-navigation {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  translate: -50% 0%;
+  width: 240px;
+  z-index: 999999;
+}
+
 .insight-link {
   width: 60%;
   position: absolute;

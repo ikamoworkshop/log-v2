@@ -32,5 +32,11 @@ const components = {
             value={gallery.supportingImages}
             components={components}
         />
+
+        <div class="gallery-navigation flex justify-between align-center">
+            <a href={`/gallery/` + gallery.prevLog.slug.current} class="gallery-button caption-bold text-light">[  PREV  ]</a>
+            <a href={`/gallery/` + gallery.nextvLog.slug.current} class="gallery-button caption-bold text-light">[  NEXT  ]</a>
+        </div>
     </main>
+    
 </MainLayout>
