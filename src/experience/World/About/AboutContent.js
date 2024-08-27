@@ -17,7 +17,7 @@ export default class AboutContent {
 
         this.textureLoader = new THREE.TextureLoader()
 
-        this.imageGroup = []
+        this.imageList = []
 
         this.setScene()
         this.setCamera()
@@ -69,9 +69,29 @@ export default class AboutContent {
     }
 
     setImage(){
+        this.imageGroup = new THREE.Group()
+
         this.pageChange.on('pageChange', () => {
 
             this.images.forEach((image) => {
+
+                this.aboutScene.traverse((child) =>
+                    {
+                        if(child instanceof THREE.Mesh){
+                            child.geometry.dispose()
+                            for(const key in child.material){
+                                const value = child.material[key]
+                                if(value && typeof value.dispose === 'function')
+                                {
+                                    value.dispose();
+                                }
+                            }
+                        }
+                })
+
+                this.aboutScene.remove(this.imageGroup)
+                this.imageGroup = new THREE.Group()
+
                 image.onload = () => {
                     const imageData = {}
 
@@ -110,24 +130,11 @@ export default class AboutContent {
                     imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
                     imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
                     
-                    this.imageGroup.push(imageData)
-                    this.aboutScene.add(imageData.imageMesh)
+                    this.imageList.push(imageData)
+                    this.imageGroup.add(imageData.imageMesh)
                 }
             })
-
-            this.aboutScene.traverse((child) =>
-                {
-                    if(child instanceof THREE.Mesh){
-                        child.geometry.dispose()
-                        for(const key in child.material){
-                            const value = child.material[key]
-                            if(value && typeof value.dispose === 'function')
-                            {
-                                value.dispose();
-                            }
-                        }
-                    }
-            })
+            this.aboutScene.add(this.imageGroup)
         })
 
         this.images.forEach((image) => {
@@ -167,9 +174,10 @@ export default class AboutContent {
             imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
             imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
             
-            this.imageGroup.push(imageData)
-            this.aboutScene.add(imageData.imageMesh)
+            this.imageList.push(imageData)
+            this.imageGroup.add(imageData.imageMesh)
         })
+        this.aboutScene.add(this.imageGroup)
     }
 
     calculateUniteSize(distance){
@@ -185,7 +193,7 @@ export default class AboutContent {
 
         this.camUnit = this.calculateUniteSize(this.camera.position.z)
         
-        this.imageGroup.forEach((imageObject) => {
+        this.imageList.forEach((imageObject) => {
             imageObject.imageBoundingData = imageObject.image.getBoundingClientRect()
             imageObject.imageSize = this.updateSize(imageObject.imageBoundingData.width, imageObject.imageBoundingData.height)
 
@@ -194,7 +202,7 @@ export default class AboutContent {
     }
 
     update(){
-        this.imageGroup.forEach((imageObject) => {
+        this.imageList.forEach((imageObject) => {
             imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
         })
     }
