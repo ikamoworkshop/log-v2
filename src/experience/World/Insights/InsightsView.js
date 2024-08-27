@@ -71,7 +71,8 @@ export default class InsightsView {
         this.images.forEach((image) => {
             const imageData ={}
 
-            imageData.image = image
+            imageData.image = new Image()
+            imageData.image.src = image.src
             imageData.texture = this.textureLoader.load(imageData.image.src)
             imageData.imageBoundingData = image.getBoundingClientRect()
 
@@ -92,7 +93,9 @@ export default class InsightsView {
                 fragmentShader: imagePlateFrag,
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(.5)
+                    uOpacity: new THREE.Uniform(.5),
+                    uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
+                    uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                 },
                 transparent: true,
             })
