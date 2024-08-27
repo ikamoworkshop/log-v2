@@ -18,8 +18,11 @@ export default class InsightsView {
 
         this.textureLoader = new THREE.TextureLoader()
 
+        this.imageList = []
+
         this.setScene()
         this.setCamera()
+        this.getImage()
         this.setImage()
     }
 
@@ -36,15 +39,87 @@ export default class InsightsView {
         // this.scene.add(this.camera)
     }
 
+    updateSize = (width, height) => {
+        this.camUnit = this.calculateUniteSize(this.camera.position.z)
+        const x = width / this.sizes.width
+        const y = height / this.sizes.height
+
+        if(!x || !y){
+            return
+        }
+
+        const finalScaleX = this.camUnit.width * x
+        const finalScaleY = this.camUnit.height * y
+
+        return { finalScaleX, finalScaleY }
+    }
+
+    getImage(){
+        this.images = document.querySelectorAll('.insight-container img')
+        this.images.forEach((image) => {
+            image.classList.add('gl')
+        })
+
+        this.pageChange.on('pageChange', () => {
+            this.images = document.querySelectorAll('.insight-container img')
+        })
+    }
+
     setImage(){
-        this.testCube = new THREE.Mesh(
-            new THREE.BoxGeometry(1, 1, 1),
-            new THREE.MeshBasicMaterial()
-        )
-        this.scene.add(this.testCube)
+        this.imageGroup = new THREE.Group()
+
+        this.images.forEach((image) => {
+            const imageData ={}
+
+            imageData.image = image
+            imageData.texture = this.textureLoader.load(imageData.image.src)
+            imageData.imageBoundingData = image.getBoundingClientRect()
+
+            this.camUnit = this.calculateUniteSize(this.camera.position.z)
+            const x = imageData.imageBoundingData.width / this.sizes.width
+            const y = imageData.imageBoundingData.height / this.sizes.height
+
+            if(!x || !y){
+                return
+            }
+
+            imageData.finalScaleX = this.camUnit.width * x
+            imageData.finalScaleY = this.camUnit.height * y
+
+            imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
+            imageData.imageMaterial = new THREE.ShaderMaterial({
+                vertexShader: imagePlateVer,
+                fragmentShader: imagePlateFrag,
+                uniforms: {
+                    uTexture: new THREE.Uniform(imageData.texture),
+                    uOpacity: new THREE.Uniform(.5)
+                },
+                transparent: true,
+            })
+            imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
+
+            imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+            
+            imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
+            imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
+
+            this.imageList.push(imageData)
+            this.imageGroup.add(imageData.imageMesh)
+        })
+
+        this.scene.add(this.imageGroup)
+    }
+
+    calculateUniteSize(distance){
+        const vFov = this.camera.fov * Math.PI / 180
+        const height = 2 * Math.tan(vFov / 2) * distance
+        const width = height * this.camera.aspect
+        return { width, height }
     }
 
     update(){
-        
+        this.imageList.forEach((imageObject) => {
+            imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
+        })
     }
 }

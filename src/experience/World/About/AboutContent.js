@@ -135,7 +135,6 @@ export default class AboutContent {
             imageData.texture = this.textureLoader.load(imageData.image.src)
             imageData.imageBoundingData = image.getBoundingClientRect()
 
-            // imageData.imageSize = this.updateSize(imageData.imageBoundingData.width, imageData.imageBoundingData.height)
             this.camUnit = this.calculateUniteSize(this.camera.position.z)
             const x = imageData.imageBoundingData.width / this.sizes.width
             const y = imageData.imageBoundingData.height / this.sizes.height

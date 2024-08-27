@@ -224,6 +224,7 @@ export default class Renderer{
             this.galleryTop.update()
             this.galleryView.update()
             this.insightsTop.update()
+            this.insightsView.update()
             this.notFound.update()
 
             if(this.pageChange.prevPage === '/'){
