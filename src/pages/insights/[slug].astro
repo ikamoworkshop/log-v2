@@ -1,5 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro'
+import ScrollProgress from '../../components/ScrollProgress.astro'
+
 import { PortableText } from "astro-portabletext";
 import InsightsPortable from "../../components/insights/InsightsPortable.astro"
 import InsightsTitle from '../../components/insights/InsightsTitle.astro'
@@ -29,6 +31,8 @@ const components = {
 
 <MainLayout title={"IKAMO[LOG] | " + insights.title}>
     <main data-taxi-view class="insights-view">
+
+        <ScrollProgress />
 
         <div class="insight-container flex gap-100 no-wrap" id="scroll">
 

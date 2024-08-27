@@ -239,6 +239,21 @@
   transform: translateX(24px);
 }
 
+.scroll-progress-container {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 16px;
+  background: repeating-linear-gradient(to left, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px);
+  background-position: 1px;
+}
+
+.scroll-progress-move {
+  width: 80px;
+}
+
 .about-container {
   height: 100dvh;
   padding: 0px 240px;

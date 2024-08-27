@@ -65,9 +65,6 @@ const { title } = Astro.props;
 			}
 			scroller.on(event => {
 				scrollTarget = - event.deltaY
-				// totalScroll = event.y * -1
-				// scrollPosition = Math.max(0, Math.min(totalScroll, containerSize - window.innerWidth))
-				// scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
 			})
 
 			const tick = () => {
