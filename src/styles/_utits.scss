@@ -83,6 +83,8 @@
     width: 320px;
     height: 16px;
 
+    border-right: 1px solid rgba(255, 255, 255, .1);
+
     background: repeating-linear-gradient(to left,
         rgba(255, 255, 255, .2), rgba(255, 255, 255, .2) 1px, transparent 1px, transparent 20px);
     background-position: 1px;

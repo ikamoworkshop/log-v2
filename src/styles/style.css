@@ -246,6 +246,7 @@
   transform: translateX(-50%);
   width: 320px;
   height: 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   background: repeating-linear-gradient(to left, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 20px);
   background-position: 1px;
 }
@@ -500,6 +501,37 @@
   list-style: disc outside none;
   display: list-item;
   margin-left: 1em;
+}
+
+.insights-next-link {
+  min-width: 800px;
+  height: 100%;
+  padding-left: 200px;
+}
+
+.insights-next-title {
+  width: 600px;
+  position: absolute;
+  margin-left: -200px;
+  margin-top: 480px;
+  transition: transform 0.3s ease;
+}
+
+.insights-next-image {
+  width: 600px;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.next-arrow {
+  min-width: 60px;
+}
+
+.insights-next-link:hover > .insights-next-title {
+  transform: translateX(24px);
 }
 
 * {

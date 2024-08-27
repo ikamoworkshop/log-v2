@@ -75,3 +75,33 @@
     display: list-item;
     margin-left: 1em;
 }
+
+.insights-next-link{
+    min-width: 800px;
+    height: 100%;
+    padding-left: 200px;
+}
+
+.insights-next-title{
+    width: 600px;
+    position: absolute;
+    margin-left: -200px;
+    margin-top: 480px;
+
+    transition: transform .3s ease;
+}
+
+.insights-next-image{
+    width: 600px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.next-arrow{
+    min-width: 60px;
+}
+
+.insights-next-link:hover > .insights-next-title{
+    transform: translateX(24px);
+}

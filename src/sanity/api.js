@@ -39,11 +39,12 @@ export async function getAllInsights(){
                 slug,
                 index,
                 heroImage,
-                contentType,
+                contentype,
                 postDate,
                 body,
                 nextvLog -> {
                     title,
+                    heroImage,
                     slug
                 }
             }
