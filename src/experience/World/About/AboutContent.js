@@ -1,6 +1,7 @@
 import Experience from "../../Experience"
 
 import * as THREE from 'three'
+import gsap from "gsap"
 
 import imagePlateVer from '../../Shaders/imagePlate/vertex.glsl'
 import imagePlateFrag from '../../Shaders/imagePlate/fragment.glsl'
@@ -17,12 +18,15 @@ export default class AboutContent {
 
         this.textureLoader = new THREE.TextureLoader()
 
+        this.buttons = document.getElementsByTagName('a')
+
         this.imageList = []
 
         this.setScene()
         this.setCamera()
         this.getImage()
         this.setImage()
+        this.transition()
     }
 
     setScene(){
@@ -130,7 +134,7 @@ export default class AboutContent {
                 
                 this.imageList.push(imageData)
                 this.imageGroup.add(imageData.imageMesh)
-                
+
             })
             this.aboutScene.add(this.imageGroup)
         })
@@ -183,6 +187,32 @@ export default class AboutContent {
         const height = 2 * Math.tan(vFov / 2) * distance
         const width = height * this.camera.aspect
         return { width, height }
+    }
+
+    transition(){
+
+        for(let i = 0 ; i < this.buttons.length; i++){
+            this.buttons[i].addEventListener('click', () => {
+                this.imageList.forEach(object => {
+                    gsap.to(object.imageMesh.material.uniforms.uOpacity, {
+                        value: 0,
+                        duration: .5
+                    })
+                })
+            })
+        }
+
+        this.pageChange.on('pageChange', () => {
+            this.imageList.forEach((imageObject) => {
+                imageObject.imageMesh.material.uniforms.uOpacity. value = 0
+                
+                gsap.to(imageObject.imageMesh.material.uniforms.uOpacity, {
+                    value: .5,
+                    duration: .5
+                })
+            })
+        })
+
     }
 
     resize(){
