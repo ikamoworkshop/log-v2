@@ -1,6 +1,7 @@
 import Experienece from '../../Experience'
 
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 import urlForImage from '../../../sanity/imageBuilder'
 
@@ -23,12 +24,15 @@ export default class GalleryTop {
         this.galleryList = this.resources.galleryList
         this.mainDom = document.getElementById('gallery-top')
 
+        this.buttons = document.getElementsByTagName('a')
+
         this.finalPosX = 0
         this.finalPosY = 0
 
         this.setScene()
         this.setCamera()
         this.setThumbnail()
+        this.transition()
     }
 
     setScene(){
@@ -50,6 +54,8 @@ export default class GalleryTop {
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
         this.gridGap = 2
+        this.transitionObject = {}
+        this.transitionObject.uOpacity = .5
 
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
@@ -68,7 +74,7 @@ export default class GalleryTop {
                     uniforms:{
                         uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
                         uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(.5),
+                        uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
                         uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
                         uImageSize: new THREE.Uniform(thumbnailData.imageSize),
                     },
@@ -110,6 +116,16 @@ export default class GalleryTop {
                 thumbnailData.rightBracket.classList.add('text-light', 'title', 'gallery-bracket')
                 thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
 
+                thumbnailData.anchorButton.addEventListener('click', () => {
+                    thumbnailData.thumbnailPlate.material.uniforms.uOpacity.value = .5
+
+                    gsap.to(this.transitionObject, {
+                        uOpacity: 0,
+                        duration:.5,
+                        onComplete: console.log(this.transitionObject.uOpacity)
+                    })
+                })
+
                 window.setTimeout(() => {
                     if(this.mainDom){
                         this.mainDom.appendChild(thumbnailData.anchorButton)
@@ -142,13 +158,53 @@ export default class GalleryTop {
         this.scene.add(this.thumbnailPlateGroup)
     }
 
+    singleTransition() {
+        this.thumbnailPlateList.forEach(object => {
+
+            object.thumbnailPlate.material.uniforms.uOpacity.value = .5
+            gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
+                value: 0,
+                duration: .5
+            })
+        })
+    }
+
+    transition(){
+        this.pageChange.on('pageChange', () => {
+            this.buttons = document.getElementsByTagName('a')
+            this.thumbnailPlateList.forEach((object) => {
+
+                object.thumbnailPlate.material.uniforms.uOpacity.value = 0
+                
+                gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
+                    value: .5,
+                    duration: .5
+                })
+            })
+        })
+
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+
+                this.thumbnailPlateList.forEach(object => {
+
+                    object.thumbnailPlate.material.uniforms.uOpacity.value = .5
+                    gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
+                        value: 0,
+                        duration: .5
+                    })
+                })
+            })
+        }
+    }
+
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
         this.camera.updateProjectionMatrix()
     }
 
-    update(){
-        this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
+    update(){        this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 
         this.thumbnailPlateList.forEach((object) => {

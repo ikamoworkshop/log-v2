@@ -238,6 +238,8 @@ export default class InsightsView {
     }
 
     update(){
+        this.buttons = document.getElementsByTagName('a')
+
         this.imageList.forEach((imageObject) => {
             imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
         })
