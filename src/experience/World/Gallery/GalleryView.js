@@ -34,7 +34,7 @@ export default class GalleryView {
     setCamera(){
         this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(0, 0, 5)
-        // this.scene.add(this.camera)
+        this.scene.add(this.camera)
     }
 
     getImage(){

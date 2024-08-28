@@ -54,11 +54,14 @@ const { title } = Astro.props;
 			const scroller = new VirtualScroll()
 
 			let scrollContainer = document.getElementById('scroll')
+			let scrollProgress = document.getElementById('scroll-progress')
+			let progressBox = document.getElementById('progress-box')
 
 			// Page Scroll
 			let scroll = 0
 			let scrollTarget = 0
 			let scrollPosition = 0
+			let scrollPercentage = 0
 			let containerSize = null
 			if(scrollContainer){
 				containerSize = scrollContainer.getBoundingClientRect().width
@@ -72,8 +75,9 @@ const { title } = Astro.props;
 					scrollPosition = 0
 				}
 				// Reset Scroll
+				scrollProgress = document.getElementById('scroll-progress')
+				progressBox = document.getElementById('progress-box')
 				scrollContainer = document.getElementById('scroll')
-				
 
 				scroll -= (scroll - scrollTarget) * .1
 				scrollPosition += scroll * 1.2
@@ -82,7 +86,11 @@ const { title } = Astro.props;
 				scrollPosition = Math.max(0, Math.min(scrollPosition, containerSize - window.innerWidth))
 
 				if(scrollContainer){
+					scrollPercentage = (scrollPosition / (containerSize - window.innerWidth)) * (progressBox.getBoundingClientRect().width - scrollProgress.getBoundingClientRect().width)
+
 					scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
+					scrollProgress.style.transform = `translateX(${scrollPercentage}px)`
+
 					containerSize = scrollContainer.getBoundingClientRect().width
 				}
 
