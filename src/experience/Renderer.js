@@ -9,6 +9,7 @@ import InsightsTop from './World/Insights/InsightsTop.js'
 import InsightsView from './World/Insights/InsightsView.js'
 
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
@@ -26,6 +27,8 @@ export default class Renderer{
         this.resources = this.experience.resources;
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
+
+        this.buttons = document.getElementsByTagName('a')
 
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
@@ -62,6 +65,7 @@ export default class Renderer{
             this.setInstance()
             this.setComposer()
             this.setPostProcessing()
+            this.transition()
         })
     }
 
@@ -191,7 +195,7 @@ export default class Renderer{
 
         this.waterPass = new ShaderPass(WaterEffect)
         this.waterPass.uniforms.uTexture.value = this.waterTexter.texture
-        this.waterPass.uniforms.uBlueStrength.value = 0
+        this.waterPass.uniforms.uBlueStrength.value = .0
         this.composer.addPass(this.waterPass)
 
         this.smaaPass = new SMAAPass()
@@ -202,7 +206,21 @@ export default class Renderer{
     }
 
     transition(){
-        
+        this.pageChange.on('pageChange', () => {
+            gsap.to(this.waterPass.uniforms.uBlueStrength, {
+                value: 0,
+                duration: 1
+            })
+        })
+
+        for(let i = 0 ; i < this.buttons.length; i++){
+            this.buttons[i].addEventListener('click', () => {
+                gsap.to(this.waterPass.uniforms.uBlueStrength, {
+                    value: .01,
+                    duration: .5
+                })
+            })
+        }
     }
 
     resize(){
@@ -223,6 +241,7 @@ export default class Renderer{
     }
 
     update(){
+        this.buttons = document.getElementsByTagName('a')
 
         if(this.face){
             this.waterTexter.update()
