@@ -118,7 +118,7 @@ export default class AboutContent {
                         fragmentShader: imagePlateFrag,
                         uniforms: {
                             uTexture: new THREE.Uniform(imageData.texture),
-                            uOpacity: new THREE.Uniform(.1),
+                            uOpacity: new THREE.Uniform(51),
                             uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
                             uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                         },
@@ -162,7 +162,7 @@ export default class AboutContent {
                 fragmentShader: imagePlateFrag,
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(.1),
+                    uOpacity: new THREE.Uniform(.5),
                     uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
                     uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                 },

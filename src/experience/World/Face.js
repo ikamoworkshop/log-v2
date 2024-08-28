@@ -14,6 +14,8 @@ export default class TestCube {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
 
+        this.targetPosition = new THREE.Vector2(0, 0)
+
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
@@ -54,6 +56,7 @@ export default class TestCube {
 
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1
@@ -62,6 +65,7 @@ export default class TestCube {
         
         else if(this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
                 duration: 1
@@ -70,6 +74,7 @@ export default class TestCube {
         
         else if(this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.4, .4, .4)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1
@@ -78,6 +83,7 @@ export default class TestCube {
 
         else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1
@@ -86,6 +92,7 @@ export default class TestCube {
 
         else if(this.pageChange.prevPage === '/insights'){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.4, .4, .4)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1
@@ -94,14 +101,16 @@ export default class TestCube {
 
         else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
                 duration: 1
             })
         } 
         
-        else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+        else {
             this.renderedFace = this.resources.items.defaultFlat.scene
+            this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1
@@ -116,6 +125,12 @@ export default class TestCube {
                     y: 0,
                     duration: 1
                 })
+                gsap.to(this.renderedFace.scale,{
+                    x: .7,
+                    y: .7,
+                    z: .7,
+                    duration: 1
+                })
             }
             
             else if(this.pageChange.prevPage === '/about'){
@@ -123,6 +138,12 @@ export default class TestCube {
                 // this.renderedFaceGroup.position.y = -2
                 gsap.to(this.renderedFaceGroup.position, {
                     y: -2,
+                    duration: 1
+                })
+                gsap.to(this.renderedFace.scale,{
+                    x: .7,
+                    y: .7,
+                    z: .7,
                     duration: 1
                 })
             }
@@ -134,6 +155,12 @@ export default class TestCube {
                     y: 0,
                     duration: 1
                 })
+                gsap.to(this.renderedFace.scale,{
+                    x: .4,
+                    y: .4,
+                    z: .4,
+                    duration: 1
+                })
             }
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
@@ -141,6 +168,12 @@ export default class TestCube {
                 // this.renderedFaceGroup.position.set(0, 0, 0)
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
+                    duration: 1
+                })
+                gsap.to(this.renderedFace.scale,{
+                    x: .7,
+                    y: .7,
+                    z: .7,
                     duration: 1
                 })
             } 
@@ -152,6 +185,12 @@ export default class TestCube {
                     y: 0,
                     duration: 1
                 })
+                gsap.to(this.renderedFace.scale,{
+                    x: .4,
+                    y: .4,
+                    z: .4,
+                    duration: 1
+                })
             }
 
             else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
@@ -161,13 +200,25 @@ export default class TestCube {
                     y: -2,
                     duration: 1
                 })
+                gsap.to(this.renderedFace.scale,{
+                    x: .7,
+                    y: .7,
+                    z: .7,
+                    duration: 1
+                })
             } 
             
-            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+            else {
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 // this.renderedFaceGroup.position.set(0, 0, 0)
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
+                    duration: 1
+                })
+                gsap.to(this.renderedFace.scale,{
+                    x: .7,
+                    y: .7,
+                    z: .7,
                     duration: 1
                 })
             }
@@ -181,7 +232,6 @@ export default class TestCube {
         })
         
         this.renderedFaceMesh.material = this.glassMaterial
-        this.renderedFaceMesh.scale.set(.7, .7, .7)
 
         this.directionalLight = new THREE.DirectionalLight(0xafb2ff, 0.5)
         this.directionalLight.position.set(0, 5, 10)
@@ -236,15 +286,60 @@ export default class TestCube {
     }
 
     update(){
-        // this.renderedFace.rotation.x = (this.cursor.cursorY / this.sizes.width - .2) * 1.3
-        // this.renderedFace.rotation.y = (this.cursor.cursorX / this.sizes.height - .8) * .3
+        this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
+
+        this.targetPosition.lerp(this.normalizedCursor, .05)
 
         this.lookAtMesh.position.x = (this.cursor.cursorX / this.sizes.width * 2 - 1) * .5
         this.lookAtMesh.position.y = - (this.cursor.cursorY / this.sizes.width * 2 - .5) * .5
 
-        this.renderedFace.lookAt(this.lookAtMesh.position)
+        if(this.pageChange.prevPage === '/'){
+            this.renderedFace.lookAt(this.lookAtMesh.position)
         
-        this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
-        this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
+            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+        }
+        
+        else if(this.pageChange.prevPage === '/about'){
+            this.renderedFace.lookAt(this.lookAtMesh.position)
+        
+            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
+            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+        }
+        
+        else if(this.pageChange.prevPage === '/gallery'){
+            this.renderedFace.rotation.set(0, 0, 0)
+            this.renderedFace.rotation.y = -this.targetPosition.x * 4
+            this.renderedFace.rotation.x = this.targetPosition.y * 2
+            this.renderedFace.position.x = this.targetPosition.x * 8
+            this.renderedFace.position.y = this.targetPosition.y * 4
+        }
+
+        else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+            this.renderedFace.lookAt(this.lookAtMesh.position)
+        
+            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
+            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+        } 
+
+        else if(this.pageChange.prevPage === '/insights'){
+            this.renderedFace.rotation.set(0, 0, 0)
+            this.renderedFace.rotation.y = -this.targetPosition.x * 4
+            this.renderedFace.rotation.x = this.targetPosition.y * 2
+            this.renderedFace.position.x = this.targetPosition.x * 8
+            this.renderedFace.position.y = this.targetPosition.y * 4
+        }
+
+        else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+            this.renderedFace.lookAt(this.lookAtMesh.position)
+        
+            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
+            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+        } 
+        
+        else {
+
+        }
+
     }
 }
