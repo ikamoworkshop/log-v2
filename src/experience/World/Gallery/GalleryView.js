@@ -1,6 +1,7 @@
 import Experienece from '../../Experience'
 
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 import imagePlateVer from '../../Shaders/imagePlate/vertex.glsl'
 import imagePlateFrag from '../../Shaders/imagePlate/fragment.glsl'
@@ -18,10 +19,13 @@ export default class GalleryView {
 
         this.textureLoader = new THREE.TextureLoader()
 
+        this.buttons = document.getElementsByTagName('a')
+
         this.setScene()
         this.setCamera()
         this.getImage()
         this.setImage()
+        this.transition()
     }
 
     setScene(){
@@ -99,6 +103,7 @@ export default class GalleryView {
 
         // PAGE CHANGE
         this.pageChange.on('pageChange', () => {
+            this.buttons = document.getElementsByTagName('a')
             this.imageList = []
 
             this.scene.traverse((child) =>
@@ -170,6 +175,38 @@ export default class GalleryView {
         return { width, height }
     }
 
+    transition(){
+
+        this.pageChange.on('pageChange', () => {
+            this.buttons = document.getElementsByTagName('a')
+
+            this.imageList.forEach((object) => {
+
+                object.imageMesh.material.uniforms.uOpacity.value = 0
+                
+                gsap.to(object.imageMesh.material.uniforms.uOpacity, {
+                    value: .5,
+                    duration: .5
+                })
+            })
+        })
+
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+
+                this.imageList.forEach(object => {
+                    object.imageMesh.material.uniforms.uOpacity.value = .5
+                    gsap.to(object.imageMesh.material.uniforms.uOpacity, {
+                        value: 0,
+                        duration: .5
+                    })
+                })
+            })
+        }
+
+    }
+
     removeItem(){
         this.pageChange.on('pageChange', () => {
             this.scene.remove(this.imageGroup)
@@ -177,6 +214,8 @@ export default class GalleryView {
     }
 
     update(){
+        // this.buttons = document.getElementsByTagName('a')
+
         if(this.pageImage.length === this.imageList.length){
             this.imageList.forEach((object, i) => {
                 object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
