@@ -117,8 +117,6 @@ export default class GalleryTop {
                 thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
 
                 thumbnailData.anchorButton.addEventListener('click', () => {
-                    thumbnailData.thumbnailPlate.material.uniforms.uOpacity.value = .5
-
                     gsap.to(this.transitionObject, {
                         uOpacity: 0,
                         duration:.5,
@@ -172,6 +170,7 @@ export default class GalleryTop {
     transition(){
         this.pageChange.on('pageChange', () => {
             this.buttons = document.getElementsByTagName('a')
+
             this.thumbnailPlateList.forEach((object) => {
 
                 object.thumbnailPlate.material.uniforms.uOpacity.value = 0
@@ -181,22 +180,22 @@ export default class GalleryTop {
                     duration: .5
                 })
             })
-        })
+            
+            for(let i = 0 ; i < this.buttons.length; i++){
 
-        for(let i = 0 ; i < this.buttons.length; i++){
-
-            this.buttons[i].addEventListener('click', () => {
-
-                this.thumbnailPlateList.forEach(object => {
-
-                    object.thumbnailPlate.material.uniforms.uOpacity.value = .5
-                    gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
-                        value: 0,
-                        duration: .5
+                this.buttons[i].addEventListener('click', () => {
+    
+                    this.thumbnailPlateList.forEach(object => {
+    
+                        object.thumbnailPlate.material.uniforms.uOpacity.value = .5
+                        gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
+                            value: 0,
+                            duration: .5
+                        })
                     })
                 })
-            })
-        }
+            }
+        })
     }
 
     resize(){

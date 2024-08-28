@@ -1,6 +1,7 @@
 import Experienece from '../../Experience'
 
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 import urlForImage from '../../../sanity/imageBuilder'
 
@@ -23,11 +24,14 @@ export default class InsightsTop {
         this.insightsList = this.resources.insightsList
         this.mainDom = document.getElementById('insights-top')
 
+        this.buttons = document.getElementsByTagName('a')
+
         this.targetPosition = new THREE.Vector2(0, 0)
 
         this.setScene()
         this.setCamera()
         this.setThumbnail()
+        this.transition()
     }
 
     setScene(){
@@ -147,7 +151,40 @@ export default class InsightsTop {
         this.scene.add(this.insightGroup)
     }
 
+    transition(){
+        this.pageChange.on('pageChange', () => {
+            this.buttons = document.getElementsByTagName('a')
+
+            this.insightPlateList.forEach((object) => {
+
+                object.mesh.material.uniforms.uOpacity.value = 0
+                
+                gsap.to(object.mesh.material.uniforms.uOpacity, {
+                    value: .5,
+                    duration: .5
+                })
+            })
+            
+            for(let i = 0 ; i < this.buttons.length; i++){
+
+                this.buttons[i].addEventListener('click', () => {
+    
+                    this.insightPlateList.forEach(object => {
+    
+                        object.mesh.material.uniforms.uOpacity.value = .5
+                        gsap.to(object.mesh.material.uniforms.uOpacity, {
+                            value: 0,
+                            duration: .5
+                        })
+                    })
+                })
+            }
+        })
+    }
+
     update(){
+        this.buttons = document.getElementsByTagName('a')
+
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
 
         this.targetPosition.lerp(this.normalizedCursor, .05)
