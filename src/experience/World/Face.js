@@ -266,7 +266,9 @@ export default class TestCube {
             vertexShader: renderTargetVertex,
             fragmentShader: renderTargetFragment,
             uniforms: {
-                uTexture: new THREE.Uniform()
+                uTexture: new THREE.Uniform(),
+                uImageSize: new THREE.Uniform(new THREE.Vector2(this.sizes.width, this.sizes.height)),
+                uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.fovY * this.camera.aspect, this.fovY)),
             },
         })
         this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
@@ -278,6 +280,7 @@ export default class TestCube {
 
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
+        this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
         this.camera.updateProjectionMatrix()
 
         this.renderTarget.setSize(this.sizes.width, this.sizes.height)
