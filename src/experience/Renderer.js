@@ -34,7 +34,6 @@ export default class Renderer{
         })
 
         this.insightsList = this.resources.insightsList
-        console.log(this.insightsList)
         this.insightsSlugList = []
         this.insightsList.forEach(item => {
             this.insightsSlugList.push("/insights/" + item.slug.current)

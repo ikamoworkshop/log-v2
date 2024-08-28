@@ -44,7 +44,17 @@ const { title } = Astro.props;
 			const experience = new Experience(document.getElementById('webgl'));
 
 			import * as Taxi from '@unseenco/taxi'
-			const taxi = new Taxi.Core()
+			import DefaultRenderer from '../Transition/Renderer'
+			import DefaultTransition from '../Transition/DefaultTransition'
+
+			const taxi = new Taxi.Core({
+				renderers:{
+					default: DefaultRenderer
+				},
+				transitions: {
+					default: DefaultTransition
+				}
+			})
 
 			let activePage = window.location.pathname
 			let navButton = document.querySelectorAll('.navigation-light')

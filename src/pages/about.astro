@@ -6,7 +6,7 @@ import PrimaryButton from '../components/PrimaryButton.astro'
 <MainLayout title="IKAMO[LOG] | About">
     <main data-taxi-view>
 
-        <div class="about-container flex no-wrap" id="scroll">
+        <div class="about-container flex no-wrap taxi-transition" id="scroll">
 
                 <div class="flex flex-column gap-48 about-text about-section-one">
                     <h1 class="caption-bold text-light">[ HELLO THERE ]</h1>
@@ -74,6 +74,5 @@ import PrimaryButton from '../components/PrimaryButton.astro'
 </MainLayout>
 
 <script>
-    import * as Taxi from '@unseenco/taxi'
-    const taxi = new Taxi.Core()
+
 </script>
