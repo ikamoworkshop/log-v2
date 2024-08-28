@@ -1,5 +1,6 @@
 import Experience from "../Experience"
 import * as THREE from 'three'
+import gsap from "gsap"
 
 import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
 import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
@@ -53,87 +54,122 @@ export default class TestCube {
 
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.set(0, 0, 0)
-            this.renderedFace.visible = true
+            gsap.to(this.renderedFaceGroup.position, {
+                y: 0,
+                duration: 1
+            })
         }
         
         else if(this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.y = -2
-            this.renderedFace.visible = true
+            gsap.to(this.renderedFaceGroup.position, {
+                y: -2,
+                duration: 1
+            })
         }
         
         else if(this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.y = 0
-            this.renderedFace.visible = false
+            gsap.to(this.renderedFaceGroup.position, {
+                y: 0,
+                duration: 1
+            })
         }
 
         else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.set(0, 0, 0)
-            this.renderedFace.visible = true
+            gsap.to(this.renderedFaceGroup.position, {
+                y: 0,
+                duration: 1
+            })
         } 
 
         else if(this.pageChange.prevPage === '/insights'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.y = 0
-            this.renderedFace.visible = false
+            gsap.to(this.renderedFaceGroup.position, {
+                y: 0,
+                duration: 1
+            })
         }
 
         else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.set(0, 0, 0)
-            this.renderedFace.visible = false
+            gsap.to(this.renderedFaceGroup.position, {
+                y: -2,
+                duration: 1
+            })
         } 
         
         else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFaceGroup.position.set(0, 0, 0)
-            this.renderedFace.visible = true
+            gsap.to(this.renderedFaceGroup.position, {
+                y: 0,
+                duration: 1
+            })
         }
 
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.set(0, 0, 0)
-                this.renderedFace.visible = true
+                // this.renderedFaceGroup.position.set(0, 0, 0)
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: 0,
+                    duration: 1
+                })
             }
             
             else if(this.pageChange.prevPage === '/about'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.y = -2
-                this.renderedFace.visible = true
+                // this.renderedFaceGroup.position.y = -2
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: -2,
+                    duration: 1
+                })
             }
             
             else if(this.pageChange.prevPage === '/gallery'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.y = 0
-                this.renderedFace.visible = false
+                // this.renderedFaceGroup.position.y = 0
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: 0,
+                    duration: 1
+                })
             }
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.set(0, 0, 0)
-                this.renderedFace.visible = true
+                // this.renderedFaceGroup.position.set(0, 0, 0)
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: 0,
+                    duration: 1
+                })
             } 
 
             else if(this.pageChange.prevPage === '/insights'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.y = 0
-                this.renderedFace.visible = false
+                // this.renderedFaceGroup.position.y = 0
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: 0,
+                    duration: 1
+                })
             }
 
             else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.set(0, 0, 0)
-                this.renderedFace.visible = false
+                // this.renderedFaceGroup.position.set(0, 0, 0)
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: -2,
+                    duration: 1
+                })
             } 
             
             else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                this.renderedFaceGroup.position.set(0, 0, 0)
-                this.renderedFace.visible = true
+                // this.renderedFaceGroup.position.set(0, 0, 0)
+                gsap.to(this.renderedFaceGroup.position, {
+                    y: 0,
+                    duration: 1
+                })
             }
         })
 

@@ -63,9 +63,10 @@ const { title } = Astro.props;
 			let scrollPosition = 0
 			let scrollPercentage = 0
 			let containerSize = null
-			if(scrollContainer){
-				containerSize = scrollContainer.getBoundingClientRect().width
-			}
+			// if(scrollContainer){
+			// 	containerSize = scrollContainer.getBoundingClientRect().width
+			// }
+
 			scroller.on(event => {
 				scrollTarget = - event.deltaY
 			})
@@ -75,10 +76,14 @@ const { title } = Astro.props;
 					scrollPosition = 0
 				}
 				// Reset Scroll
+				scrollContainer = document.getElementById('scroll')
 				scrollProgress = document.getElementById('scroll-progress')
 				progressBox = document.getElementById('progress-box')
-				scrollContainer = document.getElementById('scroll')
 
+				if(scrollContainer){
+					containerSize = scrollContainer.getBoundingClientRect().width
+				}
+				
 				scroll -= (scroll - scrollTarget) * .1
 				scrollPosition += scroll * 1.2
 				scrollTarget = 0
@@ -86,12 +91,13 @@ const { title } = Astro.props;
 				scrollPosition = Math.max(0, Math.min(scrollPosition, containerSize - window.innerWidth))
 
 				if(scrollContainer){
-					scrollPercentage = (scrollPosition / (containerSize - window.innerWidth)) * (progressBox.getBoundingClientRect().width - scrollProgress.getBoundingClientRect().width)
-
 					scrollContainer.style.transform = `translateX(${-scrollPosition}px)`
-					scrollProgress.style.transform = `translateX(${scrollPercentage}px)`
-
 					containerSize = scrollContainer.getBoundingClientRect().width
+				}
+
+				if(scrollProgress){
+					scrollPercentage = (scrollPosition / (containerSize - window.innerWidth)) * (progressBox.getBoundingClientRect().width - scrollProgress.getBoundingClientRect().width)
+					scrollProgress.style.transform = `translateX(${scrollPercentage}px)`
 				}
 
 				window.requestAnimationFrame(tick)
