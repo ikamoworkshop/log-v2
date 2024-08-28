@@ -23,6 +23,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 export default class Renderer{
     constructor(){
         this.experience = new Experience()
+        this.time = this.experience.time
         this.pageChange = this.experience.pageChange
         this.resources = this.experience.resources;
         this.canvas = this.experience.canvas
@@ -196,6 +197,7 @@ export default class Renderer{
         this.waterPass = new ShaderPass(WaterEffect)
         this.waterPass.uniforms.uTexture.value = this.waterTexter.texture
         this.waterPass.uniforms.uBlueStrength.value = .0
+        this.waterPass.uniforms.uBendStrength.value = .0
         this.composer.addPass(this.waterPass)
 
         this.smaaPass = new SMAAPass()
@@ -211,12 +213,20 @@ export default class Renderer{
                 value: 0,
                 duration: 1
             })
+            gsap.to(this.waterPass.uniforms.uBendStrength, {
+                value: 0,
+                duration: 1
+            })
         })
 
         for(let i = 0 ; i < this.buttons.length; i++){
             this.buttons[i].addEventListener('click', () => {
                 gsap.to(this.waterPass.uniforms.uBlueStrength, {
                     value: .01,
+                    duration: .5
+                })
+                gsap.to(this.waterPass.uniforms.uBendStrength, {
+                    value: .05,
                     duration: .5
                 })
             })
@@ -254,6 +264,8 @@ export default class Renderer{
             this.insightsTop.update()
             this.insightsView.update()
             this.notFound.update()
+
+            this.waterPass.uniforms.uTime.value = this.time.elapsed
 
             if(this.pageChange.prevPage === '/'){
                 this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)

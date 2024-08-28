@@ -9,6 +9,8 @@ const WaterEffect = {
 		'uTexture': { value: null },
         'tDiffuse': { value: null },
         'uBlueStrength': { value: null },
+        'uBendStrength': {value: null },
+        'uTime': {value: null },
 	},
 
 	vertexShader: /* glsl */`
@@ -26,6 +28,8 @@ const WaterEffect = {
     uniform sampler2D uTexture;
     uniform sampler2D tDiffuse;
     uniform float uBlueStrength;
+    uniform float uBendStrength;
+    uniform float uTime;
 
     varying vec2 vUv;
     #define PI 3.14159265359
@@ -68,6 +72,8 @@ const WaterEffect = {
         newUv.y += vy * intensity * maxAmplitude;
 
         vec4 tMap = texture2D(tDiffuse, newUv);
+
+        newUv.y += sin(vUv.x * 30.0 + (uTime * .001)) * uBendStrength;
 
         vec4 color = vec4(blueEffect(newUv, tDiffuse, uBlueStrength), 1.0);
 
