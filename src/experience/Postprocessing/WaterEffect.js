@@ -8,6 +8,7 @@ const WaterEffect = {
 
 		'uTexture': { value: null },
         'tDiffuse': { value: null },
+        'uBlueStrength': { value: null },
 	},
 
 	vertexShader: /* glsl */`
@@ -24,8 +25,34 @@ const WaterEffect = {
 	fragmentShader: /* glsl */`
     uniform sampler2D uTexture;
     uniform sampler2D tDiffuse;
+    uniform float uBlueStrength;
+
     varying vec2 vUv;
     #define PI 3.14159265359
+
+    vec3 draw(sampler2D image, vec2 uv) {
+        return texture2D(image,vec2(uv.x, uv.y)).rgb;   
+    }
+        
+    float rand(vec2 co){
+        return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
+    }
+
+    vec3 blueEffect(vec2 uv, sampler2D image, float blurAmount){
+        vec3 blurredImage = vec3(0.);
+        #define repeats 40.
+
+        for (float i = 0.; i < repeats; i++) { 
+            vec2 q = vec2(cos(degrees((i / repeats) * 360.)), sin(degrees((i / repeats) * 360.))) * (rand(vec2(i, uv.x + uv.y)) + blurAmount); 
+            vec2 uv2 = uv + (q * blurAmount);
+            blurredImage += draw(image, uv2) / 2.;
+            q = vec2(cos(degrees((i / repeats) * 360.)), sin(degrees((i / repeats) * 360.))) * (rand(vec2(i + 2., uv.x + uv.y + 24.)) + blurAmount); 
+            uv2 = uv + (q * blurAmount);
+            blurredImage += draw(image, uv2) / 2.;
+        }
+        
+        return blurredImage / repeats;
+    }
 
     void main(){
         vec4 tex = texture2D(uTexture, vUv);
@@ -40,7 +67,9 @@ const WaterEffect = {
         newUv.x += vx * intensity * maxAmplitude;
         newUv.y += vy * intensity * maxAmplitude;
 
-        vec4 color = texture2D(tDiffuse, newUv);
+        vec4 tMap = texture2D(tDiffuse, newUv);
+
+        vec4 color = vec4(blueEffect(newUv, tDiffuse, uBlueStrength), 1.0);
 
         gl_FragColor = color;
     }

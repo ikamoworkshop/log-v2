@@ -191,6 +191,7 @@ export default class Renderer{
 
         this.waterPass = new ShaderPass(WaterEffect)
         this.waterPass.uniforms.uTexture.value = this.waterTexter.texture
+        this.waterPass.uniforms.uBlueStrength.value = 0
         this.composer.addPass(this.waterPass)
 
         this.smaaPass = new SMAAPass()
@@ -198,6 +199,10 @@ export default class Renderer{
 
         this.outputPass = new OutputPass()
         this.composer.addPass(this.outputPass)
+    }
+
+    transition(){
+        
     }
 
     resize(){
