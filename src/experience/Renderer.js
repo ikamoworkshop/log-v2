@@ -209,6 +209,7 @@ export default class Renderer{
 
     transition(){
         this.pageChange.on('pageChange', () => {
+            this.waterPass.uniforms.uBendStrength.value = .05
             gsap.to(this.waterPass.uniforms.uBlueStrength, {
                 value: 0,
                 duration: 1
@@ -223,10 +224,6 @@ export default class Renderer{
             this.buttons[i].addEventListener('click', () => {
                 gsap.to(this.waterPass.uniforms.uBlueStrength, {
                     value: .01,
-                    duration: .5
-                })
-                gsap.to(this.waterPass.uniforms.uBendStrength, {
-                    value: .05,
                     duration: .5
                 })
             })

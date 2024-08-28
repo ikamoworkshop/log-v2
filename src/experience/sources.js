@@ -2,7 +2,7 @@ export default [
     {
         name: 'background',
         type: 'texture',
-        path: '/background_3.png'
+        path: '/background_4.png'
     },
     {
         name: 'spaceBold',

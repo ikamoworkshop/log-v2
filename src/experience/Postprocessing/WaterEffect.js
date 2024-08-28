@@ -73,7 +73,7 @@ const WaterEffect = {
 
         vec4 tMap = texture2D(tDiffuse, newUv);
 
-        newUv.y += sin(vUv.x * 30.0 + (uTime * .001)) * uBendStrength;
+        newUv.y += sin(vUv.x * 30.0 + (uTime * .0025)) * uBendStrength;
 
         vec4 color = vec4(blueEffect(newUv, tDiffuse, uBlueStrength), 1.0);
 
