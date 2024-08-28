@@ -2,6 +2,7 @@ import Experience from "../../Experience"
 
 import * as THREE from 'three'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
+import gsap from "gsap"
 
 import imageVertex from '../../Shaders/landingPlate/vertex.glsl'
 import imageFragment from '../../Shaders/landingPlate/fragment.glsl'
@@ -9,10 +10,13 @@ import imageFragment from '../../Shaders/landingPlate/fragment.glsl'
 export default class HomeContent {
     constructor(){
         this.experience = new Experience()
+        this.pageChange = this.experience.pageChange
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
+
+        this.buttons = document.getElementsByTagName('a')
 
         this.setScene()
         this.setCamera()
@@ -21,6 +25,7 @@ export default class HomeContent {
         this.createImagePlates()
         this.setImagePlates()
         this.getImageGroupSize()
+        this.transition()
     }
 
     setScene(){
@@ -38,7 +43,10 @@ export default class HomeContent {
 
     setTitle(){
         this.spaceBold = this.resources.items.spaceBold
-        this.textMaterial = new THREE.MeshBasicMaterial()
+        this.textMaterial = new THREE.MeshBasicMaterial({
+            opacity: 1,
+            transparent: true
+        })
         this.textGroup = new THREE.Group()
 
         this.HomeTitleGeometryOne = new TextGeometry('IKAMO', {
@@ -79,6 +87,8 @@ export default class HomeContent {
 
     setTextures(){
         this.sizeBase = 2
+        this.transitionObject = {}
+        this.transitionObject.imageOpacity = .5
 
         this.textureBridge = this.resources.items.landingOne
         this.textureDesk = this.resources.items.landingTwo
@@ -95,7 +105,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureBridge),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(320, 560)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 2)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -106,7 +116,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGradshow),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(420, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -117,7 +127,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureWater),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(680, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -128,7 +138,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureDesk),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -139,7 +149,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureComic),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -150,7 +160,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGrad),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(520, 280)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
@@ -161,11 +171,103 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureAida),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(360, 420)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(.5)
+                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
             },
             transparent: true,
         })
 
+    }
+
+    transition(){
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+
+                gsap.to(this.textMaterial, {
+                    opacity: 0,
+                    duration: .5
+                })
+                
+                gsap.to(this.imagePlateMaterialBridge.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialGradshow.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialWater.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialDesk.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialComic.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialGrad.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+                gsap.to(this.imagePlateMaterialAida.uniforms.uOpacity, {
+                    value: 0,
+                    duration: .5
+                })
+
+            })
+
+        }
+
+        this.pageChange.on('pageChange', () => {
+            gsap.to(this.textMaterial, {
+                opacity: 1,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialBridge.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialGradshow.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialWater.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialDesk.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialComic.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialGrad.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+
+            gsap.to(this.imagePlateMaterialAida.uniforms.uOpacity, {
+                value: .5,
+                duration: .5
+            })
+        })
     }
 
     createImagePlates(){
@@ -219,6 +321,8 @@ export default class HomeContent {
     }
 
     update(){
+        this.buttons = document.getElementsByTagName('a')
+
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
 
         this.textGroup.position.x = (this.textGroup.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.textGroup.position.x) * .05) * .6
