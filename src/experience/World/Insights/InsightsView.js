@@ -90,9 +90,7 @@ export default class InsightsView {
             this.imageGroup = new THREE.Group()
 
             this.images.forEach((image) => {
-
-                image.onload = () => {
-                    const imageData ={}
+                const imageData ={}
     
                 imageData.image = new Image()
                 imageData.image.src = image.src
@@ -131,8 +129,8 @@ export default class InsightsView {
     
                 this.imageList.push(imageData)
                 this.imageGroup.add(imageData.imageMesh)
-                }
             })
+            
             this.scene.add(this.imageGroup)
         })
 
