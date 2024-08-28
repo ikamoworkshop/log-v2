@@ -150,7 +150,6 @@ export default class TestCube {
             
             else if(this.pageChange.prevPage === '/gallery'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.y = 0
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
@@ -296,15 +295,15 @@ export default class TestCube {
         if(this.pageChange.prevPage === '/'){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
-            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
-            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+            this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
+            this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
         else if(this.pageChange.prevPage === '/about'){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
-            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
-            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+            this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
+            this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
         else if(this.pageChange.prevPage === '/gallery'){
@@ -318,8 +317,8 @@ export default class TestCube {
         else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
-            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
-            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+            this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
+            this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         } 
 
         else if(this.pageChange.prevPage === '/insights'){
@@ -333,8 +332,8 @@ export default class TestCube {
         else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
-            this.renderedFace.position.x = (this.renderedFace.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.renderedFace.position.x) * .05) * .9
-            this.renderedFace.position.y = ((this.renderedFace.position.y) - ((this.cursor.cursorY / this.sizes.height - .5) + this.renderedFace.position.y) * .05) * .9
+            this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
+            this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         } 
         
         else {
