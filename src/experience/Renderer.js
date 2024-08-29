@@ -196,8 +196,8 @@ export default class Renderer{
 
         this.waterPass = new ShaderPass(WaterEffect)
         this.waterPass.uniforms.uTexture.value = this.waterTexter.texture
-        this.waterPass.uniforms.uBlueStrength.value = .0
-        this.waterPass.uniforms.uBendStrength.value = .0
+        this.waterPass.uniforms.uBlueStrength.value = .01
+        this.waterPass.uniforms.uBendStrength.value = .05
         this.composer.addPass(this.waterPass)
 
         this.smaaPass = new SMAAPass()
@@ -205,6 +205,15 @@ export default class Renderer{
 
         this.outputPass = new OutputPass()
         this.composer.addPass(this.outputPass)
+
+        gsap.to(this.waterPass.uniforms.uBlueStrength, {
+            value: 0,
+            duration: 2
+        })
+        gsap.to(this.waterPass.uniforms.uBendStrength, {
+            value: 0,
+            duration: 2
+        })
     }
 
     transition(){

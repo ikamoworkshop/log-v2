@@ -16,6 +16,8 @@ export default class TestCube {
 
         this.targetPosition = new THREE.Vector2(0, 0)
 
+        this.buttons = document.getElementsByTagName('a')
+
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
@@ -33,6 +35,7 @@ export default class TestCube {
         this.setModel()
         this.setLookAt()
         this.setRenderTarget()
+        this.transition()
         this.update()
     }
 
@@ -276,9 +279,25 @@ export default class TestCube {
         })
         this.renderPlane = new THREE.Mesh(this.renderPlaneGeometry, this.renderPlaneMaterial)
         this.renderPlane.scale.set(this.fovY * this.camera.aspect, this.fovY, 1)
-        this.renderPlane.position.set(0, 0, -4)
+        this.renderPlane.position.set(0, 0, -2)
 
         this.scene.add(this.renderPlane)
+
+        gsap.to(this.renderPlane.position, {
+            z: -4,
+            duration: 2,
+        })
+    }
+
+    transition(){
+
+        this.pageChange.on('pageChange', () => {
+            this.renderPlane.position.z = -2
+            gsap.to(this.renderPlane.position, {
+                z: -4,
+                duration: 2,
+            })
+        })
     }
 
     resize(){
@@ -291,6 +310,8 @@ export default class TestCube {
     }
 
     update(){
+        this.buttons = document.getElementsByTagName('a')
+
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
 
         this.targetPosition.lerp(this.normalizedCursor, .05)
