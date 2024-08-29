@@ -4,6 +4,7 @@ import '../styles/reset.css'
 
 // Components
 import Navigation from '../components/Navigation.astro'
+import Cursor from '../components/Cursor.astro'
 
 interface Props {
 	title: string;
@@ -34,6 +35,7 @@ const { title } = Astro.props;
 
 	<body class="body">
 		<Navigation />
+		<Cursor />
 		<main data-taxi>
 			<slot/>
 		</main>
