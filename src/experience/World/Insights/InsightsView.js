@@ -135,6 +135,7 @@ export default class InsightsView {
                 this.imageGroup.add(imageData.imageMesh)
             })
 
+
             this.scene.add(this.imageGroup)
         })
 

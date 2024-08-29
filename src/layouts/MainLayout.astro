@@ -72,6 +72,9 @@ const { title } = Astro.props;
 			let scrollProgress = document.getElementById('scroll-progress')
 			let progressBox = document.getElementById('progress-box')
 
+			let prevPage = null
+			let currentPage = null
+
 			// Page Scroll
 			let scroll = 0
 			let scrollTarget = 0
@@ -87,9 +90,18 @@ const { title } = Astro.props;
 			})
 
 			const tick = () => {
+				currentPage = window.location.pathname
+
+				if(currentPage !== prevPage){
+					prevPage = currentPage
+					scrollPosition = 0
+					scrollPercentage = 0
+				}
+
 				if(!scrollContainer){
 					scrollPosition = 0
 				}
+
 				// Reset Scroll
 				scrollContainer = document.getElementById('scroll')
 				scrollProgress = document.getElementById('scroll-progress')
