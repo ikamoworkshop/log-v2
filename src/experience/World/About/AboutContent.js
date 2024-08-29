@@ -180,6 +180,15 @@ export default class AboutContent {
             this.imageGroup.add(imageData.imageMesh)
         })
         this.aboutScene.add(this.imageGroup)
+
+        this.imageList.forEach((imageObject) => {
+            imageObject.imageMesh.material.uniforms.uOpacity.value = 0
+
+            gsap.to(imageObject.imageMesh.material.uniforms.uOpacity, {
+                value: .5,
+                duration: 4
+            })
+        })
     }
 
     calculateUniteSize(distance){
@@ -204,7 +213,7 @@ export default class AboutContent {
 
         this.pageChange.on('pageChange', () => {
             this.imageList.forEach((imageObject) => {
-                imageObject.imageMesh.material.uniforms.uOpacity. value = 0
+                imageObject.imageMesh.material.uniforms.uOpacity.value = 0
 
                 gsap.to(imageObject.imageMesh.material.uniforms.uOpacity, {
                     value: .5,
