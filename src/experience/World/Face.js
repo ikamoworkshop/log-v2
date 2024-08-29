@@ -225,16 +225,17 @@ export default class TestCube {
 
         this.renderedFaceMesh = this.renderedFace.children[0]
         this.glassMaterial = new THREE.MeshPhysicalMaterial({ 
-            roughness: 0.4,   
+            roughness: 0.3,   
             transmission: .8,  
-            thickness: .5
+            thickness: .8
         })
         
         this.renderedFaceMesh.material = this.glassMaterial
 
         this.directionalLight = new THREE.DirectionalLight(0xafb2ff, 0.5)
         this.directionalLight.position.set(0, 5, 10)
-        this.scene.add(this.renderedFaceGroup, this.directionalLight)
+        this.ambientLight = new THREE.AmbientLight(0xafb2ff, 1)
+        this.scene.add(this.renderedFaceGroup, this.directionalLight, this.ambientLight)
     }
 
     setLookAt() {
