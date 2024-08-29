@@ -181,6 +181,16 @@ export default class InsightsView {
         })
 
         this.scene.add(this.imageGroup)
+
+        this.imageList.forEach((object) => {
+
+            object.imageMesh.material.uniforms.uOpacity.value = 0
+            
+            gsap.to(object.imageMesh.material.uniforms.uOpacity, {
+                value: .5,
+                duration: 4
+            })
+        })
     }
 
     calculateUniteSize(distance){

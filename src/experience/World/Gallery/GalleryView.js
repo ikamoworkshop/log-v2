@@ -82,7 +82,7 @@ export default class GalleryView {
                 fragmentShader: imagePlateFrag,
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(.5),
+                    uOpacity: new THREE.Uniform(0),
                     uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
                     uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                 },
@@ -146,7 +146,7 @@ export default class GalleryView {
                     fragmentShader: imagePlateFrag,
                     uniforms: {
                         uTexture: new THREE.Uniform(imageData.texture),
-                        uOpacity: new THREE.Uniform(.2),
+                        uOpacity: new THREE.Uniform(0),
                         uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
                         uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                     },
@@ -165,6 +165,14 @@ export default class GalleryView {
             })
             this.imageGroup.position.x = -(this.pageImage.length * 1.5)
             this.scene.add(this.imageGroup)
+        })
+
+        this.imageList.forEach(object => {
+            object.imageMesh.material.uniforms.uOpacity.value = 0
+            gsap.to(object.imageMesh.material.uniforms.uOpacity, {
+                value: .5,
+                duration: 4
+            })
         })
     }
 
