@@ -214,7 +214,6 @@ export default class GalleryTop {
                 object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
                 object.imageSize = new THREE.Vector2(object.image.width, object.image.height)
-
                 object.thumbnailPlateMaterial.uniforms.uImageSize.value = object.imageSize
     
                 const screenPosition = object.thumbnailPlate.position.clone()
