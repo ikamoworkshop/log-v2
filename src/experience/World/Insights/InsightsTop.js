@@ -53,6 +53,9 @@ export default class InsightsTop {
         this.insightsGeometry = new THREE.PlaneGeometry(2, 2)
         this.gridGap = 2.8
 
+        this.transitionObject = {}
+        this.transitionObject.uOpacity = .5
+
         this.insightsList.forEach((item, i) => {
             const insightData = {}
 
@@ -72,7 +75,7 @@ export default class InsightsTop {
                     uniforms:{
                         uTexture: new THREE.Uniform(insightData.texture),
                         uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(.5),
+                        uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
                         uPlaneSize: new THREE.Uniform(new THREE.Vector2(2,2)),
                         uImageSize: new THREE.Uniform(insightData.imageSize),
                     },
@@ -122,6 +125,13 @@ export default class InsightsTop {
                 insightData.postTitle.classList.add('text-light', 'title', 'insight-title')
                 insightData.anchorButton.appendChild(insightData.postTitle)
 
+                insightData.anchorButton.addEventListener('click', () => {
+                    gsap.to(this.transitionObject, {
+                        uOpacity: 0,
+                        duration:.5,
+                    })
+                })
+
                 window.setTimeout(() => {
                     if(this.mainDom){
                         this.mainDom.appendChild(insightData.anchorButton)
@@ -155,31 +165,21 @@ export default class InsightsTop {
         this.pageChange.on('pageChange', () => {
             this.buttons = document.getElementsByTagName('a')
 
-            this.insightPlateList.forEach((object) => {
+            gsap.to(this.transitionObject, {
+                uOpacity: .5,
+                duration:.5,
+            })
+        })
 
-                object.mesh.material.uniforms.uOpacity.value = 0
-                
-                gsap.to(object.mesh.material.uniforms.uOpacity, {
-                    value: .5,
-                    duration: .5
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+                gsap.to(this.transitionObject, {
+                    uOpacity: 0,
+                    duration:.5,
                 })
             })
-            
-            for(let i = 0 ; i < this.buttons.length; i++){
-
-                this.buttons[i].addEventListener('click', () => {
-    
-                    this.insightPlateList.forEach(object => {
-    
-                        object.mesh.material.uniforms.uOpacity.value = .5
-                        gsap.to(object.mesh.material.uniforms.uOpacity, {
-                            value: 0,
-                            duration: .5
-                        })
-                    })
-                })
-            }
-        })
+        }
     }
 
     update(){
@@ -198,6 +198,8 @@ export default class InsightsTop {
 
                 object.screenPosition = object.mesh.position.clone()
                 object.screenPosition.project(this.camera)
+
+                object.material.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
                 const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
                 const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5

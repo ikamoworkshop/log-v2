@@ -120,7 +120,6 @@ export default class GalleryTop {
                     gsap.to(this.transitionObject, {
                         uOpacity: 0,
                         duration:.5,
-                        onComplete: console.log(this.transitionObject.uOpacity)
                     })
                 })
 
@@ -146,6 +145,13 @@ export default class GalleryTop {
                         this.mainDom.appendChild(object.anchorButton)
                     }
                 }, 100)
+
+                object.anchorButton.addEventListener('click', () => {
+                    gsap.to(this.transitionObject, {
+                        uOpacity: 0,
+                        duration:.5,
+                    })
+                })
             })
 
         })
@@ -156,46 +162,32 @@ export default class GalleryTop {
         this.scene.add(this.thumbnailPlateGroup)
     }
 
-    singleTransition() {
-        this.thumbnailPlateList.forEach(object => {
-
-            object.thumbnailPlate.material.uniforms.uOpacity.value = .5
-            gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
-                value: 0,
-                duration: .5
-            })
-        })
-    }
-
     transition(){
         this.pageChange.on('pageChange', () => {
             this.buttons = document.getElementsByTagName('a')
 
-            this.thumbnailPlateList.forEach((object) => {
-
-                object.thumbnailPlate.material.uniforms.uOpacity.value = 0
+            this.transitionObject.uOpacity = 0
                 
-                gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
-                    value: .5,
-                    duration: .5
-                })
+            gsap.to(this.transitionObject, {
+                uOpacity: .5,
+                duration: .5
             })
             
-            for(let i = 0 ; i < this.buttons.length; i++){
-
-                this.buttons[i].addEventListener('click', () => {
-    
-                    this.thumbnailPlateList.forEach(object => {
-    
-                        object.thumbnailPlate.material.uniforms.uOpacity.value = .5
-                        gsap.to(object.thumbnailPlate.material.uniforms.uOpacity, {
-                            value: 0,
-                            duration: .5
-                        })
-                    })
-                })
-            }
         })
+
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+
+                this.transitionObject.uOpacity = .5
+
+                gsap.to(this.transitionObject, {
+                    uOpacity: 0,
+                    duration: .5
+                })
+
+            })
+        }
     }
 
     resize(){
@@ -203,7 +195,8 @@ export default class GalleryTop {
         this.camera.updateProjectionMatrix()
     }
 
-    update(){        this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
+    update(){        
+        this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 
         this.thumbnailPlateList.forEach((object) => {
@@ -211,6 +204,8 @@ export default class GalleryTop {
             object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
             
             object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+
+            object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
             const screenPosition = object.thumbnailPlate.position.clone()
             screenPosition.project(this.camera)
