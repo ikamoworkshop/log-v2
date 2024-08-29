@@ -1,11 +1,13 @@
 import EventEmitter from "./EventEmitter"
 import VirtualScroll from 'virtual-scroll'
+import PageChange from './PageChange'
 
 export default class Scroll extends EventEmitter {
     constructor(){
         super()
 
         this.scroller = new VirtualScroll()
+        this.pageChange = new PageChange()
 
         this.scrollContainer = document.getElementById('scroll')
 
@@ -30,6 +32,11 @@ export default class Scroll extends EventEmitter {
     }
 
     smoothScroll(){
+        this.pageChange.on('pageChange', () => {
+            this.scrollPosition = 0
+            this.infiniteScroll = 0
+        })
+
         if(!this.scrollContainer){
             this.scrollPosition = 0
             this.infiniteScroll = 0
