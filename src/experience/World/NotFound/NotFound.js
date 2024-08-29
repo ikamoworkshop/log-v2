@@ -3,6 +3,7 @@ import Experience from "../../Experience"
 import * as THREE from 'three'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
+import gsap from "gsap"
 
 export default class NotFound {
     constructor(){
@@ -11,6 +12,8 @@ export default class NotFound {
         this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
+
+        this.buttons = document.getElementsByTagName('a')
 
         this.setScene()
         this.setCamera()
@@ -32,7 +35,10 @@ export default class NotFound {
 
     setTitle(){
         this.spaceBold = this.resources.items.spaceBold
-        this.textMaterial = new THREE.MeshBasicMaterial()
+        this.textMaterial = new THREE.MeshBasicMaterial({
+            opacity: 1,
+            transparent: true
+        })
         this.textGroup = new THREE.Group()
 
         this.notFoundTitleGeometryOne = new TextGeometry('[404]', {
@@ -69,6 +75,28 @@ export default class NotFound {
 
         this.textGroup.add(this.notFoundTitleOne, this.notFoundTitleTwo)
         this.notFoundScene.add(this.textGroup)
+    }
+
+    transition(){
+        for(let i = 0 ; i < this.buttons.length; i++){
+
+            this.buttons[i].addEventListener('click', () => {
+
+                gsap.to(this.textMaterial, {
+                    opacity: 0,
+                    duration: .5
+                })
+
+            })
+
+        }
+
+        this.pageChange.on('pageChange', () => {
+            gsap.to(this.textMaterial, {
+                opacity: 1,
+                duration: .5
+            })
+        })
     }
 
     resize(){

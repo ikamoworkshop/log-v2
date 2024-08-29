@@ -4,7 +4,7 @@
 
 <div class="top-nav">
 	<div class="flex">
-		<a href="/" class="caption-bold text-light">
+		<a id="home-button" href="/" class="caption-bold text-light">
 			<h1>IKAMO</h1>
 			<div class="caption-track">
 				<div class="caption-move">
@@ -57,6 +57,7 @@
 <script data-taxi-reload>
 	activePage = window.location.pathname
 	navButton = document.querySelectorAll('.navigation-light')
+	homeNavButton = document.getElementById('home-button')
 
 	navButton.forEach(link => {
 		if(link.pathname === activePage){
@@ -66,4 +67,13 @@
 			link.classList.remove('active-nav')
 		}
 	})
+
+	console.log(homeNavButton.pathname)
+
+	if(homeNavButton.pathname === activePage){
+		homeNavButton.classList.add('active-nav')
+	}
+	else{
+		homeNavButton.classList.remove('active-nav')
+	}
 </script>

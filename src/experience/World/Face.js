@@ -341,7 +341,10 @@ export default class TestCube {
         } 
         
         else {
-
+            this.renderedFace.lookAt(this.lookAtMesh.position)
+        
+            this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
+            this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
 
     }
