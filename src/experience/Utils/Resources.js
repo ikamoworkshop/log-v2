@@ -76,7 +76,7 @@ export default class Resource extends EventEmitter{
 
         this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth}px)`
         this.loaderText.textContent = `${Math.round(this.loadPercentage * 100)}`
-
+            
         if(this.loaded === this.toLoad){
             this.loaderBox.style.opacity = '0'
             setTimeout(() => {

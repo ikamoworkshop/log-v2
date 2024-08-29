@@ -64,71 +64,71 @@ export default class GalleryTop {
 
             thumbnailData.item = item
 
-            thumbnailData.image.onload = () => {
-                thumbnailData.imageSize = new THREE.Vector2(thumbnailData.image.width, thumbnailData.image.height)
+            thumbnailData.imageSize = new THREE.Vector2(thumbnailData.image.width, thumbnailData.image.height)
 
-                thumbnailData.thumbnailImage = this.textureLoader.load(thumbnailData.image.src)
-                thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial({
-                    vertexShader: thumbnailVertex,
-                    fragmentShader: thumbnailFrag,
-                    uniforms:{
-                        uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
-                        uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
-                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
-                        uImageSize: new THREE.Uniform(thumbnailData.imageSize),
-                    },
-                    transparent: true,
+            thumbnailData.thumbnailImage = this.textureLoader.load(thumbnailData.image.src)
+            thumbnailData.thumbnailPlateMaterial = new THREE.ShaderMaterial({
+                vertexShader: thumbnailVertex,
+                fragmentShader: thumbnailFrag,
+                uniforms:{
+                    uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
+                    uGrainTexture: new THREE.Uniform(this.resources.items.grain),
+                    uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
+                    uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
+                    uImageSize: new THREE.Uniform(thumbnailData.imageSize),
+                },
+                transparent: true,
+            })
+
+
+            thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
+
+            thumbnailData.thumbnailPlate.position.x = (i % this.gridSize) * this.gridGap
+            thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
+
+            this.thumbnailPlateList.push(thumbnailData)
+            this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+
+            thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
+            thumbnailData.screenPosition.project(this.camera)
+
+            const translateX = (thumbnailData.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
+            const translateY = - (thumbnailData.screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
+
+            thumbnailData.anchorButton = document.createElement('a')
+            thumbnailData.anchorButton.style.width = '420px'
+            thumbnailData.anchorButton.style.height = '420px'
+            thumbnailData.anchorButton.classList.add('gallery-link')
+            thumbnailData.anchorButton.href = `/gallery/` + item.slug.current
+            thumbnailData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+
+            thumbnailData.leftBracket = document.createElement('p')
+            thumbnailData.leftBracket.textContent = '['
+            thumbnailData.leftBracket.classList.add('text-light', 'title', 'gallery-bracket')
+            thumbnailData.anchorButton.appendChild(thumbnailData.leftBracket)
+
+            thumbnailData.title = document.createElement('h1')
+            thumbnailData.title.textContent = item.name
+            thumbnailData.title.classList.add('text-light', 'subtitle-bold', 'gallery-title')
+            thumbnailData.anchorButton.appendChild(thumbnailData.title)
+
+            thumbnailData.rightBracket = document.createElement('p')
+            thumbnailData.rightBracket.textContent = ']'
+            thumbnailData.rightBracket.classList.add('text-light', 'title', 'gallery-bracket')
+            thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
+
+            thumbnailData.anchorButton.addEventListener('click', () => {
+                gsap.to(this.transitionObject, {
+                    uOpacity: 0,
+                    duration:.5,
                 })
-                thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
+            })
 
-                thumbnailData.thumbnailPlate.position.x =(i % this.gridSize) * this.gridGap
-                thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
-
-                this.thumbnailPlateList.push(thumbnailData)
-                this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
-
-                thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
-                thumbnailData.screenPosition.project(this.camera)
-
-                const translateX = (thumbnailData.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
-                const translateY = - (thumbnailData.screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
-
-                thumbnailData.anchorButton = document.createElement('a')
-                thumbnailData.anchorButton.style.width = '420px'
-                thumbnailData.anchorButton.style.height = '420px'
-                thumbnailData.anchorButton.classList.add('gallery-link')
-                thumbnailData.anchorButton.href = `/gallery/` + item.slug.current
-                thumbnailData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-
-                thumbnailData.leftBracket = document.createElement('p')
-                thumbnailData.leftBracket.textContent = '['
-                thumbnailData.leftBracket.classList.add('text-light', 'title', 'gallery-bracket')
-                thumbnailData.anchorButton.appendChild(thumbnailData.leftBracket)
-
-                thumbnailData.title = document.createElement('h1')
-                thumbnailData.title.textContent = item.name
-                thumbnailData.title.classList.add('text-light', 'subtitle-bold', 'gallery-title')
-                thumbnailData.anchorButton.appendChild(thumbnailData.title)
-
-                thumbnailData.rightBracket = document.createElement('p')
-                thumbnailData.rightBracket.textContent = ']'
-                thumbnailData.rightBracket.classList.add('text-light', 'title', 'gallery-bracket')
-                thumbnailData.anchorButton.appendChild(thumbnailData.rightBracket)
-
-                thumbnailData.anchorButton.addEventListener('click', () => {
-                    gsap.to(this.transitionObject, {
-                        uOpacity: 0,
-                        duration:.5,
-                    })
-                })
-
-                window.setTimeout(() => {
-                    if(this.mainDom){
-                        this.mainDom.appendChild(thumbnailData.anchorButton)
-                    }
-                }, 100)
-            }
+            window.setTimeout(() => {
+                if(this.mainDom){
+                    this.mainDom.appendChild(thumbnailData.anchorButton)
+                }
+            }, 100)
         })
 
         this.pageChange.on('pageChange', () => {
@@ -206,19 +206,26 @@ export default class GalleryTop {
 
         this.thumbnailPlateList.forEach((object) => {
 
-            object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
+            setTimeout(() => {
+                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
             
-            object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+                object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+    
+                object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
-            object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
+                object.imageSize = new THREE.Vector2(object.image.width, object.image.height)
 
-            const screenPosition = object.thumbnailPlate.position.clone()
-            screenPosition.project(this.camera)
+                object.thumbnailPlateMaterial.uniforms.uImageSize.value = object.imageSize
+    
+                const screenPosition = object.thumbnailPlate.position.clone()
+                screenPosition.project(this.camera)
+    
+                const translateX = (screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
+                const translateY = - (screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
+    
+                object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+            }, 500)
 
-            const translateX = (screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
-            const translateY = - (screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
-
-            object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
         })
 
         this.drag.diffX = 0

@@ -64,80 +64,78 @@ export default class InsightsTop {
 
             insightData.item = item
 
-            insightData.image.onload = () => {
+            insightData.imageSize = new THREE.Vector2(insightData.image.width, insightData.image.height)
 
-                insightData.imageSize = new THREE.Vector2(insightData.image.width, insightData.image.height)
+            insightData.texture = this.textureLoader.load(insightData.image.src)
 
-                insightData.texture = this.textureLoader.load(insightData.image.src)
-                insightData.material = new THREE.ShaderMaterial({
-                    vertexShader: thumbnailVertex,
-                    fragmentShader: thumbnailFrag,
-                    uniforms:{
-                        uTexture: new THREE.Uniform(insightData.texture),
-                        uGrainTexture: new THREE.Uniform(this.resources.items.grain),
-                        uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
-                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(2,2)),
-                        uImageSize: new THREE.Uniform(insightData.imageSize),
-                    },
-                    transparent: true,
+            insightData.material = new THREE.ShaderMaterial({
+                vertexShader: thumbnailVertex,
+                fragmentShader: thumbnailFrag,
+                uniforms:{
+                    uTexture: new THREE.Uniform(insightData.texture),
+                    uGrainTexture: new THREE.Uniform(this.resources.items.grain),
+                    uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
+                    uPlaneSize: new THREE.Uniform(new THREE.Vector2(2,2)),
+                    uImageSize: new THREE.Uniform(insightData.imageSize),
+                },
+                transparent: true,
+            })
+
+            insightData.mesh = new THREE.Mesh(this.insightsGeometry, insightData.material)
+
+            insightData.mesh.position.y = i * this.gridGap * -1
+
+            this.insightPlateList.push(insightData)
+            this.insightGroup.add(insightData.mesh)
+
+            insightData.screenPosition = insightData.mesh.position.clone()
+            insightData.screenPosition.project(this.camera)
+
+            const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
+            const translateY = ((insightData.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
+
+            insightData.anchorButton = document.createElement('a')
+            insightData.anchorButton.style.height = '600px'
+            insightData.anchorButton.classList.add('insight-link')
+            insightData.anchorButton.href = `/insights/` + item.slug.current
+            insightData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+
+            insightData.typeContainer = document.createElement('div')
+            insightData.typeContainer.classList.add('flex', 'gap-16', 'align-center')
+            insightData.anchorButton.appendChild(insightData.typeContainer)
+
+            insightData.leftBracket = document.createElement('p')
+            insightData.leftBracket.textContent = '['
+            insightData.leftBracket.classList.add('text-light', 'index', 'insight-bracket')
+            insightData.typeContainer.appendChild(insightData.leftBracket)
+
+            insightData.postTypeText = document.createElement('h3')
+            insightData.postTypeText.textContent = item.contentype
+            insightData.postTypeText.classList.add('text-light', 'caption-light', 'insight-type')
+            insightData.typeContainer.appendChild(insightData.postTypeText)
+
+            insightData.rightBracket = document.createElement('p')
+            insightData.rightBracket.textContent = ']'
+            insightData.rightBracket.classList.add('text-light', 'index', 'insight-bracket')
+            insightData.typeContainer.appendChild(insightData.rightBracket)
+
+            insightData.postTitle = document.createElement('h1')
+            insightData.postTitle.textContent = item.title
+            insightData.postTitle.classList.add('text-light', 'title', 'insight-title')
+            insightData.anchorButton.appendChild(insightData.postTitle)
+
+            insightData.anchorButton.addEventListener('click', () => {
+                gsap.to(this.transitionObject, {
+                    uOpacity: 0,
+                    duration:.5,
                 })
+            })
 
-                insightData.mesh = new THREE.Mesh(this.insightsGeometry, insightData.material)
-
-                insightData.mesh.position.y = i * this.gridGap * -1
-
-                this.insightPlateList.push(insightData)
-                this.insightGroup.add(insightData.mesh)
-
-                insightData.screenPosition = insightData.mesh.position.clone()
-                insightData.screenPosition.project(this.camera)
-
-                const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
-                const translateY = ((insightData.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
-
-                insightData.anchorButton = document.createElement('a')
-                insightData.anchorButton.style.height = '600px'
-                insightData.anchorButton.classList.add('insight-link')
-                insightData.anchorButton.href = `/insights/` + item.slug.current
-                insightData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-
-                insightData.typeContainer = document.createElement('div')
-                insightData.typeContainer.classList.add('flex', 'gap-16', 'align-center')
-                insightData.anchorButton.appendChild(insightData.typeContainer)
-
-                insightData.leftBracket = document.createElement('p')
-                insightData.leftBracket.textContent = '['
-                insightData.leftBracket.classList.add('text-light', 'index', 'insight-bracket')
-                insightData.typeContainer.appendChild(insightData.leftBracket)
-
-                insightData.postTypeText = document.createElement('h3')
-                insightData.postTypeText.textContent = item.contentype
-                insightData.postTypeText.classList.add('text-light', 'caption-light', 'insight-type')
-                insightData.typeContainer.appendChild(insightData.postTypeText)
-
-                insightData.rightBracket = document.createElement('p')
-                insightData.rightBracket.textContent = ']'
-                insightData.rightBracket.classList.add('text-light', 'index', 'insight-bracket')
-                insightData.typeContainer.appendChild(insightData.rightBracket)
-
-                insightData.postTitle = document.createElement('h1')
-                insightData.postTitle.textContent = item.title
-                insightData.postTitle.classList.add('text-light', 'title', 'insight-title')
-                insightData.anchorButton.appendChild(insightData.postTitle)
-
-                insightData.anchorButton.addEventListener('click', () => {
-                    gsap.to(this.transitionObject, {
-                        uOpacity: 0,
-                        duration:.5,
-                    })
-                })
-
-                window.setTimeout(() => {
-                    if(this.mainDom){
-                        this.mainDom.appendChild(insightData.anchorButton)
-                    }
-                }, 100)
-            }
+            window.setTimeout(() => {
+                if(this.mainDom){
+                    this.mainDom.appendChild(insightData.anchorButton)
+                }
+            }, 100)
         })
 
         this.pageChange.on('pageChange', () => {
@@ -205,6 +203,9 @@ export default class InsightsTop {
                 object.screenPosition.project(this.camera)
 
                 object.material.uniforms.uOpacity.value = this.transitionObject.uOpacity
+
+                object.imageSize = new THREE.Vector2(object.image.width, object.image.height)
+                object.material.uniforms.uImageSize.value = object.imageSize
 
                 const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
                 const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
