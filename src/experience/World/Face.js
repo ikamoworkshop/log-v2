@@ -54,12 +54,14 @@ export default class TestCube {
         this.renderedFace = this.resources.items.defaultFlat.scene
         this.renderedFaceGroup.add(this.renderedFace)
 
+        this.renderedFaceGroup.position.y = -4
+
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
-                duration: 1
+                duration: 1.4
             })
         }
         
@@ -68,7 +70,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
-                duration: 1
+                duration: 1.4
             })
         }
         
@@ -77,7 +79,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.4, .4, .4)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
-                duration: 1
+                duration: 1.4
             })
         }
 
@@ -86,7 +88,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
-                duration: 1
+                duration: 1.4
             })
         } 
 
@@ -95,7 +97,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.4, .4, .4)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
-                duration: 1
+                duration: 1.4
             })
         }
 
@@ -104,7 +106,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
-                duration: 1
+                duration: 1.4
             })
         } 
         
@@ -113,7 +115,7 @@ export default class TestCube {
             this.renderedFace.scale.set(.7, .7, .7)
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
-                duration: 1
+                duration: 1.4
             })
         }
 
