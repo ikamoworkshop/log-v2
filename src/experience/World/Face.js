@@ -32,6 +32,7 @@ export default class TestCube {
 
         this.setScene()
         this.setCamera()
+        this.setAudio()
         this.setModel()
         this.setLookAt()
         this.setRenderTarget()
@@ -50,6 +51,10 @@ export default class TestCube {
         this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(0, 0, 5)
         this.scene.add(this.camera)
+    }
+
+    setAudio(){
+        this.camera.add(this.resources.audioListener)
     }
 
     setModel(){

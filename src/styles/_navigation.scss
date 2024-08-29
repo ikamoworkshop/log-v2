@@ -65,3 +65,43 @@
     transform: translate(-50%, -50%);
     overflow: hidden;
 }
+
+.audio-toggle{
+    position: absolute;
+    top: 66px;
+    right: 66px;
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 100%;
+}
+
+.audio-toggle-overlay{
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff20;
+    border-radius: 100%;
+    transform-origin: center;
+    z-index: 9999999;
+}
+
+.audio-toggled{
+    animation-name: audio-toggled;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes audio-toggled {
+    0% {
+        transform: scale(.8);
+    }
+    50%{
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(.8);
+    }
+}

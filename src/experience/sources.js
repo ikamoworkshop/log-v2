@@ -53,5 +53,10 @@ export default [
         name: 'grain',
         type: 'texture',
         path: '/texture/grain.jpg'
+    },
+    {
+        name: 'backgroundAudio',
+        type: 'audio',
+        path: '/background_audio.mp3'
     }
 ]
