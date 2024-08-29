@@ -115,3 +115,26 @@
     z-index: -3;
     filter: blur(6vmax);
 }
+
+// Pre Loader
+.loader-container{
+    position: fixed;
+    width: 100dvw;
+    height: 100dvh;
+    background: url(/background_4.png) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-position: center;
+    z-index: 99999999;
+    transition: all 1s ease;
+}
+
+.loader-bracket{
+    opacity: .1;
+}
+
+#loader-move{
+    transition: transform .3s ease;
+}

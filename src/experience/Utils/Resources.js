@@ -68,8 +68,24 @@ export default class Resource extends EventEmitter{
 
         this.loaded++
 
+        this.loadPercentage = this.loaded / this.toLoad
+        this.loaderText = document.getElementById('loader-text')
+        this.loaderBox = document.getElementById('loader-container')
+        this.loaderContainer = document.getElementById('loader-move')
+        this.loaderContainerWidth = this.loaderContainer.getBoundingClientRect().width
+
+        this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth}px)`
+        this.loaderText.textContent = `${Math.round(this.loadPercentage * 100)}`
+
         if(this.loaded === this.toLoad){
-            this.trigger('ready')
+            this.loaderBox.style.opacity = '0'
+            setTimeout(() => {
+                this.loaderBox.style.display = 'none'
+            }, 1000)
+            setTimeout(() => {
+                this.loaderBox.style.filter = 'blur(6vmax)'
+                this.trigger('ready')
+            }, 100)
         }
 
     }

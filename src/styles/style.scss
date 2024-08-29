@@ -21,7 +21,13 @@ html{
 }
 
 .body{
-    background-color:  rgba(10, 9, 13, 1);
+    background-color:  rgb(27, 28, 39);
+    background: url(/background_4.png) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-position: center;
     box-sizing: border-box;
     font-family: "Space Grotesk", sans-serif;
     font-optical-sizing: auto;

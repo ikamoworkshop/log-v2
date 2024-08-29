@@ -283,6 +283,28 @@
   filter: blur(6vmax);
 }
 
+.loader-container {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background: url(/background_4.png) no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  z-index: 99999999;
+  transition: all 1s ease;
+}
+
+.loader-bracket {
+  opacity: 0.1;
+}
+
+#loader-move {
+  transition: transform 0.3s ease;
+}
+
 .about-container {
   height: 100dvh;
   padding: 0px 240px;
@@ -573,7 +595,13 @@ html {
 }
 
 .body {
-  background-color: rgb(10, 9, 13);
+  background-color: rgb(27, 28, 39);
+  background: url(/background_4.png) no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
   box-sizing: border-box;
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
