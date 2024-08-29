@@ -44,7 +44,7 @@ export default class HomeContent {
     setTitle(){
         this.spaceBold = this.resources.items.spaceBold
         this.textMaterial = new THREE.MeshBasicMaterial({
-            opacity: 1,
+            opacity: 0,
             transparent: true
         })
         this.textGroup = new THREE.Group()
@@ -83,12 +83,18 @@ export default class HomeContent {
 
         this.textGroup.add(this.HomeTitleOne, this.HomeTitleTwo)
         this.HomeScene.add(this.textGroup)
+
+        gsap.to(this.textMaterial, {
+            opacity: 1,
+            duration: 4
+
+        })
     }
 
     setTextures(){
         this.sizeBase = 2
         this.transitionObject = {}
-        this.transitionObject.imageOpacity = .5
+        this.transitionObject.uOpacity = 0
 
         this.textureBridge = this.resources.items.landingOne
         this.textureDesk = this.resources.items.landingTwo
@@ -105,7 +111,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureBridge),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(320, 560)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 2)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -116,7 +122,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGradshow),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(420, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -127,7 +133,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureWater),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(680, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -138,7 +144,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureDesk),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 400)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -149,7 +155,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureComic),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(480, 360)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -160,7 +166,7 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureGrad),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(520, 280)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase * 2, this.sizeBase)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
         })
@@ -171,9 +177,14 @@ export default class HomeContent {
                 uTexture: new THREE.Uniform(this.textureAida),
                 uTextureSize: new THREE.Uniform(new THREE.Vector2(360, 420)),
                 uPlaneSize: new THREE.Uniform(new THREE.Vector2(this.sizeBase, this.sizeBase * 1.2)),
-                uOpacity: new THREE.Uniform(this.transitionObject.imageOpacity),
+                uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
             },
             transparent: true,
+        })
+
+        gsap.to(this.transitionObject, {
+            uOpacity: .5,
+            duration: 4
         })
 
     }
@@ -188,38 +199,8 @@ export default class HomeContent {
                     duration: .5
                 })
                 
-                gsap.to(this.imagePlateMaterialBridge.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialGradshow.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialWater.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialDesk.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialComic.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialGrad.uniforms.uOpacity, {
-                    value: 0,
-                    duration: .5
-                })
-
-                gsap.to(this.imagePlateMaterialAida.uniforms.uOpacity, {
-                    value: 0,
+                gsap.to(this.transitionObject, {
+                    uOpacity: 0,
                     duration: .5
                 })
 
@@ -233,38 +214,8 @@ export default class HomeContent {
                 duration: .5
             })
 
-            gsap.to(this.imagePlateMaterialBridge.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialGradshow.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialWater.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialDesk.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialComic.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialGrad.uniforms.uOpacity, {
-                value: .5,
-                duration: .5
-            })
-
-            gsap.to(this.imagePlateMaterialAida.uniforms.uOpacity, {
-                value: .5,
+            gsap.to(this.transitionObject, {
+                uOpacity: .5,
                 duration: .5
             })
         })
@@ -327,6 +278,14 @@ export default class HomeContent {
 
         this.textGroup.position.x = (this.textGroup.position.x + ((this.cursor.cursorX / this.sizes.width - .5) - this.textGroup.position.x) * .05) * .6
         this.textGroup.position.y = (this.textGroup.position.y - ((this.cursor.cursorY / this.sizes.height - .5) + this.textGroup.position.y) * .05) * .6
+
+        this.imagePlateMaterialBridge.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialGradshow.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialWater.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialDesk.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialComic.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialGrad.uniforms.uOpacity.value = this.transitionObject.uOpacity
+        this.imagePlateMaterialAida.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
         // Update Image Grup Position
         this.targetPosition.lerp(this.normalizedCursor, .1)
