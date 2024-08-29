@@ -55,7 +55,7 @@ export default class GalleryTop {
         this.gridSize = 9
         this.gridGap = 2
         this.transitionObject = {}
-        this.transitionObject.uOpacity = .5
+        this.transitionObject.uOpacity = 0
 
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
@@ -160,6 +160,11 @@ export default class GalleryTop {
         this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
 
         this.scene.add(this.thumbnailPlateGroup)
+
+        gsap.to(this.transitionObject, {
+            uOpacity: .5,
+            duration: 4
+        })
     }
 
     transition(){

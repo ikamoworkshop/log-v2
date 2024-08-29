@@ -54,7 +54,7 @@ export default class InsightsTop {
         this.gridGap = 2.8
 
         this.transitionObject = {}
-        this.transitionObject.uOpacity = .5
+        this.transitionObject.uOpacity = 0
 
         this.insightsList.forEach((item, i) => {
             const insightData = {}
@@ -159,6 +159,11 @@ export default class InsightsTop {
 
         this.insightGroup.position.y = (2 * this.gridGap)
         this.scene.add(this.insightGroup)
+
+        gsap.to(this.transitionObject, {
+            uOpacity: .5,
+            duration: 4,
+        })
     }
 
     transition(){
