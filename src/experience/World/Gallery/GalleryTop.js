@@ -31,6 +31,7 @@ export default class GalleryTop {
 
         this.setScene()
         this.setCamera()
+        this.responsive()
         this.setThumbnail()
         this.transition()
     }
@@ -48,12 +49,28 @@ export default class GalleryTop {
         this.scene.add(this.camera)
     }
 
+    responsive(){
+        this.gridMultiplier = .25
+        
+        if(window.innerWidth <= 1280){
+            this.gridMultiplier = .25
+        }
+        
+        if(window.innerWidth <= 1024){
+            this.gridMultiplier = .42
+        }
+
+        if(window.innerWidth <= 768){
+
+        }
+    }
+
     setThumbnail(){
-        this.thumbnailPlateGroup = new THREE.Group()
         this.thumbnailPlateList = []
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
         this.gridGap = 2
+        this.fullGridSize = this.gridSize * this.gridGap
         this.transitionObject = {}
         this.transitionObject.uOpacity = 0
 
@@ -83,21 +100,21 @@ export default class GalleryTop {
 
             thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
 
-            thumbnailData.thumbnailPlate.position.x = (i % this.gridSize) * this.gridGap
+            thumbnailData.thumbnailPlate.position.x = ((i % this.gridSize) * this.gridGap) - 4
             thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
 
+            console.log(thumbnailData.thumbnailPlate.position.x)
+
             this.thumbnailPlateList.push(thumbnailData)
-            this.thumbnailPlateGroup.add(thumbnailData.thumbnailPlate)
+            this.scene.add(thumbnailData.thumbnailPlate)
 
             thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
             thumbnailData.screenPosition.project(this.camera)
 
-            const translateX = (thumbnailData.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
-            const translateY = - (thumbnailData.screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
+            const translateX = (thumbnailData.screenPosition.x ) * this.sizes.width * .5
+            const translateY = - (thumbnailData.screenPosition.y ) * this.sizes.height * .5
 
             thumbnailData.anchorButton = document.createElement('a')
-            thumbnailData.anchorButton.style.width = '420px'
-            thumbnailData.anchorButton.style.height = '420px'
             thumbnailData.anchorButton.classList.add('gallery-link')
             thumbnailData.anchorButton.href = `/gallery/` + item.slug.current
             thumbnailData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
@@ -135,8 +152,8 @@ export default class GalleryTop {
             this.mainDom = document.getElementById('gallery-top')
 
             this.thumbnailPlateList.forEach((object) => {
-                const translateX = (object.screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
-                const translateY = - (object.screenPosition.y + (this.gridSize * .25) - (this.gridGap * .16)) * this.sizes.height * .5
+                const translateX = (object.screenPosition.x ) * this.sizes.width * .5
+                const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
 
                 object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
 
@@ -156,10 +173,10 @@ export default class GalleryTop {
 
         })
 
-        this.thumbnailPlateGroup.position.x = - this.gridSize * .5 - 1.5
-        this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
+        // this.thumbnailPlateGroup.position.x = - this.gridSize * .5 - 1.5
+        // this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
 
-        this.scene.add(this.thumbnailPlateGroup)
+        // this.scene.add(this.thumbnailPlateGroup)
 
         gsap.to(this.transitionObject, {
             uOpacity: .5,
@@ -204,12 +221,14 @@ export default class GalleryTop {
         this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 
-        this.thumbnailPlateList.forEach((object) => {
+        this.thumbnailPlateList.forEach((object, i) => {
 
             setTimeout(() => {
-                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x + (this.gridSize * this.gridGap)) % (this.gridSize * this.gridGap)
+                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + (object.thumbnailPlate.position.x)) % (this.fullGridSize - 9)
+
+                // console.log((((-this.finalPosX * .5) / this.sizes.width) + (object.thumbnailPlate.position.x) + 4) % (-this.fullGridSize - 4))
             
-                object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+                // object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize)) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
     
                 object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
@@ -219,8 +238,8 @@ export default class GalleryTop {
                 const screenPosition = object.thumbnailPlate.position.clone()
                 screenPosition.project(this.camera)
     
-                const translateX = (screenPosition.x - ((this.gridSize * .25) - (this.gridGap * .335))) * this.sizes.width * .5
-                const translateY = - (screenPosition.y + ((this.gridSize * .25) - (this.gridGap * .16))) * this.sizes.height * .5
+                const translateX = (screenPosition.x ) * this.sizes.width * .5
+                const translateY = - (screenPosition.y ) * this.sizes.height * .5
     
                 object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
             }, 500)

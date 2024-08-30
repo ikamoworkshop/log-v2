@@ -1,4 +1,6 @@
 .gallery-link{
+    width: 420px;
+    height: 420px;
     position: absolute;
     transform-origin: center;
     border-radius: 100%;
@@ -6,12 +8,12 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    transform-origin: center;
+    // transform-origin: center;
     justify-content: space-between;
     align-items: center;
     text-align: center;
 
-    // background-color: #ffffff20;
+    background-color: #ffffff20;
 }
 
 .gallery-title{
@@ -79,7 +81,6 @@
     .gallery-view-title{
         display: none;
     }
-
     .gallery-navigation{
         left: 36%;
         bottom: 40px;

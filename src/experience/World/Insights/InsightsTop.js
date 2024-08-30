@@ -101,7 +101,7 @@ export default class InsightsTop {
             insightData.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
 
             insightData.typeContainer = document.createElement('div')
-            insightData.typeContainer.classList.add('flex', 'gap-16', 'align-center')
+            insightData.typeContainer.classList.add('type-container', 'flex', 'gap-16', 'align-center')
             insightData.anchorButton.appendChild(insightData.typeContainer)
 
             insightData.leftBracket = document.createElement('p')
@@ -121,7 +121,7 @@ export default class InsightsTop {
 
             insightData.postTitle = document.createElement('h1')
             insightData.postTitle.textContent = item.title
-            insightData.postTitle.classList.add('text-light', 'title', 'insight-title')
+            insightData.postTitle.classList.add('text-light', 'title', 'insight-link-title')
             insightData.anchorButton.appendChild(insightData.postTitle)
 
             insightData.anchorButton.addEventListener('click', () => {
