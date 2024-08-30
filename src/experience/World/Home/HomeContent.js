@@ -24,6 +24,7 @@ export default class HomeContent {
         this.setTextures()
         this.createImagePlates()
         this.setImagePlates()
+        this.responsive()
         this.getImageGroupSize()
         this.transition()
     }
@@ -89,6 +90,29 @@ export default class HomeContent {
             duration: 4
 
         })
+    }
+
+    responsive(){
+        if(window.innerWidth <= 1280){
+            this.HomeTitleOne.scale.set(.8, .8, .8)
+            this.HomeTitleTwo.scale.set(.8, .8, .8)
+            this.HomeTitleOne.position.set(0, .3, 0)
+            this.HomeTitleTwo.position.set(0, -.3, 0)
+        }
+        
+        if(window.innerWidth <= 1024){
+            this.HomeTitleOne.scale.set(.6, .6, .6)
+            this.HomeTitleTwo.scale.set(.6, .6, .6)
+            this.HomeTitleOne.position.set(0, .25, 0)
+            this.HomeTitleTwo.position.set(0, -.25, 0)
+        }
+
+        if(window.innerWidth <= 768){
+            this.HomeTitleOne.scale.set(.45, .45, .45)
+            this.HomeTitleTwo.scale.set(.45, .45, .45)
+            this.HomeTitleOne.position.set(0, .2, 0)
+            this.HomeTitleTwo.position.set(0, -.2, 0)
+        }
     }
 
     setTextures(){

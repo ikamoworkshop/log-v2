@@ -64,6 +64,8 @@ export default class TestCube {
 
         this.renderedFaceGroup.position.y = -4
 
+        this.renderedFace.visible = false
+
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             this.renderedFace.scale.set(.7, .7, .7)
