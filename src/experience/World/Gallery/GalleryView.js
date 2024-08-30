@@ -23,6 +23,7 @@ export default class GalleryView {
 
         this.setScene()
         this.setCamera()
+        this.responsive()
         this.getImage()
         this.setImage()
         this.transition()
@@ -51,13 +52,31 @@ export default class GalleryView {
         })
     }
 
+    responsive(){
+        this.imageGap = 2
+        this.imageSizeMultiplier = .5
+
+        if(window.innerWidth <= 1280){
+            this.imageGap = 2
+            this.imageSizeMultiplier = .5
+        }
+        
+        if(window.innerWidth <= 1024){
+            this.imageGap = 2
+            this.imageSizeMultiplier = .4
+        }
+
+        if(window.innerWidth <= 768){
+            this.imageGap = 2
+            this.imageSizeMultiplier = .3
+        }
+    }
+
     setImage(){
         this.imagePlaneGeometry = new THREE.PlaneGeometry(1, 1, 1, 1)
-        this.imageGap = 2
         this.imageGroup = new THREE.Group()
         this.imageList = []
         this.camUnit = this.calculateUniteSize(this.camera.position.z)
-        this.imageSizeMultiplier = .5
         
         this.pageImage.forEach((image, i) => {
             const imageData = {}

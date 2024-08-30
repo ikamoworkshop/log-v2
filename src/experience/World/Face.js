@@ -309,11 +309,7 @@ export default class TestCube {
 
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
-        this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
         this.camera.updateProjectionMatrix()
-
-        this.renderTarget.setSize(this.sizes.width, this.sizes.height)
-        this.renderPlane.scale.set(this.fovY * this.camera.aspect, this.fovY, 1)
     }
 
     update(){

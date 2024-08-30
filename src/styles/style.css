@@ -690,7 +690,7 @@
 
 .gallery-view-title {
   position: absolute;
-  top: 52px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   width: 240px;
@@ -718,6 +718,26 @@
   z-index: 999999;
 }
 
+@media screen and (max-width: 1024px) {
+  .gallery-view-title {
+    display: none;
+  }
+  .gallery-navigation {
+    left: 36%;
+    bottom: 40px;
+    width: 160px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gallery-view-title {
+    display: none;
+  }
+  .gallery-navigation {
+    left: 50%;
+    bottom: 50%;
+    width: 80%;
+  }
+}
 .insight-link {
   width: 60%;
   position: absolute;
@@ -933,6 +953,14 @@ canvas {
   height: 100%;
   outline: none;
   z-index: -10;
+}
+
+.gl {
+  opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 
 img {

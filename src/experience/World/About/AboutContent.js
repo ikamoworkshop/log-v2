@@ -227,15 +227,6 @@ export default class AboutContent {
     resize(){
         this.camera.aspect = this.sizes.width / this.sizes.height
         this.camera.updateProjectionMatrix()
-
-        this.camUnit = this.calculateUniteSize(this.camera.position.z)
-        
-        this.imageList.forEach((imageObject) => {
-            imageObject.imageBoundingData = imageObject.image.getBoundingClientRect()
-            imageObject.imageSize = this.updateSize(imageObject.imageBoundingData.width, imageObject.imageBoundingData.height)
-
-            imageObject.imageMesh.scale.set(imageObject.imageSize.finalScaleX, imageObject.imageSize.finalScaleY, 0)
-        })
     }
 
     update(){

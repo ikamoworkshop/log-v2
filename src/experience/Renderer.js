@@ -247,15 +247,6 @@ export default class Renderer{
 
         this.composer.setSize(this.sizes.width, this.sizes.height)
         this.composer.setPixelRatio(this.sizes.pixelRatio)
-
-        this.face.resize()
-        this.homeContent.resize()
-        this.aboutContent.resize()
-        // this.galleryTop.resize()
-        // this.galleryView.resize()
-        // this.insightsTop.resize()
-        this.insightsView.resize()
-        this.NotFound.resize()
     }
 
     update(){
