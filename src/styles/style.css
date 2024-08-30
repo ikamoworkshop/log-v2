@@ -103,8 +103,8 @@
   width: 100dvw;
   height: 100dvh;
   background-color: rgba(36, 37, 75, 0.5);
-  -webkit-backdrop-filter: blur(1vmax);
-          backdrop-filter: blur(1vmax);
+  -webkit-backdrop-filter: blur(4vmax);
+          backdrop-filter: blur(4vmax);
   display: none;
   z-index: 3000;
   flex-direction: column;
@@ -303,6 +303,14 @@
     font-size: 4rem;
     letter-spacing: 0.3rem;
   }
+  .title {
+    font-size: 2.5rem;
+    letter-spacing: 0.1rem;
+  }
+  .subtitle-bold {
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+  }
 }
 .flex {
   display: flex;
@@ -456,6 +464,23 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 1024px) {
+  .gap-100 {
+    gap: 60px;
+  }
+  .scroll-progress-container {
+    left: 40%;
+    width: 160px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gap-100 {
+    gap: 36px;
+  }
+  .scroll-progress-container {
+    display: none;
+  }
+}
 .about-container {
   height: 100dvh;
   padding: 0px 60px 0px 240px;
@@ -694,10 +719,11 @@
 
 .insight-title-container {
   min-width: 600px;
+  max-width: 600px;
 }
 
 .insight-image {
-  min-width: 1280px;
+  min-width: 1200px;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;
@@ -718,19 +744,17 @@
      object-position: center;
 }
 
-.insights-title {
+.insights-content-title {
   min-width: 400px;
+  max-width: 400px;
   text-transform: uppercase;
-  align-self: flex-end;
+  align-self: end;
 }
 
 .insights-body {
   min-width: 400px;
+  max-width: 400px;
   text-transform: uppercase;
-}
-
-.insight-list {
-  min-width: 400px;
 }
 
 .insight-list-item {
@@ -771,6 +795,63 @@
   transform: translateX(24px);
 }
 
+@media screen and (max-width: 1024px) {
+  .insight-image {
+    min-width: 680px;
+    max-width: 680px;
+  }
+  .insight-content-image {
+    min-width: 720px;
+    max-width: 720px;
+  }
+  .insights-body {
+    min-width: 240px;
+    max-width: 240px;
+  }
+  .insights-next-image {
+    width: 400px;
+  }
+  .insights-next-link {
+    min-width: 600px;
+    max-width: 600px;
+  }
+  .insights-next-title {
+    margin-top: 400px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .insight-image {
+    min-width: 320px;
+    max-width: 320px;
+  }
+  .insight-content-image {
+    min-width: 420px;
+    max-width: 420px;
+  }
+  .insight-title-container {
+    min-width: 400px;
+    max-width: 400px;
+  }
+  .insights-title {
+    min-width: 320px;
+    max-width: 320px;
+  }
+  .insights-body {
+    min-width: 280px;
+    max-width: 280px;
+  }
+  .insights-next-link {
+    min-width: 400px;
+    max-width: 400px;
+  }
+  .insights-next-image {
+    width: 320px;
+  }
+  .insights-next-title {
+    width: 360px;
+    margin-top: 400px;
+  }
+}
 * {
   box-sizing: border-box;
   text-rendering: geometricPrecision;

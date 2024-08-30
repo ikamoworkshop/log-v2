@@ -24,7 +24,6 @@
 }
 
 // ================= INSIGHTS HTML CONTENT =================
-
 .insight-container{
     height: 100dvh;
     padding: 180px 0px;
@@ -34,10 +33,11 @@
 
 .insight-title-container{
     min-width: 600px;
+    max-width: 600px;
 }
 
 .insight-image{
-    min-width: 1280px;
+    min-width: 1200px;
     object-fit: cover;
     object-position: center;
 }
@@ -54,19 +54,17 @@
     object-position: center;
 }
 
-.insights-title{
+.insights-content-title{
     min-width: 400px;
+    max-width: 400px;
     text-transform: uppercase;
-    align-self: flex-end;
+    align-self: end;
 }
 
 .insights-body{
     min-width: 400px;
+    max-width: 400px;
     text-transform: uppercase;
-}
-
-.insight-list{
-    min-width: 400px;
 }
 
 .insight-list-item{
@@ -104,4 +102,62 @@
 
 .insights-next-link:hover > .insights-next-title{
     transform: translateX(24px);
+}
+
+// RESPONSIVE
+@media screen and (max-width: 1024px){
+    .insight-image{
+        min-width: 680px;
+        max-width: 680px;
+    }
+    .insight-content-image{
+        min-width: 720px;
+        max-width: 720px;
+    }
+    .insights-body{
+        min-width: 240px;
+        max-width: 240px;
+    }
+    .insights-next-image{
+        width: 400px;
+    }
+    .insights-next-link{
+        min-width: 600px;
+        max-width: 600px;
+    }
+    .insights-next-title{
+        margin-top: 400px;
+    }
+}
+@media screen and (max-width: 768px){
+    .insight-image{
+        min-width: 320px;
+        max-width: 320px;
+    }
+    .insight-content-image{
+        min-width: 420px;
+        max-width: 420px;
+    }
+    .insight-title-container{
+        min-width: 400px;
+        max-width: 400px;
+    }.insights-title{
+        min-width: 320px;
+        max-width: 320px;
+    }
+    .insights-body{
+        min-width: 280px;
+        max-width: 280px;
+    }
+    .insights-next-link{
+        min-width: 400px;
+        max-width: 400px;
+    }
+    .insights-next-image{
+        width: 320px;
+    }
+    .insights-next-title{
+        width: 360px;
+        margin-top: 400px;
+    }
 }

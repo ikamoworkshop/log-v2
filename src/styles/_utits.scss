@@ -156,3 +156,23 @@
 .audio-button{
     overflow: hidden;
 }
+
+
+// RESPONSIVE
+@media screen and (max-width: 1024px){
+    .gap-100{
+        gap: 60px;
+    }
+    .scroll-progress-container{
+        left: 40%;
+        width: 160px;
+    }
+}
+@media screen and (max-width: 768px){
+    .gap-100{
+        gap: 36px;
+    }
+    .scroll-progress-container{
+        display: none;
+    }
+}
