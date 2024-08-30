@@ -9,9 +9,13 @@
     transform-origin: center;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
+    text-align: left;
 
-    background-color: #ffffff20;
+    // background-color: #ffffff20;
+}
+
+.insight-link-title{
+    width: 600px;
 }
 
 .insight-bracket{
@@ -114,8 +118,10 @@
 @media screen and (max-width: 1024px){
     .insight-link{
         width: 60%;
-        width: 600px;
         text-align: center;
+    }
+    .insight-link-title{
+        width: 600px;
     }
     .type-container{
         display: none;

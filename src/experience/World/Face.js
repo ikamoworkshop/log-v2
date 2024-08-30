@@ -64,11 +64,25 @@ export default class TestCube {
 
         this.renderedFaceGroup.position.y = -4
 
-        this.renderedFace.visible = false
 
         if(this.pageChange.prevPage === '/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.7, .7, .7)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.7, .7, .7)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.55, .55, .55)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1.4
@@ -77,7 +91,21 @@ export default class TestCube {
         
         else if(this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.7, .7, .7)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.7, .7, .7)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.55, .55, .55)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
                 duration: 1.4
@@ -86,7 +114,21 @@ export default class TestCube {
         
         else if(this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.4, .4, .4)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.visible = false
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.visible = false
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1.4
@@ -95,7 +137,21 @@ export default class TestCube {
 
         else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.7, .7, .7)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.7, .7, .7)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.55, .55, .55)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1.4
@@ -104,7 +160,21 @@ export default class TestCube {
 
         else if(this.pageChange.prevPage === '/insights'){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.4, .4, .4)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.visible = false
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.visible = false
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1.4
@@ -113,7 +183,21 @@ export default class TestCube {
 
         else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.7, .7, .7)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.7, .7, .7)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.55, .55, .55)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: -2,
                 duration: 1.4
@@ -122,7 +206,21 @@ export default class TestCube {
         
         else {
             this.renderedFace = this.resources.items.defaultFlat.scene
-            this.renderedFace.scale.set(.7, .7, .7)
+            if(window.innerWidth > 1280){
+                this.renderedFace.scale.set(.7, .7, .7)
+            }
+
+            if(window.innerWidth <= 1280){
+                this.renderedFace.scale.set(.55, .55, .55)
+            }
+            
+            if(window.innerWidth <= 1024){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
+    
+            if(window.innerWidth <= 768){
+                this.renderedFace.scale.set(.4, .4, .4)
+            }
             gsap.to(this.renderedFaceGroup.position, {
                 y: 0,
                 duration: 1.4
@@ -319,8 +417,8 @@ export default class TestCube {
 
         this.targetPosition.lerp(this.normalizedCursor, .05)
 
-        this.lookAtMesh.position.x = (this.cursor.cursorX / this.sizes.width * 2 - 1) * .5
-        this.lookAtMesh.position.y = - (this.cursor.cursorY / this.sizes.width * 2 - .5) * .5
+        this.lookAtMesh.position.x = (this.cursor.cursorX / this.sizes.width - .5)
+        this.lookAtMesh.position.y = - (this.cursor.cursorY / this.sizes.height - .5)
 
         if(this.pageChange.prevPage === '/'){
             this.renderedFace.lookAt(this.lookAtMesh.position)

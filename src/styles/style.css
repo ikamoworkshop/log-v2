@@ -751,8 +751,11 @@
   transform-origin: center;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.1254901961);
+  text-align: left;
+}
+
+.insight-link-title {
+  width: 600px;
 }
 
 .insight-bracket {
@@ -857,8 +860,10 @@
 @media screen and (max-width: 1024px) {
   .insight-link {
     width: 60%;
-    width: 600px;
     text-align: center;
+  }
+  .insight-link-title {
+    width: 600px;
   }
   .type-container {
     display: none;
