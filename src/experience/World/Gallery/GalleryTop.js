@@ -224,7 +224,7 @@ export default class GalleryTop {
         this.thumbnailPlateList.forEach((object, i) => {
 
             setTimeout(() => {
-                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + (object.thumbnailPlate.position.x)) % (this.fullGridSize - 9)
+                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x) % (this.fullGridSize)
 
                 // console.log((((-this.finalPosX * .5) / this.sizes.width) + (object.thumbnailPlate.position.x) + 4) % (-this.fullGridSize - 4))
             
