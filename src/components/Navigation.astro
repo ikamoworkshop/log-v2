@@ -20,7 +20,7 @@
 <div class="audio-toggle"></div>
 <button id="audio-toggle" class="audio-toggle-overlay"></button>
 
-<nav class="mid-nav flex flex-column gap-8">
+<nav class="mid-nav flex-column gap-8">
 	
 	<a href="/gallery" class="navigation-light text-light flex align-center gap-8">
 		<div class="active-arrow"></div>	
@@ -40,7 +40,7 @@
 <div class="bottom-nav flex justify-between align-end">
 	<p class="caption-light text-light-gray">©2024</p>
 	<div class="external-links flex justify-between align-end">
-		<div class="socials flex flex-column gap-8">
+		<div class="flex-column gap-8 socials">
 			<a href="https://github.com/IKAMOworkshop" class="external-light text-light" target="_blank" rel="noopener noreferrer">
 				<h1>GITHUB  ↗</h1>
 			</a>
@@ -57,12 +57,97 @@
 	</div>
 </div>
 
+<button id="mobile-nav-button" class="mobile-nav-button caption-bold text-light">[  MENU  ]</button>
+
+<div id="mobile-nav"class="mobile-nav">
+	<a href="/" class="mobile-nav-link text-light flex align-center gap-8">
+		<h1>[  HOME  ]</h1>
+	</a>
+
+	<a href="/gallery" class="mobile-nav-link text-light flex align-center gap-8">
+		<h1>[  GALLERY  ]</h1>
+	</a>
+
+	<a href="/insights" class="mobile-nav-link text-light flex align-center gap-8">	
+		<h1>[  INSIGHTS  ]</h1>
+	</a>
+	<a href="/about" class="mobile-nav-link text-light flex align-center gap-8">
+		<h1>[  ABOUT  ]</h1>
+	</a>
+</div>
+
+<script>
+	const mobileButton = document.getElementById('mobile-nav-button')
+	const mobileNav = document.getElementById('mobile-nav')
+	const mobileNavLink = document.getElementsByClassName('mobile-nav-link')
+	let openState = false
+
+	if (openState === false){
+		mobileNav.style.opacity = '0'
+		setTimeout(() => {
+			mobileNav.style.display = 'none'
+		}, 1000)
+	}
+	else if (openState === true){
+		mobileNav.style.display = 'flex'
+		setTimeout(() => {
+			mobileNav.style.opacity = '1'
+		}, 1)
+	}
+
+	mobileButton.addEventListener('click', () => {
+		if(openState === false){
+			openState = true
+			mobileNav.style.display = 'flex'
+			setTimeout(() => {
+				mobileNav.style.opacity = '1'
+			}, 1)
+		} 
+		else if (openState === true){
+			openState = false
+			mobileNav.style.opacity = '0'
+			setTimeout(() => {
+				mobileNav.style.display = 'none'
+			}, 1000)
+		}
+	})
+
+	for(let i = 0; i < mobileNavLink.length ; i++){
+		mobileNavLink[i].addEventListener('click', () => {
+			if(openState === false){
+			openState = true
+			mobileNav.style.display = 'flex'
+			setTimeout(() => {
+				mobileNav.style.opacity = '1'
+			}, 1)
+		} 
+		else if (openState === true){
+			openState = false
+			mobileNav.style.opacity = '0'
+			setTimeout(() => {
+				mobileNav.style.display = 'none'
+			}, 1000)
+		}
+		})
+	}
+</script>
+
 <script data-taxi-reload>
 	activePage = window.location.pathname
 	navButton = document.querySelectorAll('.navigation-light')
+	mobileLink = document.querySelectorAll('.mobile-nav-link')
 	homeNavButton = document.getElementById('home-button')
 
 	navButton.forEach(link => {
+		if(link.pathname === activePage){
+			link.classList.add('active-nav')
+		}
+		else{
+			link.classList.remove('active-nav')
+		}
+	})
+
+	mobileLink.forEach(link => {
 		if(link.pathname === activePage){
 			link.classList.add('active-nav')
 		}

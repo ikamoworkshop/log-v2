@@ -35,9 +35,9 @@ const { title } = Astro.props;
 	</head>
 
 	<body class="body">
-		<PreLoader />
+		<!-- <PreLoader /> -->
 		<Navigation />
-		<Cursor />
+		<!-- <Cursor /> -->
 		<main data-taxi>
 			<slot/>
 		</main>
@@ -45,7 +45,7 @@ const { title } = Astro.props;
 		<script>
 			// Three.js
 			import Experience from '../experience/Experience.js'
-			const experience = new Experience(document.getElementById('webgl'));
+			// const experience = new Experience(document.getElementById('webgl'));
 
 			import * as Taxi from '@unseenco/taxi'
 			import DefaultRenderer from '../Transition/Renderer'
@@ -62,6 +62,7 @@ const { title } = Astro.props;
 
 			let activePage = window.location.pathname
 			let navButton = document.querySelectorAll('.navigation-light')
+			let mobileLink = document.querySelectorAll('.mobile-nav-link')
 			let homeNavButton = document.getElementById('home-button')
 
 			import VirtualScroll from 'virtual-scroll'

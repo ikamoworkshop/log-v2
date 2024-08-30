@@ -51,12 +51,23 @@
     font-size: .7rem;
     font-weight: 700;
     line-height: 120%;
+    letter-spacing: .1rem;
 }
 
 .caption-light{
     font-size: .7rem;
     font-weight: 300;
     line-height: 120%;
+    letter-spacing: .1rem;
+}
+
+.navigation-light{
+    font-size: .7rem;
+    font-weight: 300;
+    line-height: 120%;
+    letter-spacing: .1rem;
+    opacity: .4;
+    transition: opacity 0.5s ease;
 }
 
 .external-light{
@@ -101,4 +112,9 @@
 
 .external-light:hover {
     opacity: 1;
+}
+
+// Responsive
+@media screen and (max-width: 1024px){
+
 }

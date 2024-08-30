@@ -2,7 +2,7 @@
 .top-nav {
   position: fixed;
   padding: 60px;
-  z-index: 9999;
+  z-index: 2000;
 }
 
 .site-description {
@@ -15,7 +15,8 @@
   left: 48px;
   top: 50%;
   translate: 0% -50%;
-  z-index: 9999;
+  z-index: 2000;
+  display: flex;
 }
 
 .active-arrow {
@@ -23,15 +24,6 @@
   height: 2px;
   background-color: #fff;
   opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.navigation-light {
-  font-size: 0.7rem;
-  font-weight: 300;
-  line-height: 120%;
-  letter-spacing: 0.1rem;
-  opacity: 0.4;
   transition: opacity 0.5s ease;
 }
 
@@ -52,10 +44,11 @@
   position: fixed;
   padding: 0px 60px;
   bottom: 60px;
-  z-index: 9999;
+  z-index: 2000;
 }
 
 .socials {
+  display: flex;
   margin-right: 120px;
 }
 
@@ -75,6 +68,7 @@
   height: 8px;
   background-color: #ffffff;
   border-radius: 100%;
+  z-index: 2000;
 }
 
 .audio-toggle-overlay {
@@ -86,13 +80,48 @@
   background-color: rgba(255, 255, 255, 0.1254901961);
   border-radius: 100%;
   transform-origin: center;
-  z-index: 9999999;
+  z-index: 2000;
 }
 
 .audio-toggled {
   animation-name: audio-toggled;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
+}
+
+.mobile-nav-button {
+  display: none;
+  position: fixed;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3001;
+}
+
+.mobile-nav {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(36, 37, 75, 0.5);
+  -webkit-backdrop-filter: blur(1vmax);
+          backdrop-filter: blur(1vmax);
+  display: none;
+  z-index: 3000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.mobile-nav-link {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
 }
 
 @keyframes audio-toggled {
@@ -104,6 +133,54 @@
   }
   100% {
     transform: scale(0.8);
+  }
+}
+@media screen and (max-width: 1280px) {
+  .site-description {
+    margin-left: 60px;
+  }
+  .socials {
+    margin-right: 60px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .site-description {
+    margin-left: 36px;
+  }
+  .socials {
+    margin-right: 36px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .top-nav {
+    padding: 36px;
+  }
+  .mid-nav {
+    display: none;
+  }
+  .bottom-nav {
+    bottom: 36px;
+    padding: 0px 36px;
+  }
+  .site-description {
+    display: none;
+  }
+  .socials {
+    display: none;
+  }
+  .audio-toggle {
+    top: 42px;
+    right: 42px;
+  }
+  .audio-toggle-overlay {
+    top: 36px;
+    right: 36px;
+  }
+  .mobile-nav-button {
+    display: block;
+  }
+  .mobile-nav {
+    display: flex;
   }
 }
 .hero {
@@ -159,12 +236,23 @@
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 120%;
+  letter-spacing: 0.1rem;
 }
 
 .caption-light {
   font-size: 0.7rem;
   font-weight: 300;
   line-height: 120%;
+  letter-spacing: 0.1rem;
+}
+
+.navigation-light {
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: 0.1rem;
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
 }
 
 .external-light {
