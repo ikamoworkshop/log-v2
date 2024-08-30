@@ -89,7 +89,7 @@ export default class Resource extends EventEmitter{
         this.audioPlay = false
         this.loaderContainerWidth = this.loaderContainer.getBoundingClientRect().width
 
-        this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth - 160}px)`
+        this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth}px)`
         this.loaderText.textContent = `${Math.round(this.loadPercentage * 100)}`
             
         if(this.loaded === this.toLoad){

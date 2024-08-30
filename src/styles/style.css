@@ -264,6 +264,21 @@
   transition: opacity 0.5s ease;
 }
 
+.loader-hero {
+  font-size: 12rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0.8rem;
+}
+
+.loader-title {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0.3rem;
+  text-align: center;
+}
+
 .active {
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -298,6 +313,12 @@
   opacity: 1;
 }
 
+@media screen and (max-width: 1024px) {
+  .loader-hero {
+    font-size: 8rem;
+    letter-spacing: 0.8rem;
+  }
+}
 @media screen and (max-width: 768px) {
   .large-title {
     font-size: 4rem;
@@ -310,6 +331,13 @@
   .subtitle-bold {
     font-size: 1.5rem;
     letter-spacing: 0.1rem;
+  }
+  .loader-hero {
+    font-size: 4rem;
+    letter-spacing: 0.8rem;
+  }
+  .loader-title {
+    font-size: 1.5rem;
   }
 }
 .flex {
@@ -471,6 +499,9 @@
   .scroll-progress-container {
     left: 40%;
     width: 160px;
+  }
+  .gap-48 {
+    gap: 24px;
   }
 }
 @media screen and (max-width: 768px) {

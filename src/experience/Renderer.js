@@ -240,7 +240,7 @@ export default class Renderer{
     }
 
     resize(){
-        window.location.reload();
+        window.location.reload()
 
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRation)
