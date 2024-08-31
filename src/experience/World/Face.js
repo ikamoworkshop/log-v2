@@ -21,13 +21,13 @@ export default class TestCube {
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
-            this.gallerySlugList.push("/gallery/" + item.slug.current)
+            this.gallerySlugList.push("/gallery/" + item.slug.current + "/")
         })
 
         this.insightsList = this.resources.insightsList
         this.insightsSlugList = []
         this.insightsList.forEach(item => {
-            this.insightsSlugList.push("/insights/" + item.slug.current)
+            this.insightsSlugList.push("/insights/" + item.slug.current + "/")
         })
 
         this.setScene()
@@ -89,7 +89,7 @@ export default class TestCube {
             })
         }
         
-        else if(this.pageChange.prevPage === '/about'){
+        else if(this.pageChange.prevPage === '/about/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             if(window.innerWidth > 1280){
                 this.renderedFace.scale.set(.7, .7, .7)
@@ -112,7 +112,7 @@ export default class TestCube {
             })
         }
         
-        else if(this.pageChange.prevPage === '/gallery'){
+        else if(this.pageChange.prevPage === '/gallery/'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             if(window.innerWidth > 1280){
                 this.renderedFace.scale.set(.4, .4, .4)
@@ -243,7 +243,7 @@ export default class TestCube {
                 })
             }
             
-            else if(this.pageChange.prevPage === '/about'){
+            else if(this.pageChange.prevPage === '/about/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 // this.renderedFaceGroup.position.y = -2
                 gsap.to(this.renderedFaceGroup.position, {
@@ -258,7 +258,7 @@ export default class TestCube {
                 })
             }
             
-            else if(this.pageChange.prevPage === '/gallery'){
+            else if(this.pageChange.prevPage === '/gallery/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
@@ -287,7 +287,7 @@ export default class TestCube {
                 })
             } 
 
-            else if(this.pageChange.prevPage === '/insights'){
+            else if(this.pageChange.prevPage === '/insights/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 // this.renderedFaceGroup.position.y = 0
                 gsap.to(this.renderedFaceGroup.position, {
@@ -427,14 +427,14 @@ export default class TestCube {
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
-        else if(this.pageChange.prevPage === '/about'){
+        else if(this.pageChange.prevPage === '/about/'){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
             this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
-        else if(this.pageChange.prevPage === '/gallery'){
+        else if(this.pageChange.prevPage === '/gallery/'){
             this.renderedFace.rotation.set(0, 0, 0)
             this.renderedFace.rotation.y = -this.targetPosition.x * 4
             this.renderedFace.rotation.x = this.targetPosition.y * 2
@@ -449,7 +449,7 @@ export default class TestCube {
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         } 
 
-        else if(this.pageChange.prevPage === '/insights'){
+        else if(this.pageChange.prevPage === '/insights/'){
             this.renderedFace.rotation.set(0, 0, 0)
             this.renderedFace.rotation.y = -this.targetPosition.x * 4
             this.renderedFace.rotation.x = this.targetPosition.y * 2

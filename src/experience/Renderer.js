@@ -34,13 +34,13 @@ export default class Renderer{
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
-            this.gallerySlugList.push("/gallery/" + item.slug.current)
+            this.gallerySlugList.push("/gallery/" + item.slug.current + "/")
         })
 
         this.insightsList = this.resources.insightsList
         this.insightsSlugList = []
         this.insightsList.forEach(item => {
-            this.insightsSlugList.push("/insights/" + item.slug.current)
+            this.insightsSlugList.push("/insights/" + item.slug.current + "/")
         })
 
         this.resources.on('ready', () => {
