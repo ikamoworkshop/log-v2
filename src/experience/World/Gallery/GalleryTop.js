@@ -77,7 +77,7 @@ export default class GalleryTop {
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
             thumbnailData.image = new Image()
-            thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
+            // thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
 
             thumbnailData.item = item
 
@@ -88,7 +88,7 @@ export default class GalleryTop {
                 vertexShader: thumbnailVertex,
                 fragmentShader: thumbnailFrag,
                 uniforms:{
-                    uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
+                    // uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
                     uGrainTexture: new THREE.Uniform(this.resources.items.grain),
                     uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
                     uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
@@ -100,10 +100,8 @@ export default class GalleryTop {
 
             thumbnailData.thumbnailPlate = new THREE.Mesh(this.thumbnailPlateGeometry, thumbnailData.thumbnailPlateMaterial)
 
-            thumbnailData.thumbnailPlate.position.x = ((i % this.gridSize) * this.gridGap) - 4
+            thumbnailData.thumbnailPlate.position.x = ((i % this.gridSize) * this.gridGap)
             thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
-
-            console.log(thumbnailData.thumbnailPlate.position.x)
 
             this.thumbnailPlateList.push(thumbnailData)
             this.scene.add(thumbnailData.thumbnailPlate)
@@ -217,6 +215,16 @@ export default class GalleryTop {
         this.camera.updateProjectionMatrix()
     }
 
+    updatePositionX(scroll, position, b){
+        const temp = (((scroll + position) % b) + b) % b
+        return temp
+    }
+
+    updatePositionY(scroll, position, b){
+        const temp = (((scroll + position) % b) + b) % b
+        return temp
+    }
+
     update(){        
         this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
@@ -224,11 +232,8 @@ export default class GalleryTop {
         this.thumbnailPlateList.forEach((object, i) => {
 
             setTimeout(() => {
-                object.thumbnailPlate.position.x = (((-this.finalPosX * .5) / this.sizes.width) + object.thumbnailPlate.position.x) % (this.fullGridSize)
-
-                // console.log((((-this.finalPosX * .5) / this.sizes.width) + (object.thumbnailPlate.position.x) + 4) % (-this.fullGridSize - 4))
-            
-                // object.thumbnailPlate.position.y = (((this.finalPosY * .5) / this.sizes.height) + object.thumbnailPlate.position.y - (( Math.floor( this.galleryList.length / this.gridSize)) * this.gridGap)) % (( Math.floor( this.galleryList.length / this.gridSize ) ) * this.gridGap)
+                object.thumbnailPlate.position.x = this.updatePositionX((-this.finalPosX * .5) / this.sizes.width, object.thumbnailPlate.position.x - (this.fullGridSize * .5), this.fullGridSize) - (this.fullGridSize * .5)
+                // object.thumbnailPlate.position.y = this.updatePositionY(((this.finalPosY * .5) / this.sizes.height), object.thumbnailPlate.position.y - (this.galleryList.length / this.gridSize / 2), (this.galleryList.length / this.gridSize)) - (this.galleryList.length / this.gridSize / 2)
     
                 object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
