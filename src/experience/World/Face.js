@@ -5,7 +5,7 @@ import gsap from "gsap"
 import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
 import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
 
-export default class TestCube {
+export default class Face {
     constructor(){
         this.experience = new Experience()
         this.pageChange = this.experience.pageChange

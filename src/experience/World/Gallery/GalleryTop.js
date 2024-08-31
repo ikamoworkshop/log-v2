@@ -18,6 +18,8 @@ export default class GalleryTop {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
         this.drag = this.experience.drag
+        this.experience.canvas.style.width = "100%"
+        this.experience.canvas.style.height = "100%"
 
         this.textureLoader = new THREE.TextureLoader()
 
@@ -61,7 +63,7 @@ export default class GalleryTop {
         }
 
         if(window.innerWidth <= 768){
-
+            this.gridMultiplier = .42
         }
     }
 
