@@ -151,14 +151,14 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
             
-            else if(this.pageChange.prevPage === '/about'){
+            else if(this.pageChange.prevPage === '/about/'){
                 this.instance.clear()
                 this.renderPass.scene = this.aboutContent.aboutScene
                 this.renderPass.camera = this.aboutContent.camera
                 document.body.style.cursor = 'default'
             }
             
-            else if(this.pageChange.prevPage === '/gallery'){
+            else if(this.pageChange.prevPage === '/gallery/'){
                 this.instance.clear()
                 this.renderPass.scene = this.galleryTop.scene
                 this.renderPass.camera = this.galleryTop.camera
@@ -172,7 +172,7 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
 
-            else if(this.pageChange.prevPage === '/insights'){
+            else if(this.pageChange.prevPage === '/insights/'){
                 this.instance.clear()
                 this.renderPass.scene = this.insightsTop.scene
                 this.renderPass.camera = this.insightsTop.camera
@@ -186,7 +186,7 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
             
-            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+            else {
                 this.instance.clear()
                 this.renderPass.scene = this.notFound.notFoundScene
                 this.renderPass.camera = this.notFound.camera
@@ -272,13 +272,13 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
-            else if(this.pageChange.prevPage === '/about'){
+            else if(this.pageChange.prevPage === '/about/'){
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
-            else if(this.pageChange.prevPage === '/gallery'){
+            else if(this.pageChange.prevPage === '/gallery/'){
                 this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
@@ -290,7 +290,7 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } 
 
-            else if(this.pageChange.prevPage === '/insights'){
+            else if(this.pageChange.prevPage === '/insights/'){
                 this.composer.render(this.insightsTop.scene, this.insightsTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
@@ -302,7 +302,7 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } 
             
-            else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery'){
+            else {
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
