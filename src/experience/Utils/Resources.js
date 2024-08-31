@@ -77,73 +77,72 @@ export default class Resource extends EventEmitter{
 
         this.loaded++
 
-        // this.loadPercentage = this.loaded / this.toLoad
-        // this.loaderText = document.getElementById('loader-text')
-        // this.loaderBox = document.getElementById('loader-container')
-        // this.loaderContainer = document.getElementById('loader-move')
+        this.loadPercentage = this.loaded / this.toLoad
+        this.loaderText = document.getElementById('loader-text')
+        this.loaderBox = document.getElementById('loader-container')
+        this.loaderContainer = document.getElementById('loader-move')
 
-        // this.audioContainer = document.getElementById('audio-container')
-        // this.withoutAudio = document.getElementById('without-audio')
-        // this.withAudio = document.getElementById('with-audio')
-        // this.audioToggle = document.getElementById('audio-toggle')
-        // this.audioPlay = false
-        // this.loaderContainerWidth = this.loaderContainer.getBoundingClientRect().width
+        this.audioContainer = document.getElementById('audio-container')
+        this.withoutAudio = document.getElementById('without-audio')
+        this.withAudio = document.getElementById('with-audio')
+        this.audioToggle = document.getElementById('audio-toggle')
+        this.audioPlay = false
+        this.loaderContainerWidth = this.loaderContainer.getBoundingClientRect().width
 
-        // this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth}px)`
-        // this.loaderText.textContent = `${Math.round(this.loadPercentage * 100)}`
+        this.loaderContainer.style.transform = `translateX(${this.loadPercentage * window.innerWidth - this.loaderContainerWidth}px)`
+        this.loaderText.textContent = `${Math.round(this.loadPercentage * 100)}`
             
         if(this.loaded === this.toLoad){
-            // this.audioListener = new THREE.AudioListener()
-            // this.sound = new THREE.Audio(this.audioListener)
+            this.audioListener = new THREE.AudioListener()
+            this.sound = new THREE.Audio(this.audioListener)
     
-            // this.audioSound = this.items.backgroundAudio
+            this.audioSound = this.items.backgroundAudio
     
-            // this.sound.setBuffer(this.audioSound)
-            // this.sound.setLoop(true);
-            // this.sound.setVolume(.5)
+            this.sound.setBuffer(this.audioSound)
+            this.sound.setLoop(true);
+            this.sound.setVolume(.5)
 
-            // this.audioContainer.style.display = 'flex'
+            this.audioContainer.style.display = 'flex'
 
-            // setTimeout(() => {
-            //     this.loaderContainer.style.opacity = '0'
-            //     this.audioContainer.style.opacity = '1'
-            // }, 500)
+            setTimeout(() => {
+                this.loaderContainer.style.opacity = '0'
+                this.audioContainer.style.opacity = '1'
+            }, 500)
 
-            // this.withoutAudio.addEventListener('click', () => {
-            //     this.loaderBox.style.opacity = '0'
-            //     this.loaderBox.style.filter = 'blur(6vmax)'
-            //     this.trigger('ready')
-            //     this.audioPlay = false
-            //     setTimeout(() => {
-            //         this.loaderBox.style.display = 'none'
-            //     }, 1000)
-            // })
+            this.withoutAudio.addEventListener('click', () => {
+                this.loaderBox.style.opacity = '0'
+                this.loaderBox.style.filter = 'blur(6vmax)'
+                this.trigger('ready')
+                this.audioPlay = false
+                setTimeout(() => {
+                    this.loaderBox.style.display = 'none'
+                }, 1000)
+            })
 
-            // this.withAudio.addEventListener('click', () => {
-            //     this.loaderBox.style.opacity = '0'
-            //     this.loaderBox.style.filter = 'blur(6vmax)'
-            //     this.audioToggle.classList.add('audio-toggled')
-            //     this.audioPlay = true
-            //     this.sound.play()
-            //     this.trigger('ready')
-            //     setTimeout(() => {
-            //         this.loaderBox.style.display = 'none'
-            //     }, 1000)
-            // })
+            this.withAudio.addEventListener('click', () => {
+                this.loaderBox.style.opacity = '0'
+                this.loaderBox.style.filter = 'blur(6vmax)'
+                this.audioToggle.classList.add('audio-toggled')
+                this.audioPlay = true
+                this.sound.play()
+                this.trigger('ready')
+                setTimeout(() => {
+                    this.loaderBox.style.display = 'none'
+                }, 1000)
+            })
 
-            // this.audioToggle.addEventListener('click', () => {
-            //     if(this.audioPlay === true){
-            //         this.audioPlay = false
-            //         this.audioToggle.classList.remove('audio-toggled')
-            //         this.sound.pause()
-            //     }
-            //     else if(this.audioPlay === false) {
-            //         this.audioPlay = true
-            //         this.audioToggle.classList.add('audio-toggled')
-            //         this.sound.play()
-            //     }
-            // })
-            this.trigger('ready')
+            this.audioToggle.addEventListener('click', () => {
+                if(this.audioPlay === true){
+                    this.audioPlay = false
+                    this.audioToggle.classList.remove('audio-toggled')
+                    this.sound.pause()
+                }
+                else if(this.audioPlay === false) {
+                    this.audioPlay = true
+                    this.audioToggle.classList.add('audio-toggled')
+                    this.sound.play()
+                }
+            })
         }
 
     }
