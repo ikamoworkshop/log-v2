@@ -77,7 +77,7 @@ export default class GalleryTop {
         this.galleryList.forEach((item, i) => {
             const thumbnailData = {}
             thumbnailData.image = new Image()
-            // thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
+            thumbnailData.image.src = urlForImage(item.thumbnailImage).url()
 
             thumbnailData.item = item
 
@@ -88,7 +88,7 @@ export default class GalleryTop {
                 vertexShader: thumbnailVertex,
                 fragmentShader: thumbnailFrag,
                 uniforms:{
-                    // uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
+                    uTexture: new THREE.Uniform(thumbnailData.thumbnailImage),
                     uGrainTexture: new THREE.Uniform(this.resources.items.grain),
                     uOpacity: new THREE.Uniform(this.transitionObject.uOpacity),
                     uPlaneSize: new THREE.Uniform(new THREE.Vector2(1.3,1.3)),
@@ -171,11 +171,6 @@ export default class GalleryTop {
 
         })
 
-        // this.thumbnailPlateGroup.position.x = - this.gridSize * .5 - 1.5
-        // this.thumbnailPlateGroup.position.y =  this.gridSize * .5 - .5
-
-        // this.scene.add(this.thumbnailPlateGroup)
-
         gsap.to(this.transitionObject, {
             uOpacity: .5,
             duration: 4
@@ -233,7 +228,7 @@ export default class GalleryTop {
 
             setTimeout(() => {
                 object.thumbnailPlate.position.x = this.updatePositionX((-this.finalPosX * .5) / this.sizes.width, object.thumbnailPlate.position.x - (this.fullGridSize * .5), this.fullGridSize) - (this.fullGridSize * .5)
-                // object.thumbnailPlate.position.y = this.updatePositionY(((this.finalPosY * .5) / this.sizes.height), object.thumbnailPlate.position.y - (this.galleryList.length / this.gridSize / 2), (this.galleryList.length / this.gridSize)) - (this.galleryList.length / this.gridSize / 2)
+                object.thumbnailPlate.position.y = this.updatePositionY(((this.finalPosY * .5) / this.sizes.height), (object.thumbnailPlate.position.y - (this.galleryList.length / this.gridSize)), (this.galleryList.length / this.gridSize * this.gridGap)) - (this.galleryList.length / this.gridSize)
     
                 object.thumbnailPlateMaterial.uniforms.uOpacity.value = this.transitionObject.uOpacity
 
