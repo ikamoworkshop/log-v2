@@ -230,7 +230,21 @@ export default class Face {
         this.pageChange.on('pageChange', () => {
             if(this.pageChange.prevPage === '/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.set(0, 0, 0)
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.7, .7, .7)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.55, .55, .55)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
@@ -245,7 +259,21 @@ export default class Face {
             
             else if(this.pageChange.prevPage === '/about/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.y = -2
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.7, .7, .7)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.55, .55, .55)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: -2,
                     duration: 1
@@ -260,6 +288,21 @@ export default class Face {
             
             else if(this.pageChange.prevPage === '/gallery/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.visible = false
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.visible = false
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
@@ -274,7 +317,21 @@ export default class Face {
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.set(0, 0, 0)
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.7, .7, .7)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.55, .55, .55)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
@@ -289,7 +346,21 @@ export default class Face {
 
             else if(this.pageChange.prevPage === '/insights/'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.y = 0
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.visible = false
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.visible = false
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
@@ -304,7 +375,21 @@ export default class Face {
 
             else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.set(0, 0, 0)
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.7, .7, .7)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.55, .55, .55)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: -2,
                     duration: 1
@@ -319,7 +404,21 @@ export default class Face {
             
             else {
                 this.renderedFace = this.resources.items.defaultFlat.scene
-                // this.renderedFaceGroup.position.set(0, 0, 0)
+                if(window.innerWidth > 1280){
+                    this.renderedFace.scale.set(.7, .7, .7)
+                }
+    
+                if(window.innerWidth <= 1280){
+                    this.renderedFace.scale.set(.55, .55, .55)
+                }
+                
+                if(window.innerWidth <= 1024){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
+        
+                if(window.innerWidth <= 768){
+                    this.renderedFace.scale.set(.4, .4, .4)
+                }
                 gsap.to(this.renderedFaceGroup.position, {
                     y: 0,
                     duration: 1
