@@ -18,8 +18,6 @@ export default class GalleryTop {
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
         this.drag = this.experience.drag
-        this.experience.canvas.style.width = "100%"
-        this.experience.canvas.style.height = "100%"
 
         this.textureLoader = new THREE.TextureLoader()
 
@@ -149,27 +147,32 @@ export default class GalleryTop {
         })
 
         this.pageChange.on('pageChange', () => {
-            this.mainDom = document.getElementById('gallery-top')
+            window.setTimeout(() => {
+                this.mainDom = document.getElementById('gallery-top')
 
-            this.thumbnailPlateList.forEach((object) => {
-                const translateX = (object.screenPosition.x ) * this.sizes.width * .5
-                const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
+                console.log(this.mainDom)
 
-                object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-
-                window.setTimeout(() => {
-                    if(this.mainDom){
-                        this.mainDom.appendChild(object.anchorButton)
-                    }
-                }, 100)
-
-                object.anchorButton.addEventListener('click', () => {
-                    gsap.to(this.transitionObject, {
-                        uOpacity: 0,
-                        duration:.5,
+                this.thumbnailPlateList.forEach((object) => {
+                    const translateX = (object.screenPosition.x ) * this.sizes.width * .5
+                    const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
+    
+                    object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+    
+                    window.setTimeout(() => {
+                        if(this.mainDom){
+                            this.mainDom.appendChild(object.anchorButton)
+                        }
+                    }, 100)
+    
+                    object.anchorButton.addEventListener('click', () => {
+                        gsap.to(this.transitionObject, {
+                            uOpacity: 0,
+                            duration:.5,
+                        })
                     })
                 })
-            })
+
+            }, 500)
 
         })
 
@@ -222,7 +225,8 @@ export default class GalleryTop {
         return temp
     }
 
-    update(){        
+    update(){
+        this.mainDom = document.getElementById('gallery-top')
         this.finalPosX = (1 - .1) * this.finalPosX + .1 * this.drag.diffX
         this.finalPosY = (1 - .1) * this.finalPosY + .1 * this.drag.diffY
 

@@ -139,20 +139,29 @@ export default class InsightsTop {
         })
 
         this.pageChange.on('pageChange', () => {
-            this.mainDom = document.getElementById('insights-top')
+            setTimeout(() => {
+                this.mainDom = document.getElementById('insights-top')
 
-            this.insightPlateList.forEach((object) => {
-                const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
-                const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
+                this.insightPlateList.forEach((object) => {
+                    const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
+                    const translateY = ((object.screenPosition.y + (this.gridGap * .97)) * (this.gridGap) * this.sizes.height * .5) * .5
+    
+                    object.anchorButton.style.transform = `translate(${translateX}px, ${-translateY}px)`
+    
+                    window.setTimeout(() => {
+                        if(this.mainDom){
+                            this.mainDom.appendChild(object.anchorButton)
+                        }
+                    }, 100)
 
-                object.anchorButton.style.transform = `translate(${translateX}px, ${-translateY}px)`
-
-                window.setTimeout(() => {
-                    if(this.mainDom){
-                        this.mainDom.appendChild(object.anchorButton)
-                    }
-                }, 100)
-            })
+                    object.anchorButton.addEventListener('click', () => {
+                        gsap.to(this.transitionObject, {
+                            uOpacity: 0,
+                            duration:.5,
+                        })
+                    })
+                })
+            }, 500)
         })
 
         this.insightGroup.position.y = (2 * this.gridGap)

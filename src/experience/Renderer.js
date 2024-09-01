@@ -107,13 +107,13 @@ export default class Renderer{
             this.composer.addPass(this.renderPass)
         } 
 
-        else if(this.pageChange.prevPage === '/about'){
+        else if(this.pageChange.prevPage === '/about/'){
             this.renderPass.scene = this.aboutContent.aboutScene
             this.renderPass.camera = this.aboutContent.camera
             this.composer.addPass(this.renderPass)
         } 
 
-        else if(this.pageChange.prevPage === '/gallery'){
+        else if(this.pageChange.prevPage === '/gallery/'){
             this.renderPass.scene = this.galleryTop.scene
             this.renderPass.camera = this.galleryTop.camera
             this.composer.addPass(this.renderPass)
@@ -125,7 +125,7 @@ export default class Renderer{
             this.composer.addPass(this.renderPass)
         }
 
-        else if (this.pageChange.prevPage === '/insights'){
+        else if (this.pageChange.prevPage === '/insights/'){
             this.renderPass.scene = this.insightsTop.scene
             this.renderPass.camera = this.insightsTop.camera
             this.composer.addPass(this.renderPass)
@@ -137,7 +137,7 @@ export default class Renderer{
             this.composer.addPass(this.renderPass)
         }
         
-        else if(this.pageChange.prevPage !== '/' && this.pageChange.prevPage !== '/about' && this.pageChange.prevPage !== '/gallery') {
+        else {
             this.renderPass.scene = this.notFound.notFoundScene
             this.renderPass.camera = this.notFound.camera
             this.composer.addPass(this.renderPass)
