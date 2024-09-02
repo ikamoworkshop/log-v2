@@ -127,3 +127,8 @@
         max-width: 280px;
     }
 }
+@media screen and (max-height: 720px){
+    .about-text{
+        padding: 100px 0px;
+    }
+}
