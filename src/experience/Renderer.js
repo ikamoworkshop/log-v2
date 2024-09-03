@@ -75,10 +75,6 @@ export default class Renderer{
             canvas: this.canvas,
             antialias: true,
         })
-        this.instance.toneMapping = THREE.CineonToneMapping
-        this.instance.toneMappingExposure = 1.75
-        this.instance.shadowMap.enabled = true
-        this.instance.shadowMap.type = THREE.PCFSoftShadowMap
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRation)
         this.instance.outputColorSpace = THREE.SRGBColorSpace
@@ -107,13 +103,13 @@ export default class Renderer{
             this.composer.addPass(this.renderPass)
         } 
 
-        else if(this.pageChange.prevPage === '/about/'){
+        else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
             this.renderPass.scene = this.aboutContent.aboutScene
             this.renderPass.camera = this.aboutContent.camera
             this.composer.addPass(this.renderPass)
         } 
 
-        else if(this.pageChange.prevPage === '/gallery/'){
+        else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
             this.renderPass.scene = this.galleryTop.scene
             this.renderPass.camera = this.galleryTop.camera
             this.composer.addPass(this.renderPass)
@@ -125,7 +121,7 @@ export default class Renderer{
             this.composer.addPass(this.renderPass)
         }
 
-        else if (this.pageChange.prevPage === '/insights/'){
+        else if (this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
             this.renderPass.scene = this.insightsTop.scene
             this.renderPass.camera = this.insightsTop.camera
             this.composer.addPass(this.renderPass)
@@ -151,14 +147,14 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
             
-            else if(this.pageChange.prevPage === '/about/'){
+            else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
                 this.instance.clear()
                 this.renderPass.scene = this.aboutContent.aboutScene
                 this.renderPass.camera = this.aboutContent.camera
                 document.body.style.cursor = 'default'
             }
             
-            else if(this.pageChange.prevPage === '/gallery/'){
+            else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
                 this.instance.clear()
                 this.renderPass.scene = this.galleryTop.scene
                 this.renderPass.camera = this.galleryTop.camera
@@ -172,7 +168,7 @@ export default class Renderer{
                 document.body.style.cursor = 'default'
             }
 
-            else if(this.pageChange.prevPage === '/insights/'){
+            else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
                 this.instance.clear()
                 this.renderPass.scene = this.insightsTop.scene
                 this.renderPass.camera = this.insightsTop.camera
@@ -199,17 +195,6 @@ export default class Renderer{
         this.waterPass.uniforms.uBlueStrength.value = .01
         this.waterPass.uniforms.uBendStrength.value = .05
         this.composer.addPass(this.waterPass)
-
-        const ua = navigator.userAgent
-
-        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-            this.composer.removePass(this.waterPass)
-        }
-    
-        if (
-            /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-            this.composer.removePass(this.waterPass)
-        }
 
         this.smaaPass = new SMAAPass()
         this.composer.addPass(this.smaaPass)
@@ -283,13 +268,13 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
-            else if(this.pageChange.prevPage === '/about/'){
+            else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
-            else if(this.pageChange.prevPage === '/gallery/'){
+            else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
                 this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
@@ -301,7 +286,7 @@ export default class Renderer{
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } 
 
-            else if(this.pageChange.prevPage === '/insights/'){
+            else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
                 this.composer.render(this.insightsTop.scene, this.insightsTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture

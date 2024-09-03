@@ -91,7 +91,6 @@ export default class AboutContent {
             this.imageGroup = new THREE.Group()
 
             this.images.forEach((image) => {
-
                 const imageData = {}
 
                 imageData.image = image
@@ -109,6 +108,8 @@ export default class AboutContent {
         
                 imageData.finalScaleX = this.camUnit.width * x
                 imageData.finalScaleY = this.camUnit.height * y
+
+                console.log(imageData.finalScaleX, imageData.finalScaleY)
     
                 imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
                 imageData.imageMaterial = new THREE.ShaderMaterial({
@@ -230,10 +231,8 @@ export default class AboutContent {
     update(){
         this.buttons = document.getElementsByTagName('a')
 
-        if(this.imageList.length === this.images.length){
-            this.imageList.forEach((imageObject) => {
-                imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
-            })
-        }
+        this.imageList.forEach((imageObject) => {
+            imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
+        })
     }
 }

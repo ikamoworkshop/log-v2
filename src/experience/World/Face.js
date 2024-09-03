@@ -32,7 +32,6 @@ export default class Face {
 
         this.setScene()
         this.setCamera()
-        // this.setAudio()
         this.setModel()
         this.setLookAt()
         this.setRenderTarget()
@@ -52,10 +51,6 @@ export default class Face {
         this.camera.position.set(0, 0, 5)
         this.scene.add(this.camera)
     }
-
-    // setAudio(){
-    //     this.camera.add(this.resources.audioListener)
-    // }
 
     setModel(){
         this.renderedFaceGroup = new THREE.Group()
