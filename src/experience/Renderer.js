@@ -252,53 +252,53 @@ export default class Renderer{
             this.waterTexter.update()
 
             this.face.update()
-            this.homeContent.update()
-            this.aboutContent.update()
-            this.galleryTop.update()
-            this.galleryView.update()
-            this.insightsTop.update()
-            this.insightsView.update()
-            this.notFound.update()
 
             this.waterPass.uniforms.uTime.value = this.time.elapsed
 
             if(this.pageChange.prevPage === '/'){
+                this.homeContent.update()
                 this.composer.render(this.homeContent.HomeScene, this.homeContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
             else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
+                this.aboutContent.update()
                 this.composer.render(this.aboutContent.aboutScene, this.aboutContent.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
             
             else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
+                this.galleryTop.update()
                 this.composer.render(this.galleryTop.scene, this.galleryTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
 
             else if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.galleryView.update()
                 this.composer.render(this.galleryView.scene, this.galleryView.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } 
 
             else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
+                this.insightsTop.update()
                 this.composer.render(this.insightsTop.scene, this.insightsTop.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             }
 
             else if (this.insightsSlugList.includes(this.pageChange.prevPage)){
+                this.insightsView.update()
                 this.composer.render(this.insightsView.scene, this.insightsView.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture
             } 
             
             else {
+                this.notFound.update()
                 this.composer.render(this.notFound.notFoundScene, this.notFound.camera)
                 this.renderTarget.texture.colorSpace = THREE.SRGBColorSpace
                 this.renderPlaneMaterial.uniforms.uTexture.value = this.renderTarget.texture

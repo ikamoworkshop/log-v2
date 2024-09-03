@@ -153,9 +153,8 @@ export default class InsightsTop {
                         }
                     }
             })
-
-            setTimeout(() => {
-                this.mainDom = document.getElementById('insights-top')
+            
+            this.mainDom = document.getElementById('insights-top')
 
                 this.insightPlateList.forEach((object) => {
                     const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
@@ -165,7 +164,6 @@ export default class InsightsTop {
     
                     window.setTimeout(() => {
                         if(this.mainDom){
-                            console.log('insight')
                             this.mainDom.appendChild(object.anchorButton)
                         }
                     }, 100)
@@ -177,7 +175,6 @@ export default class InsightsTop {
                         })
                     })
                 })
-            }, 500)
         })
 
         this.insightGroup.position.y = (2 * this.gridGap)
