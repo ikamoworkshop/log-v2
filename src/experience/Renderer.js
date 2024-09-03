@@ -200,6 +200,8 @@ export default class Renderer{
         this.waterPass.uniforms.uBendStrength.value = .05
         this.composer.addPass(this.waterPass)
 
+        const ua = navigator.userAgent
+
         if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
             this.composer.removePass(this.waterPass)
         }
