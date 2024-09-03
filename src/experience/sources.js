@@ -12,7 +12,7 @@ export default [
     {
         name: 'defaultFlat',
         type: 'gltfModel',
-        path: '/model/default_flat.glb'
+        path: '/model/face_model.glb'
     },
     {
         name: 'landingOne',
