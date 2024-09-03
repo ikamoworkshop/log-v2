@@ -22,7 +22,7 @@ export default class GalleryView {
         this.galleryList = this.resources.galleryList
         this.gallerySlugList = []
         this.galleryList.forEach(item => {
-            this.gallerySlugList.push("/gallery/" + item.slug.current + "/")
+            this.gallerySlugList.push('/gallery/' + item.slug.current + '/')
         })
 
         this.buttons = document.getElementsByTagName('a')
@@ -55,6 +55,7 @@ export default class GalleryView {
         this.pageChange.on('pageChange', () => {
             this.pageImage = null
             this.pageImage = document.querySelectorAll('.gallery-view img')
+            console.log(this.pageImage)
         })
     }
 
@@ -239,14 +240,16 @@ export default class GalleryView {
                 })
             })
         }
-
+    }
+    
+    updatePositionX(scroll, position, b){
+        const temp = (((scroll + position) % b) + b) % b
+        return temp
     }
 
     update(){
-        if(this.pageImage.length === this.imageList.length){
-            this.imageList.forEach((object, i) => {
-                object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
-            })
-        }
+        this.imageList.forEach((object, i) => {
+            object.imageMesh.position.x = this.updatePositionX(- this.scroll.infiniteScroll / this.sizes.width * 8, object.imageMesh.position.x, object.finalScaleX * (this.pageImage.length * this.imageGap))
+        })
     }
 }
