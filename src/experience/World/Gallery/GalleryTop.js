@@ -147,7 +147,7 @@ export default class GalleryTop {
         })
 
         this.pageChange.on('pageChange', () => {
-            
+
             this.scene.traverse((child) =>
                 {
                     if(child instanceof THREE.Mesh){
@@ -165,8 +165,6 @@ export default class GalleryTop {
 
             window.setTimeout(() => {
                 this.mainDom = document.getElementById('gallery-top')
-
-                console.log(this.mainDom)
 
                 this.thumbnailPlateList.forEach((object) => {
                     const translateX = (object.screenPosition.x ) * this.sizes.width * .5

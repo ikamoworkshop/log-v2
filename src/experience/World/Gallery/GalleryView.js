@@ -242,9 +242,11 @@ export default class GalleryView {
 
     update(){
         this.buttons = document.getElementsByTagName('a')
-        
-        this.imageList.forEach((object, i) => {
-            object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
-        })
+
+        if(this.pageImage.length === this.imageList.length){
+            this.imageList.forEach((object, i) => {
+                object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)
+            })
+        }
     }
 }

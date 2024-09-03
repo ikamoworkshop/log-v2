@@ -61,7 +61,6 @@ export default class AboutContent {
         this.images = []
         window.setTimeout(() => {
             this.images = document.querySelectorAll('.about-container img')
-            console.log(this.images, ' test about')
         })
 
         this.pageChange.on('pageChange', () => {
