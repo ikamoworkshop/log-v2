@@ -88,7 +88,7 @@ export default class Face {
             })
         }
         
-        else if(this.pageChange.prevPage === '/about/'){
+        else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             if(window.innerWidth > 1280){
                 this.renderedFace.visible = true
@@ -115,7 +115,7 @@ export default class Face {
             })
         }
         
-        else if(this.pageChange.prevPage === '/gallery/'){
+        else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             if(window.innerWidth > 1280){
                 this.renderedFace.visible = true
@@ -167,7 +167,7 @@ export default class Face {
             })
         } 
 
-        else if(this.pageChange.prevPage === '/insights'){
+        else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
             this.renderedFace = this.resources.items.defaultFlat.scene
             if(window.innerWidth > 1280){
                 this.renderedFace.visible = true
@@ -294,7 +294,7 @@ export default class Face {
                 })
             }
             
-            else if(this.pageChange.prevPage === '/about/'){
+            else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 if(window.innerWidth > 1280){
                     this.renderedFace.visible = true
@@ -341,7 +341,7 @@ export default class Face {
                 })
             }
             
-            else if(this.pageChange.prevPage === '/gallery/'){
+            else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 if(window.innerWidth > 1280){
                     this.renderedFace.visible = true
@@ -423,7 +423,7 @@ export default class Face {
                 })
             } 
 
-            else if(this.pageChange.prevPage === '/insights/'){
+            else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
                 this.renderedFace = this.resources.items.defaultFlat.scene
                 if(window.innerWidth > 1280){
                     this.renderedFace.visible = true
@@ -647,14 +647,14 @@ export default class Face {
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
-        else if(this.pageChange.prevPage === '/about/'){
+        else if(this.pageChange.prevPage === '/about/' || this.pageChange.prevPage === '/about'){
             this.renderedFace.lookAt(this.lookAtMesh.position)
         
             this.renderedFace.position.x = this.renderedFace.position.x = this.targetPosition.x * .4
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         }
         
-        else if(this.pageChange.prevPage === '/gallery/'){
+        else if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
             this.renderedFace.rotation.set(0, 0, 0)
             this.renderedFace.rotation.y = -this.targetPosition.x * 4
             this.renderedFace.rotation.x = this.targetPosition.y * 2
@@ -669,7 +669,7 @@ export default class Face {
             this.renderedFace.position.y = this.renderedFace.position.y = this.targetPosition.y * .4
         } 
 
-        else if(this.pageChange.prevPage === '/insights/'){
+        else if(this.pageChange.prevPage === '/insights/' || this.pageChange.prevPage === '/insights'){
             this.renderedFace.rotation.set(0, 0, 0)
             this.renderedFace.rotation.y = -this.targetPosition.x * 4
             this.renderedFace.rotation.x = this.targetPosition.y * 2
