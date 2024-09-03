@@ -153,8 +153,9 @@ export default class InsightsTop {
                         }
                     }
             })
-
-            this.mainDom = document.getElementById('insights-top')
+            
+            window.setTimeout(() => {
+                this.mainDom = document.getElementById('insights-top')
 
                 this.insightPlateList.forEach((object) => {
                     const translateX = (this.targetPosition.x * .1) * this.sizes.width * .5
@@ -167,7 +168,7 @@ export default class InsightsTop {
                             this.mainDom.appendChild(object.anchorButton)
                         }
                     }, 100)
-
+    
                     object.anchorButton.addEventListener('click', () => {
                         gsap.to(this.transitionObject, {
                             uOpacity: 0,
@@ -175,6 +176,7 @@ export default class InsightsTop {
                         })
                     })
                 })
+            }, 500)
         })
 
         this.insightGroup.position.y = (2 * this.gridGap)

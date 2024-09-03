@@ -158,7 +158,6 @@ export default class GalleryTop {
             this.scene.traverse((child) =>
                 {
                     if(child instanceof THREE.Mesh){
-                        console.log(child)
                         child.geometry.dispose()
                         for(const key in child.material){
                             const value = child.material[key]
@@ -175,30 +174,32 @@ export default class GalleryTop {
 
             if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
                 
-                this.mainDom = document.getElementById('gallery-top')
                 
-                this.thumbnailPlateList.forEach((object) => {
-                    this.galleryGroup.add(object.thumbnailPlate)
-                    const translateX = (object.screenPosition.x ) * this.sizes.width * .5
-                    const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
-
-                    object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-
-                    window.setTimeout(() => {
-                        if(this.mainDom){
-                            this.mainDom.appendChild(object.anchorButton)
-                        }
-                    }, 100)
-
-                    object.anchorButton.addEventListener('click', () => {
-                        gsap.to(this.transitionObject, {
-                            uOpacity: 0,
-                            duration:.5,
+                window.setTimeout(() => {
+                    this.mainDom = document.getElementById('gallery-top')
+                    this.thumbnailPlateList.forEach((object) => {
+                        this.galleryGroup.add(object.thumbnailPlate)
+                        const translateX = (object.screenPosition.x ) * this.sizes.width * .5
+                        const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
+    
+                        object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
+    
+                        window.setTimeout(() => {
+                            if(this.mainDom){
+                                this.mainDom.appendChild(object.anchorButton)
+                            }
+                        }, 100)
+    
+                        object.anchorButton.addEventListener('click', () => {
+                            gsap.to(this.transitionObject, {
+                                uOpacity: 0,
+                                duration:.5,
+                            })
                         })
                     })
-                })
-
-                this.scene.add(this.galleryGroup)
+    
+                    this.scene.add(this.galleryGroup)
+                }, 500)
             }
         })
     }
