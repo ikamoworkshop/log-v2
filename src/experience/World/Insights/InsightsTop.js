@@ -165,6 +165,7 @@ export default class InsightsTop {
     
                     window.setTimeout(() => {
                         if(this.mainDom){
+                            console.log('insight')
                             this.mainDom.appendChild(object.anchorButton)
                         }
                     }, 100)
