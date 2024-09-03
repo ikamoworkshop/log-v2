@@ -246,11 +246,8 @@ export default class Renderer{
     }
 
     update(){
-        this.buttons = document.getElementsByTagName('a')
-
         if(this.face){
             this.waterTexter.update()
-
             this.face.update()
 
             this.waterPass.uniforms.uTime.value = this.time.elapsed

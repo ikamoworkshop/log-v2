@@ -19,6 +19,12 @@ export default class GalleryView {
 
         this.textureLoader = new THREE.TextureLoader()
 
+        this.galleryList = this.resources.galleryList
+        this.gallerySlugList = []
+        this.galleryList.forEach(item => {
+            this.gallerySlugList.push("/gallery/" + item.slug.current + "/")
+        })
+
         this.buttons = document.getElementsByTagName('a')
 
         this.setScene()
@@ -142,48 +148,50 @@ export default class GalleryView {
             this.scene.remove(this.imageGroup)
             this.imageGroup = new THREE.Group()
 
-            this.pageImage.forEach((image, i) => {
-                const imageData = {}
-
-                imageData.image = new Image()
-                imageData.image.src = image.src
-                imageData.texture = this.textureLoader.load(imageData.image.src)
-                imageData.imageBooundingData = image.getBoundingClientRect()
+            if (this.gallerySlugList.includes(this.pageChange.prevPage)){
+                this.pageImage.forEach((image, i) => {
+                    const imageData = {}
     
-                const x = imageData.image.width / this.sizes.width
-                const y = imageData.image.height / this.sizes.height
-    
-                if(!x || !y){
-                    return
-                }
-    
-                imageData.finalScaleX = this.camUnit.width * x * this.imageSizeMultiplier
-                imageData.finalScaleY = this.camUnit.height * y * this.imageSizeMultiplier
-    
-                imageData.imageMaterial = new THREE.ShaderMaterial({
-                    vertexShader: imagePlateVer,
-                    fragmentShader: imagePlateFrag,
-                    uniforms: {
-                        uTexture: new THREE.Uniform(imageData.texture),
-                        uOpacity: new THREE.Uniform(0),
-                        uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
-                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
-                    },
-                    transparent: true,
+                    imageData.image = new Image()
+                    imageData.image.src = image.src
+                    imageData.texture = this.textureLoader.load(imageData.image.src)
+                    imageData.imageBooundingData = image.getBoundingClientRect()
+        
+                    const x = imageData.image.width / this.sizes.width
+                    const y = imageData.image.height / this.sizes.height
+        
+                    if(!x || !y){
+                        return
+                    }
+        
+                    imageData.finalScaleX = this.camUnit.width * x * this.imageSizeMultiplier
+                    imageData.finalScaleY = this.camUnit.height * y * this.imageSizeMultiplier
+        
+                    imageData.imageMaterial = new THREE.ShaderMaterial({
+                        vertexShader: imagePlateVer,
+                        fragmentShader: imagePlateFrag,
+                        uniforms: {
+                            uTexture: new THREE.Uniform(imageData.texture),
+                            uOpacity: new THREE.Uniform(0),
+                            uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.image.width, imageData.image.height)),
+                            uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
+                        },
+                        transparent: true,
+                    })
+                    imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
+                    imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+        
+                    imageData.imageMesh.position.x = imageData.finalScaleX * (i * this.imageGap)
+                    imageData.imageMesh.position.y = i % 3 - 1
+        
+                    this.imageGroup.add(imageData.imageMesh)
+        
+                    this.imageList.push(imageData)
+                    
                 })
-                imageData.imageMesh = new THREE.Mesh(this.imagePlaneGeometry, imageData.imageMaterial)
-                imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
-    
-                imageData.imageMesh.position.x = imageData.finalScaleX * (i * this.imageGap)
-                imageData.imageMesh.position.y = i % 3 - 1
-    
-                this.imageGroup.add(imageData.imageMesh)
-    
-                this.imageList.push(imageData)
-                
-            })
-            this.imageGroup.position.x = -(this.pageImage.length * 1.5)
-            this.scene.add(this.imageGroup)
+                this.imageGroup.position.x = -(this.pageImage.length * 1.5)
+                this.scene.add(this.imageGroup)
+            }
         })
 
         this.imageList.forEach(object => {
@@ -234,15 +242,7 @@ export default class GalleryView {
 
     }
 
-    removeItem(){
-        this.pageChange.on('pageChange', () => {
-            this.scene.remove(this.imageGroup)
-        })
-    }
-
     update(){
-        this.buttons = document.getElementsByTagName('a')
-
         if(this.pageImage.length === this.imageList.length){
             this.imageList.forEach((object, i) => {
                 object.imageMesh.position.x = ((- this.scroll.infiniteScroll / this.sizes.width * 8) + (object.imageMesh.position.x) + (object.finalScaleX * this.imageList.length * this.imageGap)) % (object.finalScaleX * this.imageList.length * this.imageGap)

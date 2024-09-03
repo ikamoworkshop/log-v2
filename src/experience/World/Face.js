@@ -631,8 +631,6 @@ export default class Face {
     }
 
     update(){
-        this.buttons = document.getElementsByTagName('a')
-
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
 
         this.targetPosition.lerp(this.normalizedCursor, .05)

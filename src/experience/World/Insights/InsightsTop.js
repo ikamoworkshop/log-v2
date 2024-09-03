@@ -153,7 +153,7 @@ export default class InsightsTop {
                         }
                     }
             })
-            
+
             this.mainDom = document.getElementById('insights-top')
 
                 this.insightPlateList.forEach((object) => {
@@ -208,8 +208,6 @@ export default class InsightsTop {
     }
 
     update(){
-        this.buttons = document.getElementsByTagName('a')
-
         this.normalizedCursor = new THREE.Vector2(this.cursor.cursorX / this.sizes.width - .5, - (this.cursor.cursorY / this.sizes.height - .5))
 
         this.targetPosition.lerp(this.normalizedCursor, .05)
