@@ -63,15 +63,8 @@ export default class AboutContent {
             console.log(this.images, ' test about')
         })
 
-        this.images.forEach((image) => {
-            image.classList.add('gl')
-        })
-
         this.pageChange.on('pageChange', () => {
             this.images = document.querySelectorAll('.about-container img')
-            this.images.forEach((image) => {
-                image.classList.add('gl')
-            })
         })
     }
 
@@ -237,8 +230,10 @@ export default class AboutContent {
     update(){
         this.buttons = document.getElementsByTagName('a')
 
-        this.imageList.forEach((imageObject) => {
-            imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
-        })
+        if(this.imageList.length === this.images.length){
+            this.imageList.forEach((imageObject) => {
+                imageObject.imageMesh.position.x = ((this.camUnit.width / -2) - (imageObject.imageMesh.scale.x / -2)) + ((imageObject.imageBoundingData.left - this.scroll.scrollPosition) / this.sizes.width) * this.camUnit.width
+            })
+        }
     }
 }
