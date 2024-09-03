@@ -22,8 +22,6 @@ export default class Experience{
 
         // Options
         this.canvas = canvas;
-        this.canvas.style.width = "100%"
-        this.canvas.style.height = "100%"
 
         // Setup
         this.sizes = new Sizes()

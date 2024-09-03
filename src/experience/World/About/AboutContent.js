@@ -60,6 +60,8 @@ export default class AboutContent {
     getImage(){
         this.images = document.querySelectorAll('.about-container img')
 
+        console.log(this.images, ' test about')
+
         this.images.forEach((image) => {
             image.classList.add('gl')
         })

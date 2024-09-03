@@ -139,6 +139,21 @@ export default class InsightsTop {
         })
 
         this.pageChange.on('pageChange', () => {
+
+            this.scene.traverse((child) =>
+                {
+                    if(child instanceof THREE.Mesh){
+                        child.geometry.dispose()
+                        for(const key in child.material){
+                            const value = child.material[key]
+                            if(value && typeof value.dispose === 'function')
+                            {
+                                value.dispose();
+                            }
+                        }
+                    }
+            })
+
             setTimeout(() => {
                 this.mainDom = document.getElementById('insights-top')
 
