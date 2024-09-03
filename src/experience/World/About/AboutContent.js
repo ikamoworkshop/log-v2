@@ -59,9 +59,7 @@ export default class AboutContent {
 
     getImage(){
         this.images = []
-        window.setTimeout(() => {
-            this.images = document.querySelectorAll('.about-container img')
-        })
+        this.images = document.querySelectorAll('.about-container img')
 
         this.pageChange.on('pageChange', () => {
             this.images = document.querySelectorAll('.about-container img')
@@ -70,8 +68,6 @@ export default class AboutContent {
 
     setImage(){
         this.imageGroup = new THREE.Group()
-
-        console.log(this.images)
 
         this.images.forEach((image) => {
             const imageData = {}
@@ -102,7 +98,7 @@ export default class AboutContent {
                 fragmentShader: imagePlateFrag,
                 uniforms: {
                     uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(51),
+                    uOpacity: new THREE.Uniform(.5),
                     uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
                     uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                 },
@@ -176,7 +172,7 @@ export default class AboutContent {
                         fragmentShader: imagePlateFrag,
                         uniforms: {
                             uTexture: new THREE.Uniform(imageData.texture),
-                            uOpacity: new THREE.Uniform(51),
+                            uOpacity: new THREE.Uniform(.5),
                             uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
                             uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
                         },
