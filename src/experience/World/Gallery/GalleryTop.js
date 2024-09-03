@@ -70,6 +70,7 @@ export default class GalleryTop {
         this.thumbnailPlateGeometry = new THREE.PlaneGeometry(1.3, 1.3)
         this.gridSize = 9
         this.gridGap = 2
+        this.galleryGroup = new THREE.Group()
         this.fullGridSize = this.gridSize * this.gridGap
         this.transitionObject = {}
         this.transitionObject.uOpacity = 0
@@ -104,7 +105,7 @@ export default class GalleryTop {
             thumbnailData.thumbnailPlate.position.y = -( Math.floor( i /  this.gridSize ) % this.gridSize ) * this.gridGap
 
             this.thumbnailPlateList.push(thumbnailData)
-            this.scene.add(thumbnailData.thumbnailPlate)
+            this.galleryGroup.add(thumbnailData.thumbnailPlate)
 
             thumbnailData.screenPosition = thumbnailData.thumbnailPlate.position.clone()
             thumbnailData.screenPosition.project(this.camera)
@@ -144,6 +145,12 @@ export default class GalleryTop {
                     this.mainDom.appendChild(thumbnailData.anchorButton)
                 }
             }, 100)
+
+            this.scene.add(this.galleryGroup)
+            gsap.to(this.transitionObject, {
+                uOpacity: .5,
+                duration: 4
+            })
         })
 
         this.pageChange.on('pageChange', () => {
@@ -162,22 +169,26 @@ export default class GalleryTop {
                     }
             })
 
+            this.scene.remove(this.galleryGroup)
+            this.galleryGroup = new THREE.Group()
 
-            window.setTimeout(() => {
+            if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
+                
                 this.mainDom = document.getElementById('gallery-top')
-
+                
                 this.thumbnailPlateList.forEach((object) => {
+                    this.galleryGroup.add(object.thumbnailPlate)
                     const translateX = (object.screenPosition.x ) * this.sizes.width * .5
                     const translateY = - (object.screenPosition.y ) * this.sizes.height * .5
-    
+
                     object.anchorButton.style.transform = `translate(${translateX}px, ${translateY}px)`
-    
+
                     window.setTimeout(() => {
                         if(this.mainDom){
                             this.mainDom.appendChild(object.anchorButton)
                         }
                     }, 100)
-    
+
                     object.anchorButton.addEventListener('click', () => {
                         gsap.to(this.transitionObject, {
                             uOpacity: 0,
@@ -186,13 +197,8 @@ export default class GalleryTop {
                     })
                 })
 
-            }, 500)
-
-        })
-
-        gsap.to(this.transitionObject, {
-            uOpacity: .5,
-            duration: 4
+                this.scene.add(this.galleryGroup)
+            }
         })
     }
 
