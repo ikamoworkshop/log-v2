@@ -158,6 +158,7 @@ export default class GalleryTop {
             this.scene.traverse((child) =>
                 {
                     if(child instanceof THREE.Mesh){
+                        console.log(child)
                         child.geometry.dispose()
                         for(const key in child.material){
                             const value = child.material[key]

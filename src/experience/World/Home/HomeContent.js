@@ -37,7 +37,7 @@ export default class HomeContent {
     }
 
     setCamera(){
-        this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 1, 15)
         this.camera.position.set(0, 0, 5)
         this.HomeScene.add(this.camera)
     }

@@ -47,7 +47,7 @@ export default class Face {
     }
 
     setCamera(){
-        this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 1, 15)
         this.camera.position.set(0, 0, 5)
         this.scene.add(this.camera)
     }
@@ -589,7 +589,7 @@ export default class Face {
         this.fovY = (this.camera.position.z + 4) * this.camera.getFilmHeight() / this.camera.getFocalLength()
 
         this.renderTarget = new THREE.WebGLRenderTarget(this.sizes.width, this.sizes.height, {
-            samples: 2
+            samples: window.devicePixelRatio === 1 ? 2 : 0
         })
 
         this.renderPlaneGeometry = new THREE.PlaneGeometry(1, 1)
