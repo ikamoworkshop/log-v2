@@ -58,6 +58,7 @@ export default class AboutContent {
     }
 
     getImage(){
+        this.images = []
         window.setTimeout(() => {
             this.images = document.querySelectorAll('.about-container img')
             console.log(this.images, ' test about')
