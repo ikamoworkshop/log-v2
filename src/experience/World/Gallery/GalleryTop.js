@@ -174,9 +174,6 @@ export default class GalleryTop {
 
             if(this.pageChange.prevPage === '/gallery/' || this.pageChange.prevPage === '/gallery'){
                 
-                
-                window.setTimeout(() => {
-                    this.mainDom = document.getElementById('gallery-top')
                     this.thumbnailPlateList.forEach((object) => {
                         this.galleryGroup.add(object.thumbnailPlate)
                         const translateX = (object.screenPosition.x ) * this.sizes.width * .5
@@ -186,9 +183,10 @@ export default class GalleryTop {
     
                         window.setTimeout(() => {
                             if(this.mainDom){
+                                this.mainDom = document.getElementById('gallery-top')
                                 this.mainDom.appendChild(object.anchorButton)
                             }
-                        }, 100)
+                        }, 500)
     
                         object.anchorButton.addEventListener('click', () => {
                             gsap.to(this.transitionObject, {
@@ -199,7 +197,7 @@ export default class GalleryTop {
                     })
     
                     this.scene.add(this.galleryGroup)
-                }, 500)
+
             }
         })
     }
