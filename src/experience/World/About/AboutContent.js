@@ -69,61 +69,61 @@ export default class AboutContent {
     setImage(){
         this.imageGroup = new THREE.Group()
 
-        this.images.forEach((image) => {
-            const imageData = {}
-
-            imageData.image = image
-            imageData.texture = this.textureLoader.load(imageData.image.src)
-            
-            imageData.imageBoundingData = image.getBoundingClientRect()
-
-            this.camUnit = this.calculateUniteSize(this.camera.position.z)
-            const x = imageData.imageBoundingData.width / this.sizes.width
-            const y = imageData.imageBoundingData.height / this.sizes.height
-
-            console.log(x, y)
+        window.setTimeout(() => {
+            this.images.forEach((image) => {
+                const imageData = {}
     
-            if(!x || !y){
-                return
-            }
+                imageData.image = image
+                imageData.texture = this.textureLoader.load(imageData.image.src)
+                
+                imageData.imageBoundingData = image.getBoundingClientRect()
     
-            imageData.finalScaleX = this.camUnit.width * x
-            imageData.finalScaleY = this.camUnit.height * y
-
-            console.log(imageData.finalScaleX, imageData.finalScaleY)
-
-            imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
-            imageData.imageMaterial = new THREE.ShaderMaterial({
-                vertexShader: imagePlateVer,
-                fragmentShader: imagePlateFrag,
-                uniforms: {
-                    uTexture: new THREE.Uniform(imageData.texture),
-                    uOpacity: new THREE.Uniform(.5),
-                    uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
-                    uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
-                },
-                transparent: true,
+                this.camUnit = this.calculateUniteSize(this.camera.position.z)
+                const x = imageData.imageBoundingData.width / this.sizes.width
+                const y = imageData.imageBoundingData.height / this.sizes.height
+    
+                console.log(x, y)
+        
+                if(!x || !y){
+                    return
+                }
+        
+                imageData.finalScaleX = this.camUnit.width * x
+                imageData.finalScaleY = this.camUnit.height * y
+    
+                imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
+                imageData.imageMaterial = new THREE.ShaderMaterial({
+                    vertexShader: imagePlateVer,
+                    fragmentShader: imagePlateFrag,
+                    uniforms: {
+                        uTexture: new THREE.Uniform(imageData.texture),
+                        uOpacity: new THREE.Uniform(.5),
+                        uImageSize: new THREE.Uniform(new THREE.Vector2(imageData.imageBoundingData.width, imageData.imageBoundingData.height)),
+                        uPlaneSize: new THREE.Uniform(new THREE.Vector2(imageData.finalScaleX, imageData.finalScaleY))
+                    },
+                    transparent: true,
+                })
+                imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
+    
+                imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
+                imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
+                imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
+                
+                this.imageList.push(imageData)
+                this.imageGroup.add(imageData.imageMesh)
             })
-            imageData.imageMesh = new THREE.Mesh(imageData.imagePlate, imageData.imageMaterial)
-
-            imageData.imageMesh.scale.set(imageData.finalScaleX, imageData.finalScaleY, 0)
-            imageData.imageMesh.position.y = (this.camUnit.height / 2) - (imageData.imageMesh.scale.y / 2)
-            imageData.imageMesh.position.y -= (imageData.imageBoundingData.top / this.sizes.height) * this.camUnit.height
-            
-            this.imageList.push(imageData)
-            this.imageGroup.add(imageData.imageMesh)
-        })
-
-        this.aboutScene.add(this.imageGroup)
-
-        this.imageList.forEach((imageObject) => {
-            imageObject.imageMesh.material.uniforms.uOpacity.value = 0
-
-            gsap.to(imageObject.imageMesh.material.uniforms.uOpacity, {
-                value: .5,
-                duration: 4
+    
+            this.aboutScene.add(this.imageGroup)
+    
+            this.imageList.forEach((imageObject) => {
+                imageObject.imageMesh.material.uniforms.uOpacity.value = 0
+    
+                gsap.to(imageObject.imageMesh.material.uniforms.uOpacity, {
+                    value: .5,
+                    duration: 4
+                })
             })
-        })
+        }, 500)
 
         this.pageChange.on('pageChange', () => {
 
