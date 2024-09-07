@@ -73,7 +73,8 @@ export default class AboutContent {
             this.images.forEach((image) => {
                 const imageData = {}
     
-                imageData.image = image
+                imageData.image = new Image()
+                imageData.image.src = image.src
                 imageData.texture = this.textureLoader.load(imageData.image.src)
                 
                 imageData.imageBoundingData = image.getBoundingClientRect()
@@ -81,8 +82,6 @@ export default class AboutContent {
                 this.camUnit = this.calculateUniteSize(this.camera.position.z)
                 const x = imageData.imageBoundingData.width / this.sizes.width
                 const y = imageData.imageBoundingData.height / this.sizes.height
-    
-                console.log(x, y)
         
                 if(!x || !y){
                     return
@@ -163,9 +162,7 @@ export default class AboutContent {
             
                     imageData.finalScaleX = this.camUnit.width * x
                     imageData.finalScaleY = this.camUnit.height * y
-    
-                    console.log(imageData.finalScaleX, imageData.finalScaleY)
-        
+            
                     imageData.imagePlate = new THREE.PlaneGeometry(1, 1, 1, 1)
                     imageData.imageMaterial = new THREE.ShaderMaterial({
                         vertexShader: imagePlateVer,
