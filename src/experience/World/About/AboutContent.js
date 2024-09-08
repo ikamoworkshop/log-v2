@@ -75,7 +75,14 @@ export default class AboutContent {
     
                 imageData.image = new Image()
                 imageData.image.src = image.src
-                imageData.texture = this.textureLoader.load(imageData.image.src)
+                this.textureLoader.load(
+                    imageData.image.src,
+                    (texture) => {
+                        imageData.imageMaterial.uniforms.uTexture.value = texture
+                    }
+                )
+
+                console.log(imageData.image.width, imageData.image.height)
                 
                 imageData.imageBoundingData = image.getBoundingClientRect()
     
@@ -147,8 +154,11 @@ export default class AboutContent {
                 this.images.forEach((image) => {
                     const imageData = {}
     
-                    imageData.image = image
+                    imageData.image = new Image()
+                    imageData.image.src = image.src
                     imageData.texture = this.textureLoader.load(imageData.image.src)
+    
+                    console.log(imageData.image.width, imageData.image.height)
                     
                     imageData.imageBoundingData = image.getBoundingClientRect()
         
