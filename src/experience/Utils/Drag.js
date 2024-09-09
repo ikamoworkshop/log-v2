@@ -35,7 +35,7 @@ export default class Drag extends EventEmitter {
 
             this.allButtons = document.getElementsByTagName('a')
             for(let i = 0; i < this.allButtons.length; i++){
-                if(this.diffX <= 10 && this.diffY <= 10)
+                if(this.diffX <= 20 && this.diffY <= 20)
                 this.allButtons[i].classList.add('temp-disabled')
             }
         })
@@ -50,7 +50,7 @@ export default class Drag extends EventEmitter {
 
             this.allButtons = document.getElementsByTagName('a')
             for(let i = 0; i < this.allButtons.length; i++){
-                if(this.diffX <= 10 && this.diffY <= 10){
+                if(this.diffX <= 20 && this.diffY <= 20){
                     this.allButtons[i].classList.add('temp-disabled')
                 }
             }
