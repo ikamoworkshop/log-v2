@@ -4,12 +4,14 @@ import gsap from "gsap"
 
 import renderTargetVertex from '../Shaders/renderTarget/vertex.glsl'
 import renderTargetFragment from '../Shaders/renderTarget/fragment.glsl'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 export default class Face {
     constructor(){
         this.experience = new Experience()
         this.pageChange = this.experience.pageChange
         this.resources = this.experience.resources
+        this.canvas = this.experience.canvas
         this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.cursor = this.experience.cursor
@@ -32,6 +34,7 @@ export default class Face {
 
         this.setScene()
         this.setCamera()
+        this.setOrbit()
         this.setModel()
         this.setLookAt()
         this.setRenderTarget()
@@ -41,9 +44,9 @@ export default class Face {
 
     setScene(){
         this.scene = new THREE.Scene()
-        this.background = this.resources.items.background
-        this.background.colorSpace = THREE.SRGBColorSpace
-        this.scene.background = this.background
+        // this.background = this.resources.items.background
+        // this.background.colorSpace = THREE.SRGBColorSpace
+        // this.scene.background = this.background
     }
 
     setCamera(){
@@ -51,6 +54,15 @@ export default class Face {
         this.camera.position.set(0, 0, 5)
         this.scene.add(this.camera)
     }
+
+    setOrbit() {
+        const urlParams = new URLSearchParams(window.location.search)
+        this.orbitParams = urlParams.get('orbit')
+        if (!this.orbitParams) return;
+        this.controls = new OrbitControls(this.camera, this.canvas)
+        this.controls.enableDamping = true
+    }
+    
 
     setModel(){
         this.renderedFaceGroup = new THREE.Group()
@@ -637,6 +649,10 @@ export default class Face {
 
         this.lookAtMesh.position.x = (this.cursor.cursorX / this.sizes.width - .5)
         this.lookAtMesh.position.y = - (this.cursor.cursorY / this.sizes.height - .5)
+
+        if (this.orbitParams) {
+            this.controls.update();
+        }
 
         if(this.pageChange.prevPage === '/'){
             this.renderedFace.lookAt(this.lookAtMesh.position)
